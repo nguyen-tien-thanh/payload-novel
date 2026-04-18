@@ -18,7 +18,15 @@ export const Chapters: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'chapterName',
-    defaultColumns: ['chapterName', 'chapterNumber', 'product', 'price'],
+    defaultColumns: ['chapterName', 'chapterNumber', 'product', 'price', '_status'],
+  },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 2000,
+      },
+    },
+    maxPerDoc: 100,
   },
   access: {
     read: canReadChapter,

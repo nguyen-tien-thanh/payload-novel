@@ -17,7 +17,15 @@ export const Products: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'authorName', 'viewCount', 'createdAt'],
+    defaultColumns: ['name', 'authorName', 'viewCount', '_status', 'createdAt'],
+  },
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 2000,
+      },
+    },
+    maxPerDoc: 50,
   },
   access: {
     read: canReadProduct,

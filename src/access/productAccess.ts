@@ -1,6 +1,11 @@
 import type { Access } from 'payload'
 
-export const canReadProduct: Access = () => true
+export const canReadProduct: Access = ({ req }) => {
+  // Member/admin thấy cả draft
+  if (req.user) return true
+  // Public chỉ thấy published
+  return { _status: { equals: 'published' } }
+}
 
 export const canCreateProduct: Access = ({ req }) => {
   return !!req.user

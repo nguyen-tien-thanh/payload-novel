@@ -221,6 +221,7 @@ export interface Product {
   doneAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -258,6 +259,7 @@ export interface Chapter {
   deletedAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -531,6 +533,7 @@ export interface ProductsSelect<T extends boolean = true> {
   doneAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -553,6 +556,7 @@ export interface ChaptersSelect<T extends boolean = true> {
   deletedAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

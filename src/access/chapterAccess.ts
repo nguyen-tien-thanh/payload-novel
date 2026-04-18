@@ -1,6 +1,9 @@
 import type { Access } from 'payload'
 
-export const canReadChapter: Access = () => true
+export const canReadChapter: Access = ({ req }) => {
+  if (req.user) return true
+  return { _status: { equals: 'published' } }
+}
 
 export const canCreateChapter: Access = async ({ req, data }) => {
   if (!req.user) return false
