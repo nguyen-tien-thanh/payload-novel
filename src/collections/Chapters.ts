@@ -6,6 +6,7 @@ import {
   canDeleteChapter,
 } from '@/access/chapterAccess'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import { extractContentRaw } from '@/hooks/extractContentRaw'
 
 const isAdminField: FieldAccess = ({ req }) => req.user?.role === 'admin'
 
@@ -26,7 +27,7 @@ export const Chapters: CollectionConfig = {
     delete: canDeleteChapter,
   },
   hooks: {
-    beforeChange: [setCreatedBy],
+    beforeChange: [setCreatedBy, extractContentRaw],
   },
   fields: [
     {
@@ -79,6 +80,9 @@ export const Chapters: CollectionConfig = {
       type: 'textarea',
       required: true,
       label: 'Nội dung thô',
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'createdBy',
