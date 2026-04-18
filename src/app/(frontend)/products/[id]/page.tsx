@@ -158,7 +158,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="rounded-2xl border border-divider bg-content1">
               <div className="flex items-center justify-between border-b border-divider px-5 py-4">
                 <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-default-500">
-                  <span className="h-4 w-0.5 rounded-full bg-primary" />
                   Danh sách chương
                 </h2>
                 <span className="rounded-full bg-default-100 px-2.5 py-0.5 text-xs font-medium text-default-500">
@@ -202,7 +201,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             {/* Quick info card */}
             <div className="rounded-2xl border border-divider bg-content1 p-5">
               <h2 className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-default-500">
-                <span className="h-4 w-0.5 rounded-full bg-primary" />
                 Thông tin
               </h2>
               <dl className="space-y-3">

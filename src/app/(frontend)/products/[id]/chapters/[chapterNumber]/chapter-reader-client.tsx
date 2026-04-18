@@ -66,32 +66,39 @@ export function ChapterReaderClient({
         style={{ backgroundColor: 'inherit' }}
       >
         <div
-          className="mx-auto flex h-12 max-w-5xl items-center gap-2 px-4"
+          className="mx-auto grid h-12 max-w-5xl grid-cols-3 items-center px-4"
           style={{ backdropFilter: 'blur(16px)' }}
         >
-          <Link
-            href={`/products/${productId}`}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full opacity-70 transition-colors hover:bg-foreground/10 hover:opacity-100"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Link>
+          {/* LEFT */}
+          <div className="flex items-center justify-start">
+            <Link
+              href={`/products/${productId}`}
+              className="flex h-8 w-8 items-center justify-center rounded-full opacity-70 transition-colors hover:bg-foreground/10 hover:opacity-100"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </Link>
+          </div>
 
-          <div className="min-w-0 flex-1 text-center">
+          {/* CENTER */}
+          <div className="min-w-0 text-center">
             <p className="truncate text-xs opacity-50">Chương {chapter.chapterNumber}</p>
             <p className="truncate text-sm font-semibold leading-tight">{chapter.chapterName}</p>
           </div>
 
-          <ReadingSettingsButton settings={settings} onUpdate={update} />
-          <ChapterDrawer
-            chapters={allChapters}
-            currentChapterNumber={chapter.chapterNumber}
-            productId={productId}
-          />
+          {/* RIGHT */}
+          <div className="flex items-center justify-end gap-2">
+            <ReadingSettingsButton settings={settings} onUpdate={update} />
+            <ChapterDrawer
+              chapters={allChapters}
+              currentChapterNumber={chapter.chapterNumber}
+              productId={productId}
+            />
+          </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-2xl px-5 py-8 pb-24 sm:px-4">
+      <div className="mx-auto max-w-5xl px-5 py-8 pb-24 sm:px-4">
         <div
           className={fontClass}
           style={{ fontSize: settings.fontSize, lineHeight: settings.lineHeight }}
@@ -106,34 +113,43 @@ export function ChapterReaderClient({
         <hr className="my-10 border-divider opacity-20" />
 
         {/* Prev / Next — desktop */}
-        <div className="hidden items-center justify-between gap-3 sm:flex">
-          {prevChapter ? (
-            <Link
-              href={`/products/${productId}/chapters/${prevChapter.chapterNumber}`}
-              className="flex max-w-45 flex-1 items-center gap-1.5 rounded-full border border-divider px-4 py-2 text-sm font-medium transition-colors hover:bg-foreground/5"
-            >
-              <ArrowLeft className="h-4 w-4 shrink-0" />
-              <span className="truncate">Chương {prevChapter.chapterNumber}</span>
-            </Link>
-          ) : (
-            <div />
-          )}
+        <div className="hidden items-center gap-3 sm:grid sm:grid-cols-3">
+          {/* LEFT */}
+          <div className="flex justify-start">
+            {prevChapter ? (
+              <Link
+                href={`/products/${productId}/chapters/${prevChapter.chapterNumber}`}
+                className="flex w-full max-w-45 items-center gap-1.5 rounded-full border border-divider px-4 py-2 text-sm font-medium transition-colors hover:bg-foreground/5"
+              >
+                <ArrowLeft className="h-4 w-4 shrink-0" />
+                <span className="truncate">Chương {prevChapter.chapterNumber}</span>
+              </Link>
+            ) : (
+              <div className="w-full max-w-45" />
+            )}
+          </div>
 
-          <span className="text-xs opacity-50">
-            {currentIndex + 1} / {allChapters.length}
-          </span>
+          {/* CENTER */}
+          <div className="text-center">
+            <span className="text-xs opacity-50">
+              {currentIndex + 1} / {allChapters.length}
+            </span>
+          </div>
 
-          {nextChapter ? (
-            <Link
-              href={`/products/${productId}/chapters/${nextChapter.chapterNumber}`}
-              className="flex max-w-45 flex-1 items-center justify-end gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
-            >
-              <span className="truncate">Chương {nextChapter.chapterNumber}</span>
-              <ArrowRight className="h-4 w-4 shrink-0" />
-            </Link>
-          ) : (
-            <div />
-          )}
+          {/* RIGHT */}
+          <div className="flex justify-end">
+            {nextChapter ? (
+              <Link
+                href={`/products/${productId}/chapters/${nextChapter.chapterNumber}`}
+                className="flex w-full max-w-45 items-center justify-end gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                <span className="truncate">Chương {nextChapter.chapterNumber}</span>
+                <ArrowRight className="h-4 w-4 shrink-0" />
+              </Link>
+            ) : (
+              <div className="w-full max-w-45" />
+            )}
+          </div>
         </div>
       </div>
 
@@ -142,7 +158,7 @@ export function ChapterReaderClient({
         className="fixed inset-x-0 bottom-0 z-30 border-t border-divider/30 sm:hidden"
         style={{ backgroundColor: 'inherit', backdropFilter: 'blur(16px)' }}
       >
-        <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-2">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-2">
           <Link
             href={
               prevChapter ? `/products/${productId}/chapters/${prevChapter.chapterNumber}` : '#'

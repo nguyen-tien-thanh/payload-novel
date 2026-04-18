@@ -54,14 +54,15 @@ export function BookshelfRow({ title, products, href, showRank = false }: Props)
           ))}
 
           {href && (
-            <SwiperSlide className="w-27.5! sm:w-35!">
+            <SwiperSlide className="w-27.5! sm:w-35! group">
               <Link
                 href={href}
-                className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-default-200 text-default-400 transition-colors hover:border-primary hover:text-primary"
-                style={{ aspectRatio: '2/3' }}
+                className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-default-200 text-default-400 transition-all duration-300 group-hover:border-primary group-hover:text-primary group-hover:border-solid aspect-2/3 "
               >
-                <ArrowRight className="h-6 w-6" />
-                <span className="text-center text-xs font-medium leading-tight">Xem tất cả</span>
+                <ArrowRight className="h-6 w-6 group-hover:scale-105 transition-all" />
+                <span className="text-center text-xs font-medium leading-tight group-hover:scale-105 transition-all">
+                  Xem tất cả
+                </span>
               </Link>
             </SwiperSlide>
           )}

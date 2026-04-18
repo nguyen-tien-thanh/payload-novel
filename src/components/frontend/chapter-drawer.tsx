@@ -1,9 +1,8 @@
 'use client'
 
-import { Button, Drawer, useOverlayState } from '@heroui/react'
 import { ListUl } from '@gravity-ui/icons'
+import { Button, Drawer } from '@heroui/react'
 import Link from 'next/link'
-import { useEffect, useRef } from 'react'
 
 interface Chapter {
   id: number
@@ -19,30 +18,17 @@ interface Props {
 }
 
 export function ChapterDrawer({ chapters, currentChapterNumber, productId }: Props) {
-  const state = useOverlayState()
-  const currentRef = useRef<HTMLAnchorElement>(null)
-
-  useEffect(() => {
-    if (state.isOpen) {
-      setTimeout(() => {
-        currentRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
-      }, 150)
-    }
-  }, [state.isOpen])
-
   return (
-    <Drawer state={state}>
-      <Drawer.Trigger>
-        <Button
-          isIconOnly
-          variant="ghost"
-          size="sm"
-          className="shrink-0 opacity-70 hover:opacity-100"
-          aria-label="Danh sách chương"
-        >
-          <ListUl className="h-5 w-5" />
-        </Button>
-      </Drawer.Trigger>
+    <Drawer>
+      <Button
+        isIconOnly
+        variant="ghost"
+        size="sm"
+        className="shrink-0 opacity-70 hover:opacity-100"
+        aria-label="Danh sách chương"
+      >
+        <ListUl className="h-5 w-5" />
+      </Button>
 
       <Drawer.Backdrop isDismissable>
         <Drawer.Content placement="right" className="w-80 max-w-full">
@@ -50,9 +36,14 @@ export function ChapterDrawer({ chapters, currentChapterNumber, productId }: Pro
             <Drawer.Header className="flex items-center justify-between border-b border-divider pb-3">
               <span className="text-base font-bold">
                 Danh sách chương
-                <span className="ml-1.5 text-sm font-normal text-default-400">({chapters.length})</span>
+                <span className="ml-1.5 text-sm font-normal text-default-400">
+                  ({chapters.length})
+                </span>
               </span>
-              <Drawer.CloseTrigger className="rounded-full p-1 opacity-60 transition-opacity hover:opacity-100" aria-label="Đóng" />
+              <Drawer.CloseTrigger
+                className="rounded-full p-1 opacity-60 transition-opacity hover:opacity-100"
+                aria-label="Đóng"
+              />
             </Drawer.Header>
             <Drawer.Body className="overflow-y-auto p-0">
               {chapters.map((ch) => {
@@ -60,9 +51,7 @@ export function ChapterDrawer({ chapters, currentChapterNumber, productId }: Pro
                 return (
                   <Link
                     key={ch.id}
-                    ref={isCurrent ? currentRef : undefined}
                     href={`/products/${productId}/chapters/${ch.chapterNumber}`}
-                    onClick={() => state.close()}
                     className={[
                       'flex items-center gap-3 border-b border-divider/50 px-4 py-3 text-sm transition-colors',
                       isCurrent

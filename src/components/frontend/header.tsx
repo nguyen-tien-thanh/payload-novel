@@ -1,10 +1,19 @@
 'use client'
 
 import { Logo } from '@/components/shared'
-import { Bookmark, Magnifier } from '@gravity-ui/icons'
-import { Button } from '@heroui/react'
+import { useAuth } from '@/lib/auth-context'
+import { Bookmark, BookOpen, Magnifier, Person } from '@gravity-ui/icons'
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownPopover,
+  DropdownSection,
+  DropdownTrigger,
+} from '@heroui/react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { ThemeToggle } from './theme-toggle'
 
 const NAV_LINKS = [
@@ -14,6 +23,13 @@ const NAV_LINKS = [
 
 export function Header() {
   const pathname = usePathname()
+  const router = useRouter()
+  const { user, loading, logout } = useAuth()
+
+  async function handleLogout() {
+    await logout()
+    router.push('/')
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-divider bg-background/90 backdrop-blur-xl">
@@ -55,17 +71,75 @@ export function Header() {
 
           <ThemeToggle />
 
-          <Link href="/bookmarks">
-            <Button
-              isIconOnly
-              variant="ghost"
-              size="sm"
-              className="text-default-500 hover:text-foreground"
-              aria-label="Bookmark"
-            >
-              <Bookmark className="size-4.5" />
-            </Button>
-          </Link>
+          {!loading && (
+            <>
+              {user ? (
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button
+                      isIconOnly
+                      variant="ghost"
+                      size="sm"
+                      className="text-default-500 hover:text-foreground"
+                      aria-label="Tài khoản"
+                    >
+                      <Person className="size-4.5" />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownPopover placement="bottom end">
+                    <DropdownMenu
+                      onAction={(key) => {
+                        if (key === 'logout') handleLogout()
+                        else router.push(key as string)
+                      }}
+                    >
+                      <DropdownSection className="border-b border-divider pb-1 mb-1">
+                        <DropdownItem id="__name">
+                          <p className="truncate text-sm font-semibold text-foreground">
+                            {user.name || user.email}
+                          </p>
+                        </DropdownItem>
+                      </DropdownSection>
+                      <DropdownSection className="border-b border-divider pb-1 mb-1">
+                        <DropdownItem id="/profile">
+                          <span className="flex items-center gap-2">
+                            <Person className="size-4 shrink-0" />
+                            Trang cá nhân
+                          </span>
+                        </DropdownItem>
+                        <DropdownItem id="/bookmarks">
+                          <span className="flex items-center gap-2">
+                            <Bookmark className="size-4 shrink-0" />
+                            Bookmark
+                          </span>
+                        </DropdownItem>
+                        <DropdownItem id="/reading">
+                          <span className="flex items-center gap-2">
+                            <BookOpen className="size-4 shrink-0" />
+                            Đang đọc
+                          </span>
+                        </DropdownItem>
+                      </DropdownSection>
+                      <DropdownSection>
+                        <DropdownItem id="logout" className="text-danger">
+                          Đăng xuất
+                        </DropdownItem>
+                      </DropdownSection>
+                    </DropdownMenu>
+                  </DropdownPopover>
+                </Dropdown>
+              ) : (
+                <Link href="/auth/login">
+                  <Button
+                    size="sm"
+                    className="rounded-full bg-primary text-sm font-semibold text-white"
+                  >
+                    Đăng nhập
+                  </Button>
+                </Link>
+              )}
+            </>
+          )}
         </div>
       </div>
     </header>
