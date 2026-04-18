@@ -1,0 +1,33 @@
+name: Deploy Webhook
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger n8n deploy webhook
+        env:
+          WEBHOOK_URL: https://n8n.tiralix.com/webhook/payload/deploy
+          WEBHOOK_USERNAME: ${{ secrets.N8N_WEBHOOK_USERNAME }}
+          WEBHOOK_PASSWORD: ${{ secrets.N8N_WEBHOOK_PASSWORD }}
+        run: |
+          curl --fail --show-error --silent \
+            --request POST \
+            --user "$WEBHOOK_USERNAME:$WEBHOOK_PASSWORD" \
+            --header "Content-Type: application/json" \
+            --data @- \
+            "$WEBHOOK_URL" <<'EOF'
+          {
+            "repository": "${{ github.repository }}",
+            "ref": "${{ github.ref }}",
+            "sha": "${{ github.sha }}",
+            "actor": "${{ github.actor }}",
+            "event_name": "${{ github.event_name }}"
+          }
+          EOF
