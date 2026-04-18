@@ -199,9 +199,9 @@ export interface Category {
   image?: (number | null) | Media;
   description?: string | null;
   createdBy: number | User;
-  deletedAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -217,10 +217,10 @@ export interface Product {
   description?: string | null;
   categories?: (number | Category)[] | null;
   createdBy: number | User;
-  deletedAt?: string | null;
   doneAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
 }
 /**
@@ -256,9 +256,9 @@ export interface Chapter {
   };
   contentRaw: string;
   createdBy: number | User;
-  deletedAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
 }
 /**
@@ -512,9 +512,9 @@ export interface CategoriesSelect<T extends boolean = true> {
   image?: T;
   description?: T;
   createdBy?: T;
-  deletedAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  deletedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -529,10 +529,10 @@ export interface ProductsSelect<T extends boolean = true> {
   description?: T;
   categories?: T;
   createdBy?: T;
-  deletedAt?: T;
   doneAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  deletedAt?: T;
   _status?: T;
 }
 /**
@@ -553,9 +553,9 @@ export interface ChaptersSelect<T extends boolean = true> {
   contentHtml?: T;
   contentRaw?: T;
   createdBy?: T;
-  deletedAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  deletedAt?: T;
   _status?: T;
 }
 /**

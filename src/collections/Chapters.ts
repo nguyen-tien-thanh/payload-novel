@@ -1,4 +1,4 @@
-import type { CollectionConfig, FieldAccess } from 'payload'
+import type { CollectionConfig } from 'payload'
 import {
   canReadChapter,
   canCreateChapter,
@@ -7,8 +7,6 @@ import {
 } from '@/access/chapterAccess'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
 import { extractContentRaw } from '@/hooks/extractContentRaw'
-
-const isAdminField: FieldAccess = ({ req }) => req.user?.role === 'admin'
 
 export const Chapters: CollectionConfig = {
   slug: 'chapters',
@@ -20,6 +18,7 @@ export const Chapters: CollectionConfig = {
     useAsTitle: 'chapterName',
     defaultColumns: ['chapterName', 'chapterNumber', 'product', 'price', '_status'],
   },
+  trash: true,
   versions: {
     drafts: {
       autosave: {
@@ -99,12 +98,6 @@ export const Chapters: CollectionConfig = {
       required: true,
       label: 'Người tạo',
       admin: { readOnly: true },
-    },
-    {
-      name: 'deletedAt',
-      type: 'date',
-      label: 'Ngày xóa',
-      access: { update: isAdminField },
     },
   ],
   timestamps: true,

@@ -1,4 +1,4 @@
-import type { CollectionConfig, FieldAccess } from 'payload'
+import type { CollectionConfig } from 'payload'
 import {
   canReadProduct,
   canCreateProduct,
@@ -6,8 +6,6 @@ import {
   isProductEditorOrAdmin,
 } from '@/access/productAccess'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
-
-const isAdminField: FieldAccess = ({ req }) => req.user?.role === 'admin'
 
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -19,6 +17,7 @@ export const Products: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'authorName', 'viewCount', '_status', 'createdAt'],
   },
+  trash: true,
   versions: {
     drafts: {
       autosave: {
@@ -102,12 +101,6 @@ export const Products: CollectionConfig = {
       required: true,
       label: 'Người tạo',
       admin: { readOnly: true },
-    },
-    {
-      name: 'deletedAt',
-      type: 'date',
-      label: 'Ngày xóa',
-      access: { update: isAdminField },
     },
     {
       name: 'doneAt',

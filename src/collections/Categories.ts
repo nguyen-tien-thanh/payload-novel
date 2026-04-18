@@ -11,6 +11,7 @@ export const Categories: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'createdBy', 'createdAt'],
   },
+  trash: true,
   hooks: {
     beforeChange: [setCreatedBy],
   },
@@ -38,11 +39,6 @@ export const Categories: CollectionConfig = {
       relationTo: 'users',
       required: true,
       label: 'Người tạo',
-    },
-    {
-      name: 'deletedAt',
-      type: 'date',
-      label: 'Ngày xóa',
     },
   ],
   timestamps: true,
