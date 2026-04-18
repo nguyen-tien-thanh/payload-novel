@@ -15,13 +15,12 @@ jobs:
       - name: Trigger n8n deploy webhook
         env:
           WEBHOOK_URL: https://n8n.tiralix.com/webhook/payload/deploy
-          WEBHOOK_USERNAME: ${{ secrets.N8N_WEBHOOK_USERNAME }}
-          WEBHOOK_PASSWORD: ${{ secrets.N8N_WEBHOOK_PASSWORD }}
+          WEBHOOK_TOKEN: ${{ secrets.N8N_WEBHOOK_TOKEN }}
         run: |
           curl --fail --show-error --silent \
             --request POST \
-            --user "$WEBHOOK_USERNAME:$WEBHOOK_PASSWORD" \
             --header "Content-Type: application/json" \
+            --header "Authorization: Bearer $WEBHOOK_TOKEN" \
             --data @- \
             "$WEBHOOK_URL" <<'EOF'
           {
