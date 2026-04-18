@@ -20,12 +20,12 @@ export function Footer() {
             <p className="text-sm font-semibold">Khám phá</p>
             <ul className="space-y-2 text-xs text-default-400">
               <li>
-                <Link href="/" className="transition-colors hover:text-primary">
+                <Link href="/" className="transition-all hover:text-primary">
                   Trang chủ
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="transition-colors hover:text-primary">
+                <Link href="/products" className="transition-all hover:text-primary">
                   Tất cả truyện
                 </Link>
               </li>
@@ -36,7 +36,7 @@ export function Footer() {
             <p className="text-sm font-semibold">Tài khoản</p>
             <ul className="space-y-2 text-xs text-default-400">
               <li>
-                <Link href="/bookmarks" className="transition-colors hover:text-primary">
+                <Link href="/bookmarks" className="transition-all hover:text-primary">
                   Bookmark
                 </Link>
               </li>
@@ -47,17 +47,17 @@ export function Footer() {
             <p className="text-sm font-semibold">Khác</p>
             <ul className="space-y-2 text-xs text-default-400">
               <li>
-                <Link href="/about" className="transition-colors hover:text-primary">
+                <Link href="/about" className="transition-all hover:text-primary">
                   Giới thiệu
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="transition-colors hover:text-primary">
+                <Link href="/terms" className="transition-all hover:text-primary">
                   Điều khoản
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="transition-colors hover:text-primary">
+                <Link href="/privacy" className="transition-all hover:text-primary">
                   Bảo mật
                 </Link>
               </li>

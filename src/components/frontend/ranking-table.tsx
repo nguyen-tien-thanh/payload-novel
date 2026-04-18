@@ -29,7 +29,7 @@ export function RankingTable({ title, products, badge }: Props) {
             <Link
               key={p.id}
               href={`/products/${p.id}`}
-              className="group flex items-center gap-3 border-b border-divider px-4 py-3 transition-colors last:border-0 hover:bg-content2"
+              className="group flex items-center gap-3 border-b border-divider px-4 py-3 transition-all last:border-0 hover:bg-content2"
             >
               <span
                 className={[
@@ -53,7 +53,7 @@ export function RankingTable({ title, products, badge }: Props) {
               </div>
 
               <div className="min-w-0 flex-1">
-                <p className="line-clamp-1 text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
+                <p className="line-clamp-1 text-sm font-semibold text-foreground transition-all group-hover:text-primary">
                   {p.name}
                 </p>
                 <p className="mt-0.5 text-[11px] text-default-400">{p.authorName}</p>

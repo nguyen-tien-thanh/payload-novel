@@ -37,7 +37,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
 
         <div className="space-y-0.5 px-0.5">
-          <p className="line-clamp-2 text-xs font-semibold leading-snug text-foreground transition-colors group-hover:text-primary sm:text-sm">
+          <p className="line-clamp-2 text-xs font-semibold leading-snug text-foreground transition-all group-hover:text-primary sm:text-sm">
             {product.name}
           </p>
           <p className="truncate text-[11px] text-default-400">{product.authorName}</p>

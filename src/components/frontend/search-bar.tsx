@@ -1,7 +1,7 @@
 'use client'
 
 import { Magnifier } from '@gravity-ui/icons'
-import { Button } from '@heroui/react'
+import { Button, Input } from '@heroui/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState, useTransition } from 'react'
 
@@ -36,12 +36,12 @@ export function SearchBar() {
   return (
     <div className="relative w-full">
       <Magnifier className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-default-400" />
-      <input
+      <Input
         type="text"
         value={value}
         onChange={(e) => handleChange(e.target.value)}
         placeholder="Tìm kiếm truyện, tác giả..."
-        className="w-full rounded-full bg-default-100 py-2.5 pl-10 pr-10 text-sm text-foreground placeholder:text-default-400 outline-none transition-colors hover:bg-default-200 focus:bg-default-200"
+        className="w-full rounded-full bg-default-100 py-2.5 pl-10 pr-10 text-sm text-foreground placeholder:text-default-400 outline-none transition-all hover:bg-default-200 focus:bg-default-200"
       />
       {value && (
         <Button

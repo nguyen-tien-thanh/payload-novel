@@ -54,7 +54,7 @@ export function ChapterReaderClient({
 
   return (
     <div
-      className={['min-h-screen transition-colors duration-300', themeInfo.bg, themeInfo.text].join(
+      className={['min-h-screen transition-all duration-300', themeInfo.bg, themeInfo.text].join(
         ' ',
       )}
     >
@@ -73,7 +73,7 @@ export function ChapterReaderClient({
           <div className="flex items-center justify-start">
             <Link
               href={`/products/${productId}`}
-              className="flex h-8 w-8 items-center justify-center rounded-full opacity-70 transition-colors hover:bg-foreground/10 hover:opacity-100"
+              className="flex h-8 w-8 items-center justify-center rounded-full opacity-70 transition-all hover:bg-foreground/10 hover:opacity-100"
             >
               <ChevronLeft className="h-5 w-5" />
             </Link>
@@ -119,7 +119,7 @@ export function ChapterReaderClient({
             {prevChapter ? (
               <Link
                 href={`/products/${productId}/chapters/${prevChapter.chapterNumber}`}
-                className="flex w-full max-w-45 items-center gap-1.5 rounded-full border border-divider px-4 py-2 text-sm font-medium transition-colors hover:bg-foreground/5"
+                className="flex w-full max-w-45 items-center gap-1.5 rounded-full border border-divider px-4 py-2 text-sm font-medium transition-all hover:bg-foreground/5"
               >
                 <ArrowLeft className="h-4 w-4 shrink-0" />
                 <span className="truncate">Chương {prevChapter.chapterNumber}</span>
@@ -165,7 +165,7 @@ export function ChapterReaderClient({
             }
             aria-disabled={!prevChapter}
             className={[
-              'flex h-10 w-10 items-center justify-center rounded-full transition-colors',
+              'flex h-10 w-10 items-center justify-center rounded-full transition-all',
               prevChapter ? 'hover:bg-foreground/10' : 'pointer-events-none opacity-30',
             ].join(' ')}
           >
@@ -184,7 +184,7 @@ export function ChapterReaderClient({
             }
             aria-disabled={!nextChapter}
             className={[
-              'flex h-10 w-10 items-center justify-center rounded-full transition-colors',
+              'flex h-10 w-10 items-center justify-center rounded-full transition-all',
               nextChapter ? 'hover:bg-foreground/10' : 'pointer-events-none opacity-30',
             ].join(' ')}
           >

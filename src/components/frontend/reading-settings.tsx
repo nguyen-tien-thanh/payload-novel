@@ -99,7 +99,7 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => onUpdate({ fontSize: Math.max(14, settings.fontSize - 1) })}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-content2 text-sm font-bold transition-colors hover:bg-content3"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-content2 text-sm font-bold transition-all hover:bg-content3"
               >
                 A
               </button>
@@ -119,7 +119,7 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
               </Slider>
               <button
                 onClick={() => onUpdate({ fontSize: Math.min(24, settings.fontSize + 1) })}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-content2 text-base font-bold transition-colors hover:bg-content3"
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-content2 text-base font-bold transition-all hover:bg-content3"
               >
                 A
               </button>

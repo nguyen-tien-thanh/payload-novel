@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@heroui/react'
+import { Button, Input } from '@heroui/react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -82,7 +82,7 @@ export default function ForgotPasswordPage() {
                 <label htmlFor="email" className="text-sm font-medium text-foreground">
                   Email
                 </label>
-                <input
+                <Input
                   id="email"
                   type="email"
                   autoComplete="email"
@@ -90,7 +90,7 @@ export default function ForgotPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="example@email.com"
-                  className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                  className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                 />
               </div>
 

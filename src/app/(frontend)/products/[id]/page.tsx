@@ -97,7 +97,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     <Link
                       key={cat.id}
                       href={`/?category=${cat.id}`}
-                      className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+                      className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-all hover:bg-primary/20"
                     >
                       {cat.name}
                     </Link>
@@ -173,13 +173,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     <Link
                       key={ch.id}
                       href={`/products/${id}/chapters/${ch.chapterNumber}`}
-                      className="group flex items-center gap-4 px-5 py-3 transition-colors hover:bg-content2"
+                      className="group flex items-center gap-4 px-5 py-3 transition-all hover:bg-content2"
                     >
                       <span className="w-8 shrink-0 text-right font-mono text-xs font-semibold text-default-300">
                         {ch.chapterNumber}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm text-foreground transition-colors group-hover:text-primary">
+                        <p className="truncate text-sm text-foreground transition-all group-hover:text-primary">
                           {ch.chapterName}
                         </p>
                         {ch.price != null && ch.price > 0 && (
@@ -188,7 +188,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                           </p>
                         )}
                       </div>
-                      <ChevronRight className="h-4 w-4 shrink-0 text-default-200 transition-colors group-hover:text-primary" />
+                      <ChevronRight className="h-4 w-4 shrink-0 text-default-200 transition-all group-hover:text-primary" />
                     </Link>
                   ))}
                 </div>

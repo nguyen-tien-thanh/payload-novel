@@ -44,7 +44,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={[
-                'rounded-full px-3 py-1.5 text-sm font-medium transition-colors',
+                'rounded-full px-3 py-1.5 text-sm font-medium transition-all',
                 pathname === link.href
                   ? 'bg-primary/10 text-primary'
                   : 'text-default-500 hover:bg-default-100 hover:text-foreground',

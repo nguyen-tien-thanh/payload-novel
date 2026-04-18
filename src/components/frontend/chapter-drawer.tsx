@@ -53,7 +53,7 @@ export function ChapterDrawer({ chapters, currentChapterNumber, productId }: Pro
                     key={ch.id}
                     href={`/products/${productId}/chapters/${ch.chapterNumber}`}
                     className={[
-                      'flex items-center gap-3 border-b border-divider/50 px-4 py-3 text-sm transition-colors',
+                      'flex items-center gap-3 border-b border-divider/50 px-4 py-3 text-sm transition-all',
                       isCurrent
                         ? 'bg-primary/10 font-semibold text-primary'
                         : 'text-foreground hover:bg-content2',

@@ -2,6 +2,7 @@
 
 import type { Media, Product } from '@/payload-types'
 import { ChevronLeft, ChevronRight, Eye } from '@gravity-ui/icons'
+import { Button } from '@heroui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
@@ -54,18 +55,20 @@ export function HeroCarousel({ products }: Props) {
                       {product.description}
                     </p>
                   )}
-                  <div className="mt-3 flex items-center gap-2">
-                    <Link
-                      href={`/products/${product.id}`}
-                      className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-                    >
-                      Đọc ngay
+                  <div className="flex gap-2">
+                    <Link href={`/products/${product.id}`}>
+                      <Button className="rounded-full px-5 py-2 text-sm font-semibold">
+                        Đọc ngay
+                      </Button>
                     </Link>
-                    <Link
-                      href={`/products/${product.id}`}
-                      className="rounded-full border border-white/40 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-                    >
-                      Chi tiết
+
+                    <Link href={`/products/${product.id}`}>
+                      <Button
+                        variant="outline"
+                        className="rounded-full border-white/40 px-5 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                      >
+                        Chi tiết
+                      </Button>
                     </Link>
                   </div>
                 </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { Eye, EyeSlash } from '@gravity-ui/icons'
-import { Button } from '@heroui/react'
+import { Button, Input } from '@heroui/react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -59,7 +59,13 @@ export default function RegisterPage() {
       <div className="flex min-h-[calc(100dvh-56px-48px-225px)] items-center justify-center px-4 py-12">
         <div className="w-full max-w-sm text-center">
           <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-success/10">
-            <svg className="size-7 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg
+              className="size-7 text-success"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -90,7 +96,7 @@ export default function RegisterPage() {
             <label htmlFor="name" className="text-sm font-medium text-foreground">
               Tên hiển thị
             </label>
-            <input
+            <Input
               id="name"
               type="text"
               autoComplete="name"
@@ -98,7 +104,7 @@ export default function RegisterPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Tên của bạn"
-              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
             />
           </div>
 
@@ -106,7 +112,7 @@ export default function RegisterPage() {
             <label htmlFor="email" className="text-sm font-medium text-foreground">
               Email
             </label>
-            <input
+            <Input
               id="email"
               type="email"
               autoComplete="email"
@@ -114,7 +120,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="example@email.com"
-              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
             />
           </div>
 
@@ -123,7 +129,7 @@ export default function RegisterPage() {
               Mật khẩu
             </label>
             <div className="relative">
-              <input
+              <Input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="new-password"
@@ -131,7 +137,7 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Ít nhất 8 ký tự"
-                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               />
               <button
                 type="button"
@@ -150,7 +156,7 @@ export default function RegisterPage() {
               Xác nhận mật khẩu
             </label>
             <div className="relative">
-              <input
+              <Input
                 id="confirm-password"
                 type={showConfirm ? 'text' : 'password'}
                 autoComplete="new-password"
@@ -158,7 +164,7 @@ export default function RegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Nhập lại mật khẩu"
-                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-colors"
+                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               />
               <button
                 type="button"
