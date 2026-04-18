@@ -9,6 +9,7 @@ on:
 jobs:
   trigger-deploy:
     runs-on: ubuntu-latest
+    environment: n8n
 
     steps:
       - name: Trigger n8n deploy webhook
