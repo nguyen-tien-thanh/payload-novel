@@ -3,6 +3,7 @@ import { ProductCard } from '@/components/product-card'
 import { SearchBar } from '@/components/search-bar'
 import { SectionHeader } from '@/components/section-header'
 import { getPayload } from 'payload'
+import type { Where } from 'payload'
 import { Suspense } from 'react'
 import config from '@/payload.config'
 import type { Metadata } from 'next'
@@ -21,7 +22,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
   const payload = await getPayload({ config: await config })
 
-  const where: Record<string, unknown> = { _status: { equals: 'published' } }
+  const where: Where = { _status: { equals: 'published' } }
   if (q) where['name'] = { like: q }
 
   const { docs, totalPages, totalDocs } = await payload.find({
