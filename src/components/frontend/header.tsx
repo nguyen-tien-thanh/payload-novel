@@ -10,7 +10,6 @@ import {
   DropdownMenu,
   DropdownPopover,
   DropdownSection,
-  DropdownTrigger,
 } from '@heroui/react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -75,17 +74,15 @@ export function Header() {
             <>
               {user ? (
                 <Dropdown>
-                  <DropdownTrigger>
-                    <Button
-                      isIconOnly
-                      variant="ghost"
-                      size="sm"
-                      className="text-default-500 hover:text-foreground"
-                      aria-label="Tài khoản"
-                    >
-                      <Person className="size-4.5" />
-                    </Button>
-                  </DropdownTrigger>
+                  <Button
+                    isIconOnly
+                    variant="ghost"
+                    size="sm"
+                    className="text-default-500 hover:text-foreground"
+                    aria-label="Tài khoản"
+                  >
+                    <Person className="size-4.5" />
+                  </Button>
                   <DropdownPopover placement="bottom end">
                     <DropdownMenu
                       onAction={(key) => {
