@@ -1,12 +1,9 @@
-import { PaginationClient } from '@/components/pagination-client'
-import { ProductCard } from '@/components/product-card'
-import { SearchBar } from '@/components/search-bar'
-import { SectionHeader } from '@/components/section-header'
-import { getPayload } from 'payload'
-import type { Where } from 'payload'
-import { Suspense } from 'react'
+import { PaginationClient, ProductCard, SearchBar, SectionHeader } from '@/components/frontend'
 import config from '@/payload.config'
 import type { Metadata } from 'next'
+import type { Where } from 'payload'
+import { getPayload } from 'payload'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = { title: 'Danh sách truyện' }
 

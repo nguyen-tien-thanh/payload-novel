@@ -1,8 +1,8 @@
 'use client'
 
+import { Logo } from '@/components/shared'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Logo } from './logo'
 
 const NAV_LINKS = [
   { href: '/', label: 'Trang chủ' },

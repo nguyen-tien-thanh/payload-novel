@@ -1,5 +1,4 @@
-import { Footer } from '@/components/footer'
-import { Header } from '@/components/header'
+import { Footer, Header } from '@/components/frontend'
 import { Be_Vietnam_Pro } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
