@@ -50,6 +50,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             src={image.url}
             alt=""
             fill
+            sizes="100vw"
             className="scale-110 object-cover opacity-25 blur-3xl"
           />
           <div className="absolute inset-0 bg-linear-to-b from-background/20 via-background/70 to-background" />
