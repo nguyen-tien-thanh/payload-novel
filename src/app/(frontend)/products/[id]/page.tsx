@@ -56,7 +56,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         </div>
       )}
 
-      <div className="mx-auto max-w-5xl px-4 pb-16">
+      <div className="mx-auto max-w-5xl px-4 pb-10">
         {/* ── Hero Banner ── */}
         <div className="relative mb-0">
           <div className="flex gap-6 pb-10 pt-8 sm:gap-10">
@@ -142,7 +142,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         {/* ── Main content ── */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
           {/* Left column */}
-          <div className="space-y-8 min-w-0">
+          <div className="space-y-8 min-w-0 order-2 lg:order-1">
             {/* Description */}
             {product.description && (
               <div className="rounded-2xl border border-divider bg-content1 p-5">
@@ -197,7 +197,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* Right sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-6 order-1 lg:order-2">
             {/* Quick info card */}
             <div className="rounded-2xl border border-divider bg-content1 p-5">
               <h2 className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-default-500">

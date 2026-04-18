@@ -18,6 +18,7 @@ import { ThemeToggle } from './theme-toggle'
 const NAV_LINKS = [
   { href: '/', label: 'Trang chủ' },
   { href: '/products', label: 'Truyện' },
+  { href: '/categories', label: 'Thể loại' },
 ]
 
 export function Header() {

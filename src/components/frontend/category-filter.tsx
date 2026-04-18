@@ -29,7 +29,7 @@ export function CategoryFilter({
 
   return (
     <ScrollShadow orientation="horizontal" hideScrollBar className="-mx-4 w-full px-4">
-      <div className="flex min-w-max gap-2 pb-1">
+      <div className="flex min-w-max gap-2 py-1">
         {[{ id: null as number | null, name: 'Tất cả' }, ...categories].map((cat) => {
           const isActive = cat.id === null ? !selected : selected === String(cat.id)
           return (

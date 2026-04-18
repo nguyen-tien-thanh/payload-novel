@@ -141,7 +141,7 @@ export default function ReadingPage() {
                 <div className="hidden shrink-0 items-center sm:flex">
                   <Link
                     href={`/products/${product.id}/chapters/${chapter.chapterNumber}`}
-                    className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90"
+                    className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
                   >
                     Đọc tiếp
                   </Link>

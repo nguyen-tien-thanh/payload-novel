@@ -30,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
             </div>
           )}
           {product.doneAt && (
-            <div className="absolute inset-x-0 bottom-0 bg-success/90 py-1 text-center text-[10px] font-semibold tracking-wide text-white backdrop-blur-sm">
+            <div className="absolute inset-x-0 bottom-0 bg-success/90 py-1 text-center text-[10px] font-semibold tracking-wide text-success-foreground backdrop-blur-sm">
               HOÀN THÀNH
             </div>
           )}

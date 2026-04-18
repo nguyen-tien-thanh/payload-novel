@@ -62,8 +62,8 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   const currentSort = SORT_OPTIONS.find((s) => s.value === sortValue) ?? SORT_OPTIONS[0]
 
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-16">
-      <div className="py-6">
+    <div className="mx-auto max-w-5xl px-4 pb-10">
+      <div className="pt-6 pb-3">
         <h1 className="text-2xl font-bold text-foreground">Danh sách truyện</h1>
         <p className="mt-1 text-sm text-default-500">Khám phá hàng ngàn bộ truyện hay</p>
       </div>

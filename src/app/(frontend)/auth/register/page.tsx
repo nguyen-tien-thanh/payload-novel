@@ -74,7 +74,7 @@ export default function RegisterPage() {
             Tài khoản của bạn đã được tạo. Hãy đăng nhập để bắt đầu đọc truyện.
           </p>
           <Link href="/auth/login">
-            <Button className="mt-6 rounded-full bg-primary font-semibold text-white">
+            <Button className="mt-6 rounded-full bg-primary font-semibold text-primary-foreground">
               Đăng nhập ngay
             </Button>
           </Link>
@@ -139,15 +139,16 @@ export default function RegisterPage() {
                 placeholder="Ít nhất 8 ký tự"
                 className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-default-400 hover:text-default-600"
-                tabIndex={-1}
+              <Button
+                isIconOnly
+                variant="ghost"
+                size="sm"
+                onPress={() => setShowPassword((v) => !v)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-default-400"
                 aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
               >
                 {showPassword ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -166,15 +167,16 @@ export default function RegisterPage() {
                 placeholder="Nhập lại mật khẩu"
                 className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               />
-              <button
-                type="button"
-                onClick={() => setShowConfirm((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-default-400 hover:text-default-600"
-                tabIndex={-1}
+              <Button
+                isIconOnly
+                variant="ghost"
+                size="sm"
+                onPress={() => setShowConfirm((v) => !v)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-default-400"
                 aria-label={showConfirm ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
               >
                 {showConfirm ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -184,7 +186,7 @@ export default function RegisterPage() {
 
           <Button
             type="submit"
-            className="mt-1 w-full rounded-full bg-primary font-semibold text-white"
+            className="mt-1 w-full rounded-full bg-primary font-semibold text-primary-foreground"
           >
             Tạo tài khoản
           </Button>

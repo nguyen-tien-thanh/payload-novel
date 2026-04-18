@@ -74,7 +74,11 @@ export default function LoginPage() {
               <label htmlFor="password" className="text-sm font-medium text-foreground">
                 Mật khẩu
               </label>
-              <Link href="/auth/forgot-password" className="text-xs text-primary hover:underline">
+              <Link
+                tabIndex={-1}
+                href="/auth/forgot-password"
+                className="text-xs text-primary hover:underline index-0"
+              >
                 Quên mật khẩu?
               </Link>
             </div>
@@ -89,15 +93,17 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-default-400 hover:text-default-600"
-                tabIndex={-1}
+              <Button
+                excludeFromTabOrder
+                isIconOnly
+                variant="ghost"
+                size="sm"
+                onPress={() => setShowPassword((v) => !v)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-default-400"
                 aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
               >
                 {showPassword ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -107,7 +113,7 @@ export default function LoginPage() {
 
           <Button
             type="submit"
-            className="mt-1 w-full rounded-full bg-primary font-semibold text-white"
+            className="mt-1 w-full rounded-full bg-primary font-semibold text-primary-foreground"
           >
             Đăng nhập
           </Button>

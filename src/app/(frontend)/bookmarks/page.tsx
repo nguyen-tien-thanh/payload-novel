@@ -3,6 +3,7 @@
 import { useAuth } from '@/lib/auth-context'
 import type { Bookmark, Media, Product } from '@/payload-types'
 import { Bookmark as BookmarkIcon } from '@gravity-ui/icons'
+import { Button } from '@heroui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -93,7 +94,7 @@ export default function BookmarksPage() {
                       </div>
                     )}
                     {product.doneAt && (
-                      <div className="absolute inset-x-0 bottom-0 bg-success/90 py-1 text-center text-[10px] font-semibold tracking-wide text-white">
+                      <div className="absolute inset-x-0 bottom-0 bg-success/90 py-1 text-center text-[10px] font-semibold tracking-wide text-success-foreground">
                         HOÀN THÀNH
                       </div>
                     )}
@@ -105,15 +106,17 @@ export default function BookmarksPage() {
                     <p className="truncate text-[11px] text-default-400">{product.authorName}</p>
                   </div>
                 </Link>
-                <button
-                  onClick={() => removeBookmark(bm.id)}
-                  className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70"
+                <Button
+                  isIconOnly
+                  size="sm"
+                  onPress={() => removeBookmark(bm.id)}
+                  className="absolute right-1.5 top-1.5 size-6 min-w-0 rounded-full bg-foreground/50 text-background opacity-0 transition-opacity group-hover:opacity-100 hover:bg-foreground/70"
                   aria-label="Xóa bookmark"
                 >
                   <svg className="size-3.5" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                   </svg>
-                </button>
+                </Button>
               </div>
             )
           })}

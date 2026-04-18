@@ -87,7 +87,7 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
         </Button>
       </Popover.Trigger>
       <Popover.Content placement="bottom end" offset={8}>
-        <Popover.Dialog className="w-72 space-y-5 p-4 outline-none">
+        <Popover.Dialog className="w-max space-y-5 p-4 outline-none">
           {/* Font size */}
           <div>
             <div className="mb-2 flex items-center justify-between">
@@ -97,12 +97,16 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
               <span className="font-mono text-xs text-default-400">{settings.fontSize}px</span>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                onClick={() => onUpdate({ fontSize: Math.max(14, settings.fontSize - 1) })}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-content2 text-sm font-bold transition-all hover:bg-content3"
+              <Button
+                isIconOnly
+                size="sm"
+                variant="ghost"
+                onPress={() => onUpdate({ fontSize: Math.max(14, settings.fontSize - 1) })}
+                className="size-7 shrink-0 rounded-full bg-default-100 text-sm font-bold"
+                aria-label="Giảm cỡ chữ"
               >
                 A
-              </button>
+              </Button>
               <Slider
                 minValue={14}
                 maxValue={24}
@@ -117,12 +121,16 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
                   <Slider.Thumb />
                 </Slider.Track>
               </Slider>
-              <button
-                onClick={() => onUpdate({ fontSize: Math.min(24, settings.fontSize + 1) })}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-content2 text-base font-bold transition-all hover:bg-content3"
+              <Button
+                isIconOnly
+                size="sm"
+                variant="ghost"
+                onPress={() => onUpdate({ fontSize: Math.min(24, settings.fontSize + 1) })}
+                className="size-7 shrink-0 rounded-full bg-default-100 text-base font-bold"
+                aria-label="Tăng cỡ chữ"
               >
                 A
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -158,11 +166,11 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
             </span>
             <div className="flex gap-2">
               {FONTS.map((f) => (
-                <button
+                <Button
                   key={f.id}
-                  onClick={() => onUpdate({ font: f.id })}
+                  onPress={() => onUpdate({ font: f.id })}
                   className={[
-                    'flex-1 rounded-lg border p-1.5 text-sm transition-all',
+                    'flex-1 rounded-lg border p-1.5 text-sm',
                     f.className,
                     settings.font === f.id
                       ? 'border-primary bg-primary/10 font-semibold text-primary'
@@ -170,7 +178,7 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
                   ].join(' ')}
                 >
                   {f.label}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
@@ -180,13 +188,13 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
             <span className="mb-2 block text-xs font-semibold uppercase tracking-wide text-default-600">
               Nền trang
             </span>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="flex gap-2">
               {THEMES.map((t) => (
-                <button
+                <Button
                   key={t.id}
-                  onClick={() => onUpdate({ theme: t.id })}
+                  onPress={() => onUpdate({ theme: t.id })}
                   className={[
-                    'flex flex-col items-center gap-1 rounded-xl border-2 py-2 transition-all',
+                    'flex flex-col items-center gap-1 rounded-xl border-2 py-2',
                     t.bg,
                     settings.theme === t.id
                       ? 'scale-105 border-primary'
@@ -194,7 +202,7 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
                   ].join(' ')}
                 >
                   <span className={['text-[10px] font-medium', t.text].join(' ')}>{t.label}</span>
-                </button>
+                </Button>
               ))}
             </div>
           </div>

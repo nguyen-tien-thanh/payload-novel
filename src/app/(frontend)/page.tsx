@@ -105,7 +105,7 @@ export default async function HomePage({ searchParams }: PageProps) {
   const monthlyProducts = [...popularProducts].reverse().slice(0, 5)
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8 px-4 pb-16">
+    <div className="mx-auto max-w-5xl space-y-6 px-4 pb-16">
       {!isSearching && carouselProducts.length > 0 && (
         <div className="pt-4">
           <HeroCarousel products={carouselProducts} />
