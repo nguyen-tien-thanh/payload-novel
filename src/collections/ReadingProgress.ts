@@ -10,6 +10,12 @@ export const ReadingProgress: CollectionConfig = {
   admin: {
     defaultColumns: ['product', 'chapter', 'createdBy', 'updatedAt'],
   },
+  access: {
+    create: ({ req }) => !!req.user,
+    read: ({ req }) => !!req.user,
+    update: ({ req }) => !!req.user,
+    delete: ({ req }) => !!req.user,
+  },
   hooks: {
     beforeChange: [setCreatedBy],
   },

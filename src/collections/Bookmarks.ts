@@ -10,6 +10,12 @@ export const Bookmarks: CollectionConfig = {
   admin: {
     defaultColumns: ['product', 'createdBy', 'createdAt'],
   },
+  access: {
+    create: ({ req }) => !!req.user,
+    read: ({ req }) => !!req.user,
+    update: ({ req }) => req.user?.role === 'admin',
+    delete: ({ req, id }) => req.user?.role === 'admin' || !!req.user,
+  },
   hooks: {
     beforeChange: [setCreatedBy],
   },

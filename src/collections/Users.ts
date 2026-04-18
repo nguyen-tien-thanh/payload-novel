@@ -9,7 +9,7 @@ export const Users: CollectionConfig = {
   access: {
     create: () => true,
     read: ({ req }) => req.user?.role === 'admin' || !!req.user,
-    update: ({ req, id }) => req.user?.role === 'admin' || req.user?.id === id,
+    update: ({ req, id }) => req.user?.role === 'admin' || String(req.user?.id) === String(id),
     delete: ({ req }) => req.user?.role === 'admin',
   },
   fields: [
@@ -68,6 +68,9 @@ export const Users: CollectionConfig = {
         { label: 'Quản trị viên', value: 'admin' },
       ],
       saveToJWT: true,
+      access: {
+        update: ({ req }) => req.user?.role === 'admin',
+      },
     },
   ],
 }
