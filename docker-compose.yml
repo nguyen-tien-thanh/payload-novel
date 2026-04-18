@@ -1,6 +1,7 @@
 services:
   payload:
     image: nguyentienthanh2909/payload
+    container_name: payload
     platform: linux/amd64
     build:
       context: .
