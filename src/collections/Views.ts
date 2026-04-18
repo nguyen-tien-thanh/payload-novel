@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { setCreatedBy } from '@/hooks/setCreatedBy'
 
 export const Views: CollectionConfig = {
   slug: 'views',
@@ -8,6 +9,9 @@ export const Views: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['product', 'createdBy', 'ip', 'createdAt'],
+  },
+  hooks: {
+    beforeChange: [setCreatedBy],
   },
   fields: [
     {

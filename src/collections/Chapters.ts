@@ -5,6 +5,7 @@ import {
   canUpdateChapter,
   canDeleteChapter,
 } from '@/access/chapterAccess'
+import { setCreatedBy } from '@/hooks/setCreatedBy'
 
 const isAdminField: FieldAccess = ({ req }) => req.user?.role === 'admin'
 
@@ -23,6 +24,9 @@ export const Chapters: CollectionConfig = {
     create: canCreateChapter,
     update: canUpdateChapter,
     delete: canDeleteChapter,
+  },
+  hooks: {
+    beforeChange: [setCreatedBy],
   },
   fields: [
     {

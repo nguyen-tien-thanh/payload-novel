@@ -5,6 +5,7 @@ import {
   isProductOwnerOrAdmin,
   isProductEditorOrAdmin,
 } from '@/access/productAccess'
+import { setCreatedBy } from '@/hooks/setCreatedBy'
 
 const isAdminField: FieldAccess = ({ req }) => req.user?.role === 'admin'
 
@@ -25,6 +26,7 @@ export const Products: CollectionConfig = {
     delete: isProductOwnerOrAdmin,
   },
   hooks: {
+    beforeChange: [setCreatedBy],
     afterChange: [
       async ({ doc, operation, req }) => {
         if (operation !== 'create' || !req.user) return

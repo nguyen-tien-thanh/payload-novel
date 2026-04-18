@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { setCreatedBy } from '@/hooks/setCreatedBy'
 
 export const Payments: CollectionConfig = {
   slug: 'payments',
@@ -8,6 +9,9 @@ export const Payments: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['amount', 'createdBy', 'createdAt'],
+  },
+  hooks: {
+    beforeChange: [setCreatedBy],
   },
   fields: [
     {

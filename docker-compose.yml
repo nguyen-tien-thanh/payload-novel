@@ -1,17 +1,12 @@
-version: '3'
-
 services:
   payload:
-    image: node:20-alpine
+    image: nguyentienthanh2909/payload
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
-    depends_on:
-      - postgres
     env_file:
       - .env
 
@@ -22,7 +17,14 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: payload
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   pgdata:
-  node_modules:
