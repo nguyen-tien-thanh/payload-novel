@@ -199,6 +199,7 @@ export default function ProfilePage() {
                 fill
                 sizes="96px"
                 className="object-cover"
+                priority
               />
             ) : (
               <div className="flex h-full items-center justify-center">
