@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@import '@heroui/styles';
+
+@layer base {
+  :root {
+    --font-sans: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
