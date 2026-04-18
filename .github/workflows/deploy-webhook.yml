@@ -20,7 +20,7 @@ jobs:
           curl --fail --show-error --silent \
             --request POST \
             --header "Content-Type: application/json" \
-            --header "Authorization: Bearer $WEBHOOK_TOKEN" \
+            --header "Authorization: $WEBHOOK_TOKEN" \
             --data @- \
             "$WEBHOOK_URL" <<'EOF'
           {
