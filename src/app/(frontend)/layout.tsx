@@ -12,8 +12,8 @@ const font = Be_Vietnam_Pro({
 
 export const metadata = {
   title: {
-    default: 'Novel – Đọc truyện online',
-    template: '%s | Novel',
+    default: 'Tiralix – Đọc truyện online',
+    template: '%s | Tiralix',
   },
   description: 'Nền tảng đọc truyện online miễn phí',
   icons: {
@@ -25,7 +25,12 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${font.variable} light`} suppressHydrationWarning>
+    <html
+      lang="vi"
+      className={`${font.variable} light`}
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+    >
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
           <Header />

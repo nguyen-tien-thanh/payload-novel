@@ -1,5 +1,28 @@
 @import 'tailwindcss';
 @import '@heroui/styles';
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+
+/* ── Swiper custom styles ───────────────────────────────────────────────── */
+
+.hero-carousel .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.hero-carousel .swiper-pagination-bullet-active {
+  width: 20px;
+  border-radius: 9999px;
+  background: white;
+}
+
+.hero-carousel .swiper-pagination {
+  bottom: 12px;
+}
 
 @layer base {
   :root {

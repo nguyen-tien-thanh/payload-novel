@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@heroui/react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface Props {
@@ -27,13 +28,16 @@ export function PaginationClient({ total, page }: Props) {
 
   return (
     <div className="flex items-center gap-1">
-      <button
-        onClick={() => handleChange(page - 1)}
-        disabled={page === 1}
-        className="flex h-8 w-8 items-center justify-center rounded-full text-sm text-default-500 transition-colors hover:bg-default-100 disabled:cursor-not-allowed disabled:opacity-40"
+      <Button
+        isIconOnly
+        variant="ghost"
+        size="sm"
+        isDisabled={page === 1}
+        onPress={() => handleChange(page - 1)}
+        className="rounded-full text-default-500"
       >
         ‹
-      </button>
+      </Button>
 
       {pages.map((p) => {
         const isActive = p === page
@@ -52,26 +56,32 @@ export function PaginationClient({ total, page }: Props) {
         }
 
         return (
-          <button
+          <Button
             key={p}
-            onClick={() => handleChange(p)}
+            isIconOnly
+            size="sm"
+            variant={isActive ? 'primary' : 'ghost'}
             className={[
-              'flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors',
-              isActive ? 'bg-primary text-white' : 'text-default-500 hover:bg-default-100',
+              'rounded-full',
+              isActive ? 'bg-primary text-primary-foreground' : 'text-default-500',
             ].join(' ')}
+            onPress={() => handleChange(p)}
           >
             {p}
-          </button>
+          </Button>
         )
       })}
 
-      <button
-        onClick={() => handleChange(page + 1)}
-        disabled={page === total}
-        className="flex h-8 w-8 items-center justify-center rounded-full text-sm text-default-500 transition-colors hover:bg-default-100 disabled:cursor-not-allowed disabled:opacity-40"
+      <Button
+        isIconOnly
+        variant="ghost"
+        size="sm"
+        isDisabled={page === total}
+        onPress={() => handleChange(page + 1)}
+        className="rounded-full text-default-500"
       >
         ›
-      </button>
+      </Button>
     </div>
   )
 }

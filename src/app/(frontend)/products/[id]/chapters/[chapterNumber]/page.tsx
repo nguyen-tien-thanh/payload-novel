@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import config from '@/payload.config'
+import { ChapterReaderClient } from './chapter-reader-client'
 
 export async function generateMetadata({
   params,
@@ -46,13 +46,12 @@ export default async function ChapterPage({
         ],
       },
       limit: 1,
-      depth: 1,
+      depth: 0,
       select: {
         chapterName: true,
         chapterNumber: true,
         contentRaw: true,
         price: true,
-        product: true,
       },
     }),
     payload.find({
@@ -63,7 +62,7 @@ export default async function ChapterPage({
       limit: 500,
       sort: 'chapterNumber',
       depth: 0,
-      select: { chapterNumber: true },
+      select: { chapterNumber: true, chapterName: true, price: true },
     }),
   ])
 
@@ -71,52 +70,27 @@ export default async function ChapterPage({
   if (!chapter) notFound()
 
   const chapterNum = Number(chapterNumber)
-  const prevChapterArr = allChapters.filter((c) => c.chapterNumber < chapterNum)
-  const prevChapter = prevChapterArr[prevChapterArr.length - 1]
-  const nextChapter = allChapters.find((c) => c.chapterNumber > chapterNum)
-
-  const paragraphs = (chapter.contentRaw ?? '').split('\n').filter(Boolean)
+  const currentIndex = allChapters.findIndex((c) => c.chapterNumber === chapterNum)
+  const prevChapter = currentIndex > 0 ? allChapters[currentIndex - 1] : null
+  const nextChapter = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1] : null
 
   return (
-    <div className="chapter-page">
-      <div className="chapter-nav top">
-        <Link href={`/products/${id}`} className="back-link">
-          ← Về trang truyện
-        </Link>
-        <div className="chapter-nav-btns">
-          {prevChapter && (
-            <Link href={`/products/${id}/chapters/${prevChapter.chapterNumber}`}>
-              ← Chương trước
-            </Link>
-          )}
-          {nextChapter && (
-            <Link href={`/products/${id}/chapters/${nextChapter.chapterNumber}`}>Chương sau →</Link>
-          )}
-        </div>
-      </div>
-
-      <h1 className="chapter-title">
-        Chương {chapter.chapterNumber}: {chapter.chapterName}
-      </h1>
-
-      <div className="chapter-content">
-        {paragraphs.map((para, i) => (
-          <p key={i}>{para}</p>
-        ))}
-      </div>
-
-      <div className="chapter-nav bottom">
-        <div className="chapter-nav-btns">
-          {prevChapter && (
-            <Link href={`/products/${id}/chapters/${prevChapter.chapterNumber}`}>
-              ← Chương trước
-            </Link>
-          )}
-          {nextChapter && (
-            <Link href={`/products/${id}/chapters/${nextChapter.chapterNumber}`}>Chương sau →</Link>
-          )}
-        </div>
-      </div>
-    </div>
+    <ChapterReaderClient
+      chapter={{
+        chapterName: chapter.chapterName,
+        chapterNumber: chapter.chapterNumber,
+        contentRaw: chapter.contentRaw ?? '',
+      }}
+      allChapters={allChapters.map((c) => ({
+        id: c.id,
+        chapterNumber: c.chapterNumber,
+        chapterName: c.chapterName,
+        price: c.price,
+      }))}
+      productId={id}
+      currentIndex={currentIndex}
+      prevChapter={prevChapter ? { chapterNumber: prevChapter.chapterNumber } : null}
+      nextChapter={nextChapter ? { chapterNumber: nextChapter.chapterNumber } : null}
+    />
   )
 }

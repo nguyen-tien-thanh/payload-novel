@@ -87,7 +87,10 @@ export function AdminAvatar() {
         alt={user?.name || user?.email || 'Avatar'}
         src={resolvedURL}
         style={{
-          border: pathname === accountPath ? '2px solid var(--theme-success-500)' : '2px solid transparent',
+          border:
+            pathname === accountPath
+              ? '2px solid var(--theme-success-500)'
+              : '2px solid transparent',
           borderRadius: '9999px',
           display: 'block',
           height: 25,
@@ -104,9 +107,7 @@ export function AdminAvatar() {
       style={{
         alignItems: 'center',
         background:
-          pathname === accountPath
-            ? 'var(--theme-success-500)'
-            : 'var(--theme-elevation-300)',
+          pathname === accountPath ? 'var(--theme-success-500)' : 'var(--theme-elevation-300)',
         borderRadius: '9999px',
         color: pathname === accountPath ? 'var(--theme-success-50)' : 'var(--theme-elevation-900)',
         display: 'flex',
