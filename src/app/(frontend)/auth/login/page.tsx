@@ -5,9 +5,17 @@ import { Eye, EyeSlash } from '@gravity-ui/icons'
 import { Button, Input } from '@heroui/react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <InnerLoginPage />
+    </Suspense>
+  )
+}
+
+function InnerLoginPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirect = searchParams.get('redirect') || '/'
@@ -15,13 +23,11 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
-    setLoading(true)
 
     try {
       const res = await fetch('/api/users/login', {
@@ -41,8 +47,6 @@ export default function LoginPage() {
       router.push(redirect)
     } catch {
       setError('Có lỗi xảy ra. Vui lòng thử lại.')
-    } finally {
-      setLoading(false)
     }
   }
 

@@ -1,5 +1,4 @@
 import config from '@payload-config'
-import { sql } from 'drizzle-orm'
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
 
@@ -42,10 +41,10 @@ export async function POST(req: Request) {
   })
 
   await payload.db.drizzle.execute(
-    sql`UPDATE products SET view_count = COALESCE(view_count, 0) + 1 WHERE id = ${Number(productId)}`,
+    `UPDATE products SET view_count = COALESCE(view_count, 0) + 1 WHERE id = ${Number(productId)}`,
   )
   await payload.db.drizzle.execute(
-    sql`UPDATE _products_v SET view_count = COALESCE(view_count, 0) + 1 WHERE parent_id = ${Number(productId)} AND version__status = 'published'`,
+    `UPDATE _products_v SET view_count = COALESCE(view_count, 0) + 1 WHERE parent_id = ${Number(productId)} AND version__status = 'published'`,
   )
 
   return Response.json({ ok: true, new: true })
