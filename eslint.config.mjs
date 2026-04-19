@@ -1,17 +1,20 @@
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
-import { FlatCompat } from '@eslint/eslintrc'
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import nextTs from 'eslint-config-next/typescript'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
+export default [
+  ...nextVitals,
+  ...nextTs,
 
-const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
+    languageOptions: {
+      parser: tsParser,
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
     rules: {
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
@@ -19,24 +22,20 @@ const eslintConfig = [
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
-          vars: 'all',
-          args: 'after-used',
-          ignoreRestSiblings: false,
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
           caughtErrorsIgnorePattern: '^(_|ignore)',
         },
       ],
     },
   },
+
   {
     ignores: [
       '.next/',
+      'node_modules',
       'src/payload-types.ts',
       'src/payload-generated-schema.ts',
     ],
   },
 ]
-
-export default eslintConfig
