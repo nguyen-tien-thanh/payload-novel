@@ -12,7 +12,6 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
@@ -29,8 +28,6 @@ export default function RegisterPage() {
       setError('Mật khẩu phải có ít nhất 8 ký tự.')
       return
     }
-
-    setLoading(true)
 
     try {
       const res = await fetch('/api/users', {
@@ -49,8 +46,6 @@ export default function RegisterPage() {
       setSuccess(true)
     } catch {
       setError('Có lỗi xảy ra. Vui lòng thử lại.')
-    } finally {
-      setLoading(false)
     }
   }
 

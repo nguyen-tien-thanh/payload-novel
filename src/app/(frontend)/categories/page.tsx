@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import { CategorySearch } from './category-search'
 
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Thể loại' }
 
 export default async function CategoriesPage() {

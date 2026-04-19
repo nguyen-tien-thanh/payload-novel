@@ -7,6 +7,8 @@ import type { Where } from 'payload'
 import { getPayload } from 'payload'
 import { Suspense } from 'react'
 
+export const dynamic = 'force-dynamic'
+
 const LIMIT = 30
 
 const SORT_OPTIONS = [

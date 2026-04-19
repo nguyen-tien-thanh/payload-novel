@@ -6,14 +6,12 @@ import { useState } from 'react'
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [sent, setSent] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
-    setLoading(true)
 
     try {
       const res = await fetch('/api/users/forgot-password', {
@@ -31,8 +29,6 @@ export default function ForgotPasswordPage() {
       setSent(true)
     } catch {
       setError('Có lỗi xảy ra. Vui lòng thử lại.')
-    } finally {
-      setLoading(false)
     }
   }
 
