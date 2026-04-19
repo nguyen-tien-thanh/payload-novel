@@ -10,6 +10,7 @@ export const Views: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['product', 'createdBy', 'ip', 'createdAt'],
+    group: 'Hoạt động',
   },
   access: {
     create: () => true,

@@ -1,52 +1,32 @@
+import { isLoggedIn } from '@/access/isLoggedIn'
+import { isOwner } from '@/access/isOwner'
+import { isPublicOrOwner } from '@/access/isPublicOrOwner'
+import { setCreatedBy } from '@/hooks/setCreatedBy'
 import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  admin: {
+    group: 'Hệ thống',
+  },
   access: {
-    read: ({ req }) => {
-      // Frontend (no admin context): public
-      if (!req.user) return true
-
-      // Admin: only own media, unless admin role
-      if (req.user.role === 'admin') return true
-
-      return {
-        createdBy: { equals: req.user.id },
-      }
-    },
-    create: ({ req }) => !!req.user,
-    update: ({ req }) => {
-      if (!req.user) return false
-      if (req.user.role === 'admin') return true
-      return { createdBy: { equals: req.user.id } }
-    },
-    delete: ({ req }) => {
-      if (!req.user) return false
-      if (req.user.role === 'admin') return true
-      return { createdBy: { equals: req.user.id } }
-    },
+    read: isPublicOrOwner,
+    create: isLoggedIn,
+    update: isOwner,
+    delete: isOwner,
   },
   hooks: {
-    beforeChange: [
-      ({ req, operation, data }) => {
-        if (operation === 'create' && req.user) {
-          data.createdBy = req.user.id
-        }
-        return data
-      },
-    ],
+    beforeChange: [setCreatedBy],
   },
   fields: [
     {
       name: 'alt',
       type: 'text',
-      required: false,
     },
     {
       name: 'createdBy',
       type: 'relationship',
       relationTo: 'users',
-      required: false,
       admin: {
         readOnly: true,
         condition: (_, __, { user }) => user?.role === 'admin',

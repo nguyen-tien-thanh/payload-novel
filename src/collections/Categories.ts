@@ -1,5 +1,7 @@
-import type { CollectionConfig } from 'payload'
+import { isAdmin } from '@/access/isAdmin'
+import { isPublic } from '@/access/isPublic'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import type { CollectionConfig } from 'payload'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -10,6 +12,13 @@ export const Categories: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'createdBy', 'createdAt'],
+    group: 'Hệ thống',
+  },
+  access: {
+    create: isAdmin,
+    read: isPublic,
+    update: isAdmin,
+    delete: isAdmin,
   },
   trash: true,
   hooks: {

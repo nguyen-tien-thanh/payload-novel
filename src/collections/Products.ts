@@ -13,6 +13,7 @@ export const Products: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'authorName', 'viewCount', '_status', 'createdAt'],
+    group: 'Nội dung',
   },
   trash: true,
   versions: {

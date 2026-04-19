@@ -11,6 +11,7 @@ export const ReadingProgress: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['product', 'chapter', 'createdBy', 'updatedAt'],
+    group: 'Hoạt động',
   },
   access: {
     create: isLoggedIn,

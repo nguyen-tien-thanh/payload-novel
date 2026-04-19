@@ -20,6 +20,7 @@ export async function generateMetadata({
         { _status: { equals: 'published' } },
       ],
     },
+    draft: false,
     limit: 1,
     depth: 0,
     select: { chapterName: true, chapterNumber: true },
@@ -46,6 +47,7 @@ export default async function ChapterPage({
           { _status: { equals: 'published' } },
         ],
       },
+      draft: false,
       limit: 1,
       depth: 0,
       select: {
@@ -63,6 +65,7 @@ export default async function ChapterPage({
           { _status: { equals: 'published' } },
         ],
       },
+      draft: false,
       limit: 500,
       sort: 'chapterNumber',
       depth: 0,

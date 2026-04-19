@@ -24,6 +24,7 @@ export async function ProductRelated({ productId, categories }: Props) {
         { id: { not_equals: productId } },
       ],
     },
+    draft: false,
     limit: 6,
     sort: '-viewCount',
     depth: 1,

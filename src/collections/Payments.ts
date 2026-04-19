@@ -12,6 +12,7 @@ export const Payments: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['amount', 'createdBy', 'createdAt'],
+    group: 'Hoạt động',
   },
   access: {
     create: isLoggedIn,

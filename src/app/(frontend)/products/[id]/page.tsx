@@ -48,6 +48,7 @@ export default async function ProductDetailPage({
           { _status: { equals: 'published' } },
         ],
       },
+      draft: false,
       limit: 500,
       sort: 'chapterNumber',
       depth: 0,

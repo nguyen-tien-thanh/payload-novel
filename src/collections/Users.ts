@@ -1,17 +1,22 @@
 import type { CollectionConfig } from 'payload'
+import { isAdmin } from '@/access/isAdmin'
+import { isPublic } from '@/access/isPublic'
+import { isOwner } from '@/access/isOwner'
 
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
     useAsTitle: 'email',
+    group: 'Hệ thống',
+    hidden: ({ user }) => user?.role !== 'admin',
   },
   auth: true,
   access: {
-    create: () => true,
-    read: ({ req }) => req.user?.role === 'admin' || !!req.user,
+    create: isPublic,
+    read: isOwner,
     update: ({ req, id }) =>
       req.user?.role === 'admin' || String(req.user?.id) === String(id),
-    delete: ({ req }) => req.user?.role === 'admin',
+    delete: isAdmin,
   },
   fields: [
     {

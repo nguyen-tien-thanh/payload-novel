@@ -53,6 +53,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
       payload.find({
         collection: 'products',
         where,
+        draft: false,
         limit: LIMIT,
         page,
         sort: SORT_MAP[sortValue],

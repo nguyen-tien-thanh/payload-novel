@@ -1,7 +1,8 @@
-import type { CollectionConfig } from 'payload'
-import { setCreatedBy } from '@/hooks/setCreatedBy'
 import { isLoggedIn } from '@/access/isLoggedIn'
 import { isOwner } from '@/access/isOwner'
+import { isPublicOrOwner } from '@/access/isPublicOrOwner'
+import { setCreatedBy } from '@/hooks/setCreatedBy'
+import type { CollectionConfig } from 'payload'
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -12,10 +13,11 @@ export const Comments: CollectionConfig = {
   admin: {
     useAsTitle: 'content',
     defaultColumns: ['content', 'product', 'createdBy', 'createdAt'],
+    group: 'Hoạt động',
   },
   access: {
     create: isLoggedIn,
-    read: () => true,
+    read: isPublicOrOwner,
     update: isOwner,
     delete: isOwner,
   },

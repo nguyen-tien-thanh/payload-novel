@@ -12,6 +12,7 @@ export const Bookmarks: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['product', 'createdBy', 'createdAt'],
+    group: 'Hoạt động',
   },
   access: {
     create: isLoggedIn,

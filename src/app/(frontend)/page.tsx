@@ -38,6 +38,7 @@ async function ProductGrid({
   const { docs, totalPages } = await payload.find({
     collection: 'products',
     where,
+    draft: false,
     limit: LIMIT,
     page,
     sort: '-viewCount',
@@ -88,6 +89,7 @@ export default async function HomePage({ searchParams }: PageProps) {
     payload.find({
       collection: 'products',
       where: { _status: { equals: 'published' } },
+      draft: false,
       limit: 12,
       sort: '-viewCount',
       depth: 1,
@@ -95,6 +97,7 @@ export default async function HomePage({ searchParams }: PageProps) {
     payload.find({
       collection: 'products',
       where: { _status: { equals: 'published' } },
+      draft: false,
       limit: 12,
       sort: '-createdAt',
       depth: 1,
@@ -102,6 +105,7 @@ export default async function HomePage({ searchParams }: PageProps) {
     payload.find({
       collection: 'products',
       where: { _status: { equals: 'published' } },
+      draft: false,
       limit: 12,
       sort: '-updatedAt',
       depth: 1,

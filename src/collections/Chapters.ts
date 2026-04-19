@@ -14,6 +14,7 @@ export const Chapters: CollectionConfig = {
   admin: {
     useAsTitle: 'chapterName',
     defaultColumns: ['chapterName', 'chapterNumber', 'product', 'price', '_status'],
+    group: 'Nội dung',
   },
   trash: true,
   versions: {

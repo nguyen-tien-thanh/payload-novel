@@ -71,6 +71,7 @@ export default async function CategoryDetailPage({
   const { docs, totalPages, totalDocs } = await payload.find({
     collection: 'products',
     where,
+    draft: false,
     limit: LIMIT,
     page,
     sort: SORT_MAP[sortValue],
