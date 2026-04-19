@@ -40,6 +40,7 @@ export const ReadingProgress: CollectionConfig = {
       relationTo: 'users',
       required: true,
       label: 'Người dùng',
+      index: true,
     },
   ],
   timestamps: true,

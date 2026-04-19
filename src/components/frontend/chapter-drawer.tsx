@@ -17,7 +17,11 @@ interface Props {
   productId: string
 }
 
-export function ChapterDrawer({ chapters, currentChapterNumber, productId }: Props) {
+export function ChapterDrawer({
+  chapters,
+  currentChapterNumber,
+  productId,
+}: Props) {
   return (
     <Drawer>
       <Button
@@ -64,7 +68,9 @@ export function ChapterDrawer({ chapters, currentChapterNumber, productId }: Pro
                     </span>
                     <span className="flex-1 truncate">{ch.chapterName}</span>
                     {ch.price != null && ch.price > 0 && (
-                      <span className="shrink-0 text-[10px] font-medium text-warning">🔒</span>
+                      <span className="shrink-0 text-[10px] font-medium text-warning">
+                        🔒
+                      </span>
                     )}
                   </Link>
                 )

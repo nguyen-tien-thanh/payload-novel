@@ -12,7 +12,9 @@ const extractTextFromLexical = (node: any): string => {
 
 export const extractContentRaw: CollectionBeforeChangeHook = ({ data }) => {
   if (data.contentHtml) {
-    data.contentRaw = extractTextFromLexical(data.contentHtml).replace(/\s+/g, ' ').trim()
+    data.contentRaw = extractTextFromLexical(data.contentHtml)
+      .replace(/\s+/g, ' ')
+      .trim()
   }
   return data
 }

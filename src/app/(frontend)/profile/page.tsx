@@ -33,7 +33,10 @@ export default function ProfilePage() {
   const [phone, setPhone] = useState('')
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [saving, setSaving] = useState(false)
-  const [infoMsg, setInfoMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [infoMsg, setInfoMsg] = useState<{
+    type: 'success' | 'error'
+    text: string
+  } | null>(null)
 
   // Avatar
   const fileRef = useRef<HTMLInputElement>(null)
@@ -45,7 +48,10 @@ export default function ProfilePage() {
   const [showNew, setShowNew] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [pwSaving, setPwSaving] = useState(false)
-  const [pwMsg, setPwMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [pwMsg, setPwMsg] = useState<{
+    type: 'success' | 'error'
+    text: string
+  } | null>(null)
 
   useEffect(() => {
     if (!loading && !user) {
@@ -215,7 +221,11 @@ export default function ProfilePage() {
             className="absolute bottom-0 right-0 size-7 min-w-0 rounded-full bg-primary text-primary-foreground shadow"
             aria-label="Đổi ảnh đại diện"
           >
-            {avatarUploading ? <Spinner size="sm" /> : <PencilToLine className="size-3.5" />}
+            {avatarUploading ? (
+              <Spinner size="sm" />
+            ) : (
+              <PencilToLine className="size-3.5" />
+            )}
           </Button>
           <input
             ref={fileRef}
@@ -226,7 +236,9 @@ export default function ProfilePage() {
           />
         </div>
         <div className="text-center">
-          <p className="text-lg font-bold text-foreground">{profile.name || profile.email}</p>
+          <p className="text-lg font-bold text-foreground">
+            {profile.name || profile.email}
+          </p>
           <p className="text-sm text-default-400">{profile.email}</p>
           {profile.balance != null && (
             <p className="mt-1 text-xs font-medium text-primary">
@@ -307,7 +319,9 @@ export default function ProfilePage() {
               </Field>
 
               {infoMsg && (
-                <Alert status={infoMsg.type === 'success' ? 'success' : 'danger'}>
+                <Alert
+                  status={infoMsg.type === 'success' ? 'success' : 'danger'}
+                >
                   <Alert.Content>
                     <Alert.Description>{infoMsg.text}</Alert.Description>
                   </Alert.Content>
@@ -351,7 +365,11 @@ export default function ProfilePage() {
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-default-400"
                     aria-label={showNew ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                   >
-                    {showNew ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
+                    {showNew ? (
+                      <EyeSlash className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
                   </Button>
                 </div>
               </Field>
@@ -375,7 +393,11 @@ export default function ProfilePage() {
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-default-400"
                     aria-label={showConfirm ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                   >
-                    {showConfirm ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
+                    {showConfirm ? (
+                      <EyeSlash className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
                   </Button>
                 </div>
               </Field>
@@ -403,7 +425,13 @@ export default function ProfilePage() {
   )
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({
+  label,
+  children,
+}: {
+  label: string
+  children: React.ReactNode
+}) {
   return (
     <div className="flex flex-col gap-1.5">
       <Label className="text-sm font-medium text-foreground">{label}</Label>

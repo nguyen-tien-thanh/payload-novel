@@ -15,7 +15,12 @@ interface Props {
   showRank?: boolean
 }
 
-export function BookshelfRow({ title, products, href, showRank = false }: Props) {
+export function BookshelfRow({
+  title,
+  products,
+  href,
+  showRank = false,
+}: Props) {
   if (!products.length) return null
 
   return (

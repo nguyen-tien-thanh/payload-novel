@@ -4,21 +4,21 @@ import { s3Storage } from '@payloadcms/storage-s3'
 import { vi } from '@payloadcms/translations/languages/vi'
 import path from 'path'
 import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { fileURLToPath } from 'url'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
+import { Bookmarks } from './collections/Bookmarks'
 import { Categories } from './collections/Categories'
-import { Products } from './collections/Products'
 import { Chapters } from './collections/Chapters'
 import { Comments } from './collections/Comments'
-import { Rates } from './collections/Rates'
+import { Media } from './collections/Media'
 import { Payments } from './collections/Payments'
-import { Views } from './collections/Views'
-import { Bookmarks } from './collections/Bookmarks'
-import { ReadingProgress } from './collections/ReadingProgress'
 import { ProductMembers } from './collections/ProductMembers'
+import { Products } from './collections/Products'
+import { Rates } from './collections/Rates'
+import { ReadingProgress } from './collections/ReadingProgress'
+import { Users } from './collections/Users'
+import { Views } from './collections/Views'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -65,7 +65,10 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
-        media: true,
+        media: {
+          generateFileURL: ({ filename, prefix }) =>
+            `${process.env.S3_ENDPOINT}/${process.env.S3_BUCKET}/${prefix ? prefix + '/' : ''}${filename}`,
+        },
       },
       bucket: process.env.S3_BUCKET || '',
       config: {
@@ -75,7 +78,7 @@ export default buildConfig({
         },
         region: process.env.S3_REGION || 'us-east-1',
         endpoint: process.env.S3_ENDPOINT,
-        forcePathStyle: true, // bắt buộc cho MinIO
+        forcePathStyle: true,
       },
     }),
   ],

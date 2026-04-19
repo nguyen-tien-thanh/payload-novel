@@ -38,7 +38,9 @@ export default function ReadingPage() {
     }
     if (!user) return
 
-    fetch('/api/reading-progress?depth=2&limit=100&sort=-updatedAt', { credentials: 'include' })
+    fetch('/api/reading-progress?depth=2&limit=100&sort=-updatedAt', {
+      credentials: 'include',
+    })
       .then((r) => r.json())
       .then((data) => setProgresses(data.docs ?? []))
       .finally(() => setFetching(false))
@@ -50,7 +52,10 @@ export default function ReadingPage() {
         <div className="mb-8 h-8 w-40 animate-pulse rounded-xl bg-default-100" />
         <div className="flex flex-col gap-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="flex gap-4 rounded-2xl border border-divider bg-content1 p-4">
+            <div
+              key={i}
+              className="flex gap-4 rounded-2xl border border-divider bg-content1 p-4"
+            >
               <div className="aspect-2/3 w-16 shrink-0 animate-pulse rounded-xl bg-default-100" />
               <div className="flex flex-1 flex-col gap-2 pt-1">
                 <div className="h-4 w-3/4 animate-pulse rounded bg-default-100" />
@@ -79,8 +84,13 @@ export default function ReadingPage() {
       {progresses.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <BookOpen className="mb-3 size-10 text-default-200" />
-          <p className="text-sm font-medium text-default-400">Chưa có lịch sử đọc truyện</p>
-          <Link href="/products" className="mt-4 text-sm font-medium text-primary hover:underline">
+          <p className="text-sm font-medium text-default-400">
+            Chưa có lịch sử đọc truyện
+          </p>
+          <Link
+            href="/products"
+            className="mt-4 text-sm font-medium text-primary hover:underline"
+          >
             Khám phá truyện
           </Link>
         </div>
@@ -122,18 +132,22 @@ export default function ReadingPage() {
                       {product.name}
                     </p>
                   </Link>
-                  <p className="mt-0.5 truncate text-xs text-default-400">{product.authorName}</p>
+                  <p className="mt-0.5 truncate text-xs text-default-400">
+                    {product.authorName}
+                  </p>
 
-                  <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <div className="mt-3 flex flex-col flex-wrap gap-3">
                     <Link
                       href={`/products/${product.id}/chapters/${chapter.chapterNumber}`}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
                     >
                       <BookOpen className="size-3" />
                       Chương {chapter.chapterNumber}
                       {chapter.chapterName ? ` – ${chapter.chapterName}` : ''}
                     </Link>
-                    <span className="text-xs text-default-400">{timeAgo(p.updatedAt)}</span>
+                    <span className="text-xs text-default-400">
+                      {timeAgo(p.updatedAt)}
+                    </span>
                   </div>
                 </div>
 

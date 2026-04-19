@@ -66,10 +66,16 @@ export default function RegisterPage() {
               stroke="currentColor"
               strokeWidth={2}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Đăng ký thành công!</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            Đăng ký thành công!
+          </h1>
           <p className="mt-2 text-sm text-default-500">
             Tài khoản của bạn đã được tạo. Hãy đăng nhập để bắt đầu đọc truyện.
           </p>
@@ -87,13 +93,20 @@ export default function RegisterPage() {
     <div className="flex min-h-[calc(100dvh-56px-48px-225px)] items-center justify-center px-4 py-12">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">Đăng ký</h1>
-          <p className="mt-1.5 text-sm text-default-500">Tạo tài khoản để bắt đầu đọc truyện</p>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            Đăng ký
+          </h1>
+          <p className="mt-1.5 text-sm text-default-500">
+            Tạo tài khoản để bắt đầu đọc truyện
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="name" className="text-sm font-medium text-foreground">
+            <label
+              htmlFor="name"
+              className="text-sm font-medium text-foreground"
+            >
               Tên hiển thị
             </label>
             <Input
@@ -109,7 +122,10 @@ export default function RegisterPage() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="email" className="text-sm font-medium text-foreground">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-foreground"
+            >
               Email
             </label>
             <Input
@@ -125,7 +141,10 @@ export default function RegisterPage() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="password" className="text-sm font-medium text-foreground">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-foreground"
+            >
               Mật khẩu
             </label>
             <div className="relative">
@@ -147,13 +166,20 @@ export default function RegisterPage() {
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-default-400"
                 aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
               >
-                {showPassword ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
+                {showPassword ? (
+                  <EyeSlash className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
               </Button>
             </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="confirm-password" className="text-sm font-medium text-foreground">
+            <label
+              htmlFor="confirm-password"
+              className="text-sm font-medium text-foreground"
+            >
               Xác nhận mật khẩu
             </label>
             <div className="relative">
@@ -175,13 +201,19 @@ export default function RegisterPage() {
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-default-400"
                 aria-label={showConfirm ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
               >
-                {showConfirm ? <EyeSlash className="size-4" /> : <Eye className="size-4" />}
+                {showConfirm ? (
+                  <EyeSlash className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
               </Button>
             </div>
           </div>
 
           {error && (
-            <p className="rounded-xl bg-danger/10 px-4 py-2.5 text-sm text-danger">{error}</p>
+            <p className="rounded-xl bg-danger/10 px-4 py-2.5 text-sm text-danger">
+              {error}
+            </p>
           )}
 
           <Button
@@ -194,7 +226,10 @@ export default function RegisterPage() {
 
         <p className="mt-6 text-center text-sm text-default-500">
           Đã có tài khoản?{' '}
-          <Link href="/auth/login" className="font-medium text-primary hover:underline">
+          <Link
+            href="/auth/login"
+            className="font-medium text-primary hover:underline"
+          >
             Đăng nhập
           </Link>
         </p>

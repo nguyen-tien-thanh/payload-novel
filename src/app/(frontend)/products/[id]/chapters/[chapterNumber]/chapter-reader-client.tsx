@@ -9,14 +9,17 @@ import {
   useReadingSettings,
 } from '@/components/frontend'
 import { ArrowLeft, ArrowRight, ArrowUp, ChevronLeft } from '@gravity-ui/icons'
+import { Button } from '@heroui/react'
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 
 interface Props {
   chapter: {
+    id: number
     chapterName: string
     chapterNumber: number
-    contentRaw: string
+    content: ReactNode
   }
   allChapters: {
     id: number
@@ -50,13 +53,22 @@ export function ChapterReaderClient({
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const paragraphs = chapter.contentRaw.split('\n').filter(Boolean)
+  useEffect(() => {
+    fetch('/api/reading-progress', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId, chapterId: chapter.id }),
+    }).catch(() => {})
+  }, [productId, chapter.id])
 
   return (
     <div
-      className={['min-h-screen transition-all duration-300', themeInfo.bg, themeInfo.text].join(
-        ' ',
-      )}
+      className={[
+        'min-h-screen transition-all duration-300',
+        themeInfo.bg,
+        themeInfo.text,
+      ].join(' ')}
     >
       <ReadingProgress />
 
@@ -81,8 +93,12 @@ export function ChapterReaderClient({
 
           {/* CENTER */}
           <div className="min-w-0 text-center">
-            <p className="truncate text-xs opacity-50">Chương {chapter.chapterNumber}</p>
-            <p className="truncate text-sm font-semibold leading-tight">{chapter.chapterName}</p>
+            <p className="truncate text-xs opacity-50">
+              Chương {chapter.chapterNumber}
+            </p>
+            <p className="truncate text-sm font-semibold leading-tight">
+              {chapter.chapterName}
+            </p>
           </div>
 
           {/* RIGHT */}
@@ -98,16 +114,15 @@ export function ChapterReaderClient({
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-5xl px-5 py-8 pb-24 sm:px-4">
+      <div className="mx-auto max-w-5xl px-5 py-8 sm:px-4">
         <div
           className={fontClass}
-          style={{ fontSize: settings.fontSize, lineHeight: settings.lineHeight }}
+          style={{
+            fontSize: settings.fontSize,
+            lineHeight: settings.lineHeight,
+          }}
         >
-          {paragraphs.map((para, i) => (
-            <p key={i} className="mb-4">
-              {para}
-            </p>
-          ))}
+          {chapter.content}
         </div>
 
         <hr className="my-10 border-divider opacity-20" />
@@ -119,13 +134,16 @@ export function ChapterReaderClient({
             {prevChapter ? (
               <Link
                 href={`/products/${productId}/chapters/${prevChapter.chapterNumber}`}
-                className="flex w-full max-w-45 items-center gap-1.5 rounded-full border border-divider px-4 py-2 text-sm font-medium transition-all hover:bg-foreground/5"
               >
-                <ArrowLeft className="h-4 w-4 shrink-0" />
-                <span className="truncate">Chương {prevChapter.chapterNumber}</span>
+                <Button variant="outline" size="md">
+                  <ArrowLeft className="h-4 w-4 shrink-0" />
+                  <span className="truncate">
+                    Chương {prevChapter.chapterNumber}
+                  </span>
+                </Button>
               </Link>
             ) : (
-              <div className="w-full max-w-45" />
+              <div />
             )}
           </div>
 
@@ -141,13 +159,16 @@ export function ChapterReaderClient({
             {nextChapter ? (
               <Link
                 href={`/products/${productId}/chapters/${nextChapter.chapterNumber}`}
-                className="flex w-full max-w-45 items-center justify-end gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
               >
-                <span className="truncate">Chương {nextChapter.chapterNumber}</span>
-                <ArrowRight className="h-4 w-4 shrink-0" />
+                <Button variant="primary" size="md">
+                  <span className="truncate">
+                    Chương {nextChapter.chapterNumber}
+                  </span>
+                  <ArrowRight className="h-4 w-4 shrink-0" />
+                </Button>
               </Link>
             ) : (
-              <div className="w-full max-w-45" />
+              <div />
             )}
           </div>
         </div>
@@ -159,49 +180,57 @@ export function ChapterReaderClient({
         style={{ backgroundColor: 'inherit', backdropFilter: 'blur(16px)' }}
       >
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-2">
-          <Link
-            href={
-              prevChapter ? `/products/${productId}/chapters/${prevChapter.chapterNumber}` : '#'
-            }
-            aria-disabled={!prevChapter}
-            className={[
-              'flex h-10 w-10 items-center justify-center rounded-full transition-all',
-              prevChapter ? 'hover:bg-foreground/10' : 'pointer-events-none opacity-30',
-            ].join(' ')}
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
+          {prevChapter ? (
+            <Link
+              href={`/products/${productId}/chapters/${prevChapter.chapterNumber}`}
+            >
+              <Button isIconOnly variant="ghost" size="md">
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            </Link>
+          ) : (
+            <Button isIconOnly variant="ghost" size="md" isDisabled>
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+          )}
 
           <span className="text-xs opacity-50">
-            <span className="font-semibold opacity-100">{currentIndex + 1}</span>
+            <span className="font-semibold opacity-100">
+              {currentIndex + 1}
+            </span>
             {' / '}
             {allChapters.length}
           </span>
 
-          <Link
-            href={
-              nextChapter ? `/products/${productId}/chapters/${nextChapter.chapterNumber}` : '#'
-            }
-            aria-disabled={!nextChapter}
-            className={[
-              'flex h-10 w-10 items-center justify-center rounded-full transition-all',
-              nextChapter ? 'hover:bg-foreground/10' : 'pointer-events-none opacity-30',
-            ].join(' ')}
-          >
-            <ArrowRight className="h-5 w-5" />
-          </Link>
+          {nextChapter ? (
+            <Link
+              href={`/products/${productId}/chapters/${nextChapter.chapterNumber}`}
+            >
+              <Button isIconOnly variant="ghost" size="md">
+                <ArrowRight className="h-5 w-5" />
+              </Button>
+            </Link>
+          ) : (
+            <Button isIconOnly variant="ghost" size="md" isDisabled>
+              <ArrowRight className="h-5 w-5" />
+            </Button>
+          )}
         </div>
       </div>
 
       {/* Scroll to top */}
       {showScrollTop && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-20 right-4 z-40 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all hover:scale-110 active:scale-95 sm:bottom-6 sm:right-6"
-          aria-label="Lên đầu trang"
-        >
-          <ArrowUp className="h-4 w-4" />
-        </button>
+        <div className="fixed bottom-20 right-4 z-40 sm:bottom-6 sm:right-6">
+          <Button
+            isIconOnly
+            variant="primary"
+            size="md"
+            onPress={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="Lên đầu trang"
+          >
+            <ArrowUp className="h-4 w-4" />
+          </Button>
+        </div>
       )}
     </div>
   )

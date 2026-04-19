@@ -35,9 +35,10 @@ export async function ProductRelated({ productId, categories }: Props) {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <h2 className="flex items-center gap-2 text-base font-bold">
-          <span className="h-5 w-1 rounded-full bg-primary" />
           Cùng thể loại
-          <span className="text-sm font-normal text-default-400">{category.name}</span>
+          <span className="text-sm font-normal text-default-400">
+            {category.name}
+          </span>
         </h2>
         <Link
           href={`/products?category=${category.id}`}

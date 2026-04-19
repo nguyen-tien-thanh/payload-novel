@@ -18,7 +18,9 @@ export function CategorySearch({ categories }: { categories: Category[] }) {
   const [q, setQ] = useState('')
 
   const filtered = q.trim()
-    ? categories.filter((c) => c.name.toLowerCase().includes(q.trim().toLowerCase()))
+    ? categories.filter((c) =>
+        c.name.toLowerCase().includes(q.trim().toLowerCase()),
+      )
     : categories
 
   return (
@@ -52,7 +54,9 @@ export function CategorySearch({ categories }: { categories: Category[] }) {
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-default-400">
           <p className="text-5xl">🔍</p>
-          <p className="mt-3 text-sm font-medium">Không tìm thấy thể loại &ldquo;{q}&rdquo;</p>
+          <p className="mt-3 text-sm font-medium">
+            Không tìm thấy thể loại &ldquo;{q}&rdquo;
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -70,6 +74,7 @@ export function CategorySearch({ categories }: { categories: Category[] }) {
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="eager"
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center text-3xl text-default-200">
@@ -83,7 +88,9 @@ export function CategorySearch({ categories }: { categories: Category[] }) {
                   {cat.name}
                 </p>
                 {cat.description && (
-                  <p className="mt-0.5 line-clamp-2 text-xs text-default-400">{cat.description}</p>
+                  <p className="mt-0.5 line-clamp-2 text-xs text-default-400">
+                    {cat.description}
+                  </p>
                 )}
               </div>
             </Link>

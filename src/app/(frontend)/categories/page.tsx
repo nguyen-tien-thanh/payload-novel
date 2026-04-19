@@ -31,7 +31,9 @@ export default async function CategoriesPage() {
     <div className="mx-auto max-w-5xl px-4 pb-10">
       <div className="py-6">
         <h1 className="text-2xl font-bold text-foreground">Thể loại</h1>
-        <p className="mt-1 text-sm text-default-500">Khám phá truyện theo thể loại yêu thích</p>
+        <p className="mt-1 text-sm text-default-500">
+          Khám phá truyện theo thể loại yêu thích
+        </p>
       </div>
 
       <CategorySearch categories={items} />

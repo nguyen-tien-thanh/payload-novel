@@ -1,11 +1,18 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
 type User = {
   id: string
   email: string
   name?: string
+  avatarUrl?: string
 }
 
 type AuthContextType = {
@@ -28,10 +35,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refresh = useCallback(async () => {
     try {
-      const res = await fetch('/api/users/me', { credentials: 'include' })
+      const res = await fetch('/api/users/me?depth=1', {
+        credentials: 'include',
+      })
       if (res.ok) {
         const data = await res.json()
-        setUser(data.user ?? null)
+        const u = data.user
+        if (u) {
+          setUser({ ...u, avatarUrl: u.avatar?.url ?? undefined })
+        } else {
+          setUser(null)
+        }
       } else {
         setUser(null)
       }
@@ -51,7 +65,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     refresh()
   }, [refresh])
 
-  return <AuthContext.Provider value={{ user, loading, refresh, logout }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, loading, refresh, logout }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export function useAuth() {

@@ -1,6 +1,7 @@
+import config from '@/payload.config'
+import { RichText } from '@payloadcms/richtext-lexical/react'
 import { getPayload } from 'payload'
 import { notFound } from 'next/navigation'
-import config from '@/payload.config'
 import { ChapterReaderClient } from './chapter-reader-client'
 
 export async function generateMetadata({
@@ -50,14 +51,17 @@ export default async function ChapterPage({
       select: {
         chapterName: true,
         chapterNumber: true,
-        contentRaw: true,
+        contentHtml: true,
         price: true,
       },
     }),
     payload.find({
       collection: 'chapters',
       where: {
-        and: [{ product: { equals: Number(id) } }, { _status: { equals: 'published' } }],
+        and: [
+          { product: { equals: Number(id) } },
+          { _status: { equals: 'published' } },
+        ],
       },
       limit: 500,
       sort: 'chapterNumber',
@@ -70,16 +74,22 @@ export default async function ChapterPage({
   if (!chapter) notFound()
 
   const chapterNum = Number(chapterNumber)
-  const currentIndex = allChapters.findIndex((c) => c.chapterNumber === chapterNum)
+  const currentIndex = allChapters.findIndex(
+    (c) => c.chapterNumber === chapterNum,
+  )
   const prevChapter = currentIndex > 0 ? allChapters[currentIndex - 1] : null
-  const nextChapter = currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1] : null
+  const nextChapter =
+    currentIndex < allChapters.length - 1 ? allChapters[currentIndex + 1] : null
 
   return (
     <ChapterReaderClient
       chapter={{
         chapterName: chapter.chapterName,
+        id: chapter.id,
         chapterNumber: chapter.chapterNumber,
-        contentRaw: chapter.contentRaw ?? '',
+        content: chapter.contentHtml ? (
+          <RichText data={chapter.contentHtml as any} />
+        ) : null,
       }}
       allChapters={allChapters.map((c) => ({
         id: c.id,
@@ -89,8 +99,12 @@ export default async function ChapterPage({
       }))}
       productId={id}
       currentIndex={currentIndex}
-      prevChapter={prevChapter ? { chapterNumber: prevChapter.chapterNumber } : null}
-      nextChapter={nextChapter ? { chapterNumber: nextChapter.chapterNumber } : null}
+      prevChapter={
+        prevChapter ? { chapterNumber: prevChapter.chapterNumber } : null
+      }
+      nextChapter={
+        nextChapter ? { chapterNumber: nextChapter.chapterNumber } : null
+      }
     />
   )
 }

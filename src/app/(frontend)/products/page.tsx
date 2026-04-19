@@ -29,7 +29,12 @@ const SORT_MAP: Record<string, string> = {
 }
 
 interface PageProps {
-  searchParams: Promise<{ q?: string; category?: string; sort?: string; page?: string }>
+  searchParams: Promise<{
+    q?: string
+    category?: string
+    sort?: string
+    page?: string
+  }>
 }
 
 export default async function ProductsPage({ searchParams }: PageProps) {
@@ -43,29 +48,33 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   if (q) where['name'] = { like: q }
   if (category) where['categories'] = { in: [Number(category)] }
 
-  const [{ docs, totalPages, totalDocs }, { docs: categories }] = await Promise.all([
-    payload.find({
-      collection: 'products',
-      where,
-      limit: LIMIT,
-      page,
-      sort: SORT_MAP[sortValue],
-      depth: 1,
-    }),
-    payload.find({
-      collection: 'categories',
-      limit: 100,
-      depth: 0,
-    }),
-  ])
+  const [{ docs, totalPages, totalDocs }, { docs: categories }] =
+    await Promise.all([
+      payload.find({
+        collection: 'products',
+        where,
+        limit: LIMIT,
+        page,
+        sort: SORT_MAP[sortValue],
+        depth: 1,
+      }),
+      payload.find({
+        collection: 'categories',
+        limit: 100,
+        depth: 0,
+      }),
+    ])
 
-  const currentSort = SORT_OPTIONS.find((s) => s.value === sortValue) ?? SORT_OPTIONS[0]
+  const currentSort =
+    SORT_OPTIONS.find((s) => s.value === sortValue) ?? SORT_OPTIONS[0]
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-10">
       <div className="pt-6 pb-3">
         <h1 className="text-2xl font-bold text-foreground">Danh sách truyện</h1>
-        <p className="mt-1 text-sm text-default-500">Khám phá hàng ngàn bộ truyện hay</p>
+        <p className="mt-1 text-sm text-default-500">
+          Khám phá hàng ngàn bộ truyện hay
+        </p>
       </div>
 
       {/* Sticky filter bar */}
@@ -90,7 +99,9 @@ export default async function ProductsPage({ searchParams }: PageProps) {
           <div className="flex flex-col items-center justify-center gap-3 py-24 text-default-400">
             <p className="text-5xl">📭</p>
             <p className="text-sm font-medium">Không tìm thấy truyện nào</p>
-            {(q || category) && <p className="text-xs">Thử thay đổi từ khóa hoặc bộ lọc</p>}
+            {(q || category) && (
+              <p className="text-xs">Thử thay đổi từ khóa hoặc bộ lọc</p>
+            )}
           </div>
         ) : (
           <div className="space-y-6">

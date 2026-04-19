@@ -23,7 +23,11 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html
       lang="vi"
@@ -34,7 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-background font-sans antialiased">
         <Providers>
           <Header />
-          <main className="min-h-[calc(100dvh-56px-48px-225px)]">{children}</main>
+          <main className="min-h-[calc(100dvh-56px-48px-225px)]">
+            {children}
+          </main>
           <Footer />
         </Providers>
       </body>

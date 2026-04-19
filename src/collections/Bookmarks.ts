@@ -1,11 +1,11 @@
-import type { CollectionConfig } from 'payload'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import type { CollectionConfig } from 'payload'
 
 export const Bookmarks: CollectionConfig = {
   slug: 'bookmarks',
   labels: {
-    singular: 'Đánh dấu',
-    plural: 'Đánh dấu',
+    singular: 'Bookmark',
+    plural: 'Bookmarks',
   },
   admin: {
     defaultColumns: ['product', 'createdBy', 'createdAt'],

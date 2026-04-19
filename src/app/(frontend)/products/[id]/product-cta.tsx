@@ -10,9 +10,15 @@ interface Props {
   layout?: 'hero' | 'sidebar'
 }
 
-export function ProductCta({ firstChapterNumber, latestChapterNumber, productId, layout = 'hero' }: Props) {
+export function ProductCta({
+  firstChapterNumber,
+  latestChapterNumber,
+  productId,
+  layout = 'hero',
+}: Props) {
   const router = useRouter()
-  const showLatest = latestChapterNumber != null && latestChapterNumber !== firstChapterNumber
+  const showLatest =
+    latestChapterNumber != null && latestChapterNumber !== firstChapterNumber
 
   const firstHref = `/products/${productId}/chapters/${firstChapterNumber}`
   const latestHref = latestChapterNumber

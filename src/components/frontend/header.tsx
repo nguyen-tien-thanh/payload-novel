@@ -36,7 +36,9 @@ export function Header() {
       <div className="mx-auto flex h-14 max-w-5xl items-center gap-4 px-4">
         <Link href="/" className="flex shrink-0 items-center gap-2">
           <Logo />
-          <span className="text-base font-bold tracking-tight text-foreground">Tiralix</span>
+          <span className="text-base font-bold tracking-tight text-foreground">
+            Tiralix
+          </span>
         </Link>
 
         <nav className="hidden flex-1 items-center gap-1 sm:flex">
@@ -111,7 +113,7 @@ export function Header() {
                             Bookmark
                           </span>
                         </DropdownItem>
-                        <DropdownItem id="/reading">
+                        <DropdownItem id="/reading-progress">
                           <span className="flex items-center gap-2">
                             <BookOpen className="size-4 shrink-0" />
                             Đang đọc

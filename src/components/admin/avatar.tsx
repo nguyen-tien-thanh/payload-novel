@@ -16,7 +16,8 @@ type UserWithAvatar = {
 }
 
 function getAvatarURL(avatar: UserWithAvatar['avatar']) {
-  if (!avatar || typeof avatar === 'number' || typeof avatar === 'string') return null
+  if (!avatar || typeof avatar === 'number' || typeof avatar === 'string')
+    return null
   return avatar.url ?? null
 }
 
@@ -29,7 +30,9 @@ export function AdminAvatar() {
   const { config } = useConfig()
   const { user } = useAuth<UserWithAvatar>()
   const pathname = usePathname()
-  const [resolvedURL, setResolvedURL] = useState<string | null>(getAvatarURL(user?.avatar))
+  const [resolvedURL, setResolvedURL] = useState<string | null>(
+    getAvatarURL(user?.avatar),
+  )
 
   const accountPath = formatAdminURL({
     adminRoute: config.routes.admin,
@@ -107,9 +110,14 @@ export function AdminAvatar() {
       style={{
         alignItems: 'center',
         background:
-          pathname === accountPath ? 'var(--theme-success-500)' : 'var(--theme-elevation-300)',
+          pathname === accountPath
+            ? 'var(--theme-success-500)'
+            : 'var(--theme-elevation-300)',
         borderRadius: '9999px',
-        color: pathname === accountPath ? 'var(--theme-success-50)' : 'var(--theme-elevation-900)',
+        color:
+          pathname === accountPath
+            ? 'var(--theme-success-50)'
+            : 'var(--theme-elevation-900)',
         display: 'flex',
         fontSize: 12,
         fontWeight: 700,

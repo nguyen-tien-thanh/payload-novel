@@ -23,8 +23,18 @@ const DEFAULT_SETTINGS: ReadingSettings = {
 
 const STORAGE_KEY = 'tiralix-reading-settings'
 
-export const THEMES: { id: ReadingTheme; label: string; bg: string; text: string }[] = [
-  { id: 'default', label: 'Mặc định', bg: 'bg-background', text: 'text-foreground' },
+export const THEMES: {
+  id: ReadingTheme
+  label: string
+  bg: string
+  text: string
+}[] = [
+  {
+    id: 'default',
+    label: 'Mặc định',
+    bg: 'bg-background',
+    text: 'text-foreground',
+  },
   { id: 'sepia', label: 'Sepia', bg: 'bg-[#f5ebe0]', text: 'text-[#3d2b1f]' },
   { id: 'dark', label: 'Tối', bg: 'bg-[#1a1a2e]', text: 'text-[#e0e0e0]' },
   { id: 'paper', label: 'Giấy', bg: 'bg-[#fafaf8]', text: 'text-[#1a1a1a]' },
@@ -94,14 +104,18 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
               <span className="text-xs font-semibold uppercase tracking-wide text-default-600">
                 Cỡ chữ
               </span>
-              <span className="font-mono text-xs text-default-400">{settings.fontSize}px</span>
+              <span className="font-mono text-xs text-default-400">
+                {settings.fontSize}px
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <Button
                 isIconOnly
                 size="sm"
                 variant="ghost"
-                onPress={() => onUpdate({ fontSize: Math.max(14, settings.fontSize - 1) })}
+                onPress={() =>
+                  onUpdate({ fontSize: Math.max(14, settings.fontSize - 1) })
+                }
                 className="size-7 shrink-0 rounded-full bg-default-100 text-sm font-bold"
                 aria-label="Giảm cỡ chữ"
               >
@@ -125,7 +139,9 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
                 isIconOnly
                 size="sm"
                 variant="ghost"
-                onPress={() => onUpdate({ fontSize: Math.min(24, settings.fontSize + 1) })}
+                onPress={() =>
+                  onUpdate({ fontSize: Math.min(24, settings.fontSize + 1) })
+                }
                 className="size-7 shrink-0 rounded-full bg-default-100 text-base font-bold"
                 aria-label="Tăng cỡ chữ"
               >
@@ -201,7 +217,11 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
                       : 'border-default-200 hover:border-default-400',
                   ].join(' ')}
                 >
-                  <span className={['text-[10px] font-medium', t.text].join(' ')}>{t.label}</span>
+                  <span
+                    className={['text-[10px] font-medium', t.text].join(' ')}
+                  >
+                    {t.label}
+                  </span>
                 </Button>
               ))}
             </div>

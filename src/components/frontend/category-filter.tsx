@@ -28,26 +28,33 @@ export function CategoryFilter({
   }
 
   return (
-    <ScrollShadow orientation="horizontal" hideScrollBar className="-mx-4 w-full px-4">
+    <ScrollShadow
+      orientation="horizontal"
+      hideScrollBar
+      className="-mx-4 w-full px-4"
+    >
       <div className="flex min-w-max gap-2 py-1">
-        {[{ id: null as number | null, name: 'Tất cả' }, ...categories].map((cat) => {
-          const isActive = cat.id === null ? !selected : selected === String(cat.id)
-          return (
-            <Button
-              key={cat.id ?? '__all__'}
-              size="sm"
-              variant={isActive ? 'primary' : 'ghost'}
-              className={
-                isActive
-                  ? 'rounded-full shadow-sm shadow-primary/30 text-sm font-medium'
-                  : 'rounded-full text-sm font-medium'
-              }
-              onPress={() => handleSelect(cat.id)}
-            >
-              {cat.name}
-            </Button>
-          )
-        })}
+        {[{ id: null as number | null, name: 'Tất cả' }, ...categories].map(
+          (cat) => {
+            const isActive =
+              cat.id === null ? !selected : selected === String(cat.id)
+            return (
+              <Button
+                key={cat.id ?? '__all__'}
+                size="sm"
+                variant={isActive ? 'primary' : 'ghost'}
+                className={
+                  isActive
+                    ? 'rounded-full shadow-sm shadow-primary/30 text-sm font-medium'
+                    : 'rounded-full text-sm font-medium'
+                }
+                onPress={() => handleSelect(cat.id)}
+              >
+                {cat.name}
+              </Button>
+            )
+          },
+        )}
       </div>
     </ScrollShadow>
   )

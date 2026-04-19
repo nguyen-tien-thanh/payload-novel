@@ -9,7 +9,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-type PopulatedBookmark = Bookmark & { product: Product & { image: Media | null } }
+type PopulatedBookmark = Bookmark & {
+  product: Product & { image: Media | null }
+}
 
 export default function BookmarksPage() {
   const { user, loading } = useAuth()
@@ -24,7 +26,9 @@ export default function BookmarksPage() {
     }
     if (!user) return
 
-    fetch('/api/bookmarks?depth=2&limit=100&sort=-id', { credentials: 'include' })
+    fetch('/api/bookmarks?depth=2&limit=100&sort=-id', {
+      credentials: 'include',
+    })
       .then((r) => r.json())
       .then((data) => setBookmarks(data.docs ?? []))
       .finally(() => setFetching(false))
@@ -32,7 +36,10 @@ export default function BookmarksPage() {
 
   async function removeBookmark(id: number) {
     setBookmarks((prev) => prev.filter((b) => b.id !== id))
-    await fetch(`/api/bookmarks/${id}`, { method: 'DELETE', credentials: 'include' })
+    await fetch(`/api/bookmarks/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
   }
 
   if (loading || fetching) {
@@ -66,8 +73,13 @@ export default function BookmarksPage() {
       {bookmarks.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 text-center">
           <BookmarkIcon className="mb-3 size-10 text-default-200" />
-          <p className="text-sm font-medium text-default-400">Chưa có truyện nào được bookmark</p>
-          <Link href="/products" className="mt-4 text-sm font-medium text-primary hover:underline">
+          <p className="text-sm font-medium text-default-400">
+            Chưa có truyện nào được bookmark
+          </p>
+          <Link
+            href="/products"
+            className="mt-4 text-sm font-medium text-primary hover:underline"
+          >
             Khám phá truyện
           </Link>
         </div>
@@ -103,7 +115,9 @@ export default function BookmarksPage() {
                     <p className="line-clamp-2 text-xs font-semibold leading-snug text-foreground group-hover:text-primary sm:text-sm">
                       {product.name}
                     </p>
-                    <p className="truncate text-[11px] text-default-400">{product.authorName}</p>
+                    <p className="truncate text-[11px] text-default-400">
+                      {product.authorName}
+                    </p>
                   </div>
                 </Link>
                 <Button
@@ -113,7 +127,11 @@ export default function BookmarksPage() {
                   className="absolute right-1.5 top-1.5 size-6 min-w-0 rounded-full bg-foreground/50 text-background opacity-0 transition-opacity group-hover:opacity-100 hover:bg-foreground/70"
                   aria-label="Xóa bookmark"
                 >
-                  <svg className="size-3.5" viewBox="0 0 24 24" fill="currentColor">
+                  <svg
+                    className="size-3.5"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                   </svg>
                 </Button>

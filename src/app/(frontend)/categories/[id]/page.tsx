@@ -26,15 +26,24 @@ interface PageProps {
   searchParams: Promise<{ sort?: string; page?: string }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { id } = await params
   const payload = await getPayload({ config: await config })
-  const category = await payload.findByID({ collection: 'categories', id: Number(id), depth: 0 })
+  const category = await payload.findByID({
+    collection: 'categories',
+    id: Number(id),
+    depth: 0,
+  })
   if (!category) return {}
   return { title: `Thể loại: ${category.name}` }
 }
 
-export default async function CategoryDetailPage({ params, searchParams }: PageProps) {
+export default async function CategoryDetailPage({
+  params,
+  searchParams,
+}: PageProps) {
   const { id } = await params
   const { sort, page: pageParam } = await searchParams
   const page = Math.max(1, Number(pageParam ?? 1))
@@ -51,7 +60,10 @@ export default async function CategoryDetailPage({ params, searchParams }: PageP
   if (!category) notFound()
 
   const where: Where = {
-    and: [{ _status: { equals: 'published' } }, { categories: { in: [Number(id)] } }],
+    and: [
+      { _status: { equals: 'published' } },
+      { categories: { in: [Number(id)] } },
+    ],
   }
 
   const { docs, totalPages, totalDocs } = await payload.find({
@@ -77,7 +89,9 @@ export default async function CategoryDetailPage({ params, searchParams }: PageP
           <span className="text-foreground font-medium">{cat.name}</span>
         </div>
         <h1 className="mt-2 text-2xl font-bold text-foreground">{cat.name}</h1>
-        {cat.description && <p className="mt-1 text-sm text-default-500">{cat.description}</p>}
+        {cat.description && (
+          <p className="mt-1 text-sm text-default-500">{cat.description}</p>
+        )}
       </div>
 
       {/* Sort bar */}
@@ -91,7 +105,9 @@ export default async function CategoryDetailPage({ params, searchParams }: PageP
         {docs.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-3 py-24 text-default-400">
             <p className="text-5xl">📭</p>
-            <p className="text-sm font-medium">Chưa có truyện nào trong thể loại này</p>
+            <p className="text-sm font-medium">
+              Chưa có truyện nào trong thể loại này
+            </p>
           </div>
         ) : (
           <div className="space-y-6">

@@ -20,7 +20,15 @@ interface PageProps {
   searchParams: Promise<{ q?: string; category?: string; page?: string }>
 }
 
-async function ProductGrid({ q, category, page }: { q?: string; category?: string; page: number }) {
+async function ProductGrid({
+  q,
+  category,
+  page,
+}: {
+  q?: string
+  category?: string
+  page: number
+}) {
   const payload = await getPayload({ config: await config })
 
   const where: Where = { _status: { equals: 'published' } }
@@ -47,7 +55,7 @@ async function ProductGrid({ q, category, page }: { q?: string; category?: strin
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5">
+      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-6">
         {docs.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
@@ -137,13 +145,33 @@ export default async function HomePage({ searchParams }: PageProps) {
             products={popularProducts.slice(0, 8)}
             href="/products"
           />
-          <BookshelfRow title="Phổ biến nhất" products={popularProducts} href="/products" />
-          <BookshelfRow title="Truyện mới" products={newProducts} href="/products" />
-          <BookshelfRow title="Mới cập nhật" products={recentProducts} href="/products" />
+          <BookshelfRow
+            title="Phổ biến nhất"
+            products={popularProducts}
+            href="/products"
+          />
+          <BookshelfRow
+            title="Truyện mới"
+            products={newProducts}
+            href="/products"
+          />
+          <BookshelfRow
+            title="Mới cập nhật"
+            products={recentProducts}
+            href="/products"
+          />
 
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <RankingTable title="Bảng xếp hạng ngày" products={dailyProducts} badge="🔥" />
-            <RankingTable title="Bảng xếp hạng tháng" products={monthlyProducts} badge="📈" />
+            <RankingTable
+              title="Bảng xếp hạng ngày"
+              products={dailyProducts}
+              badge="🔥"
+            />
+            <RankingTable
+              title="Bảng xếp hạng tháng"
+              products={monthlyProducts}
+              badge="📈"
+            />
           </div>
 
           <div>

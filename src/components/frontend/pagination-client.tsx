@@ -63,7 +63,9 @@ export function PaginationClient({ total, page }: Props) {
             variant={isActive ? 'primary' : 'ghost'}
             className={[
               'rounded-full',
-              isActive ? 'bg-primary text-primary-foreground' : 'text-default-500',
+              isActive
+                ? 'bg-primary text-primary-foreground'
+                : 'text-default-500',
             ].join(' ')}
             onPress={() => handleChange(p)}
           >

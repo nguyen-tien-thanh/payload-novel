@@ -8,7 +8,13 @@ interface SortOption {
   label: string
 }
 
-export function SortTabs({ options, current }: { options: SortOption[]; current: string }) {
+export function SortTabs({
+  options,
+  current,
+}: {
+  options: SortOption[]
+  current: string
+}) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
