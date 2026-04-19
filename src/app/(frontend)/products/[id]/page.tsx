@@ -9,8 +9,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import { BookmarkButton } from './bookmark-button'
+import { ProductComments } from './product-comments'
 import { ProductCta } from './product-cta'
 import { ProductDescription } from './product-description'
+import { ProductRating } from './product-rating'
 import { ProductRelated } from './product-related'
 import { ViewTracker } from './view-tracker'
 
@@ -216,6 +218,12 @@ export default async function ProductDetailPage({
               </div>
             )}
           </div>
+        </div>
+
+        {/* Rating & Comments */}
+        <div className="mt-8 space-y-4">
+          <ProductRating productId={id} />
+          <ProductComments productId={id} />
         </div>
 
         {/* Related */}

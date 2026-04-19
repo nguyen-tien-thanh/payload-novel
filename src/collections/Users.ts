@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin } from '@/access/isAdmin'
 import { isPublic } from '@/access/isPublic'
-import { isOwner } from '@/access/isOwner'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -13,7 +12,11 @@ export const Users: CollectionConfig = {
   auth: true,
   access: {
     create: isPublic,
-    read: isOwner,
+    read: ({ req }) => {
+      if (!req.user) return false
+      if (req.user.role === 'admin') return true
+      return { id: { equals: req.user.id } }
+    },
     update: ({ req, id }) =>
       req.user?.role === 'admin' || String(req.user?.id) === String(id),
     delete: isAdmin,

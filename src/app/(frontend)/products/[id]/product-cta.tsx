@@ -75,9 +75,10 @@ export function ProductCta({
       </div>
 
       {/* Mobile */}
-      <div className="mb-8 flex gap-3 sm:hidden">
+      <div className="flex gap-2 sm:hidden">
         <Button
           variant="primary"
+          size="sm"
           fullWidth
           className="rounded-full font-semibold"
           onPress={() => router.push(firstHref)}
@@ -87,6 +88,7 @@ export function ProductCta({
         {showLatest && latestHref && (
           <Button
             variant="outline"
+            size="sm"
             fullWidth
             className="rounded-full font-semibold"
             onPress={() => router.push(latestHref)}
