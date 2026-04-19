@@ -1,10 +1,7 @@
 import type { CollectionConfig } from 'payload'
-import {
-  canReadChapter,
-  canCreateChapter,
-  canUpdateChapter,
-  canDeleteChapter,
-} from '@/access/chapterAccess'
+import { isPublishedOrOwner } from '@/access/isPublishedOrOwner'
+import { isLoggedIn } from '@/access/isLoggedIn'
+import { isOwner } from '@/access/isOwner'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
 import { extractContentRaw } from '@/hooks/extractContentRaw'
 
@@ -16,13 +13,7 @@ export const Chapters: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'chapterName',
-    defaultColumns: [
-      'chapterName',
-      'chapterNumber',
-      'product',
-      'price',
-      '_status',
-    ],
+    defaultColumns: ['chapterName', 'chapterNumber', 'product', 'price', '_status'],
   },
   trash: true,
   versions: {
@@ -34,10 +25,10 @@ export const Chapters: CollectionConfig = {
     maxPerDoc: 100,
   },
   access: {
-    read: canReadChapter,
-    create: canCreateChapter,
-    update: canUpdateChapter,
-    delete: canDeleteChapter,
+    read: isPublishedOrOwner,
+    create: isLoggedIn,
+    update: isOwner,
+    delete: isOwner,
   },
   hooks: {
     beforeChange: [setCreatedBy, extractContentRaw],
@@ -93,9 +84,7 @@ export const Chapters: CollectionConfig = {
       type: 'textarea',
       required: true,
       label: 'Nội dung thô',
-      admin: {
-        hidden: true,
-      },
+      admin: { hidden: true },
     },
     {
       name: 'createdBy',

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import { isAdmin } from '@/access/isAdmin'
 
 export const Views: CollectionConfig = {
   slug: 'views',
@@ -9,6 +10,12 @@ export const Views: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['product', 'createdBy', 'ip', 'createdAt'],
+  },
+  access: {
+    create: () => true,
+    read: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   hooks: {
     beforeChange: [setCreatedBy],

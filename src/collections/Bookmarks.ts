@@ -1,5 +1,8 @@
 import { setCreatedBy } from '@/hooks/setCreatedBy'
 import type { CollectionConfig } from 'payload'
+import { isAdmin } from '@/access/isAdmin'
+import { isLoggedIn } from '@/access/isLoggedIn'
+import { isOwner } from '@/access/isOwner'
 
 export const Bookmarks: CollectionConfig = {
   slug: 'bookmarks',
@@ -11,10 +14,10 @@ export const Bookmarks: CollectionConfig = {
     defaultColumns: ['product', 'createdBy', 'createdAt'],
   },
   access: {
-    create: ({ req }) => !!req.user,
-    read: ({ req }) => !!req.user,
-    update: ({ req }) => req.user?.role === 'admin',
-    delete: ({ req, id }) => req.user?.role === 'admin' || !!req.user,
+    create: isLoggedIn,
+    read: isOwner,
+    update: isAdmin,
+    delete: isOwner,
   },
   hooks: {
     beforeChange: [setCreatedBy],

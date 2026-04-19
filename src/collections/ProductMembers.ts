@@ -1,10 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import {
-  canReadProductMember,
-  canCreateProductMember,
-  canUpdateProductMember,
-  canDeleteProductMember,
-} from '@/access/productMemberAccess'
+import { isAdmin } from '@/access/isAdmin'
 
 export const ProductMembers: CollectionConfig = {
   slug: 'product-members',
@@ -14,12 +9,13 @@ export const ProductMembers: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['product', 'user', 'role', 'createdAt'],
+    hidden: true,
   },
   access: {
-    read: canReadProductMember,
-    create: canCreateProductMember,
-    update: canUpdateProductMember,
-    delete: canDeleteProductMember,
+    read: isAdmin,
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   fields: [
     {

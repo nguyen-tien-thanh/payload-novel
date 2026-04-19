@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import { isLoggedIn } from '@/access/isLoggedIn'
+import { isOwner } from '@/access/isOwner'
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -10,6 +12,12 @@ export const Comments: CollectionConfig = {
   admin: {
     useAsTitle: 'content',
     defaultColumns: ['content', 'product', 'createdBy', 'createdAt'],
+  },
+  access: {
+    create: isLoggedIn,
+    read: () => true,
+    update: isOwner,
+    delete: isOwner,
   },
   hooks: {
     beforeChange: [setCreatedBy],

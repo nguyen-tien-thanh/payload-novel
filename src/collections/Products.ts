@@ -1,10 +1,7 @@
 import type { CollectionConfig } from 'payload'
-import {
-  canReadProduct,
-  canCreateProduct,
-  isProductOwnerOrAdmin,
-  isProductEditorOrAdmin,
-} from '@/access/productAccess'
+import { isPublishedOrOwner } from '@/access/isPublishedOrOwner'
+import { isLoggedIn } from '@/access/isLoggedIn'
+import { isOwner } from '@/access/isOwner'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
 
 export const Products: CollectionConfig = {
@@ -27,27 +24,13 @@ export const Products: CollectionConfig = {
     maxPerDoc: 50,
   },
   access: {
-    read: canReadProduct,
-    create: canCreateProduct,
-    update: isProductEditorOrAdmin,
-    delete: isProductOwnerOrAdmin,
+    read: isPublishedOrOwner,
+    create: isLoggedIn,
+    update: isOwner,
+    delete: isOwner,
   },
   hooks: {
     beforeChange: [setCreatedBy],
-    afterChange: [
-      async ({ doc, operation, req }) => {
-        if (operation !== 'create' || !req.user) return
-        await req.payload.create({
-          collection: 'product-members',
-          data: {
-            product: doc.id,
-            user: req.user.id,
-            role: 'owner',
-          },
-          req,
-        })
-      },
-    ],
   },
   fields: [
     {

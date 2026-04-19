@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import { isLoggedIn } from '@/access/isLoggedIn'
+import { isOwner } from '@/access/isOwner'
 
 export const ReadingProgress: CollectionConfig = {
   slug: 'reading-progress',
@@ -11,10 +13,10 @@ export const ReadingProgress: CollectionConfig = {
     defaultColumns: ['product', 'chapter', 'createdBy', 'updatedAt'],
   },
   access: {
-    create: ({ req }) => !!req.user,
-    read: ({ req }) => !!req.user,
-    update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    create: isLoggedIn,
+    read: isOwner,
+    update: isOwner,
+    delete: isOwner,
   },
   hooks: {
     beforeChange: [setCreatedBy],

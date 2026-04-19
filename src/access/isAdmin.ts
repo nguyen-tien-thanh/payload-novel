@@ -1,5 +1,3 @@
 import type { Access } from 'payload'
 
-export const isAdmin: Access = ({ req }) => {
-  return req.user?.role === 'admin'
-}
+export const isAdmin: Access = ({ req }) => req.user?.role === 'admin'

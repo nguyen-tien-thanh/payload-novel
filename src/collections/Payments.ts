@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import { isAdmin } from '@/access/isAdmin'
+import { isLoggedIn } from '@/access/isLoggedIn'
+import { isOwner } from '@/access/isOwner'
 
 export const Payments: CollectionConfig = {
   slug: 'payments',
@@ -9,6 +12,12 @@ export const Payments: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['amount', 'createdBy', 'createdAt'],
+  },
+  access: {
+    create: isLoggedIn,
+    read: isOwner,
+    update: isAdmin,
+    delete: isAdmin,
   },
   hooks: {
     beforeChange: [setCreatedBy],
