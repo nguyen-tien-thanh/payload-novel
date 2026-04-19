@@ -61,12 +61,24 @@ Use shade variants: `{color}-50` through `{color}-900`, or `{color}-foreground`.
 ### Button
 ```tsx
 import { Button } from "@heroui/react";
+import Link from "next/link";
 
-<Button color="primary" variant="solid">Submit</Button>
-<Button color="danger" variant="flat">Delete</Button>
-<Button isLoading={loading} color="primary">Save</Button>
-<Button as="a" href="/path" color="default" variant="light">Link</Button>
+<Button variant="primary">Submit</Button>
+<Button variant="danger">Delete</Button>
+<Button variant="danger-soft">Soft Delete</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="tertiary">Tertiary</Button>
+<Button isLoading={loading} variant="primary">Save</Button>
+
+{/* Button dẫn đến link: bọc bằng next/link, KHÔNG dùng prop as= */}
+<Link href="/path"><Button variant="ghost">Đi tới trang</Button></Link>
 ```
+
+**Valid variants:** `primary` | `secondary` | `tertiary` | `ghost` | `outline` | `danger` | `danger-soft`
+**Invalid (đừng dùng):** `flat`, `light`, `solid`, `bordered`, `faded`
+**Không có prop `as`** — Button không hỗ trợ polymorphic rendering. Dùng `<Link>` bọc ngoài nếu cần điều hướng.
 
 ### Input / Form fields
 ```tsx
@@ -102,7 +114,7 @@ const { isOpen, onOpen, onClose } = useDisclosure();
     <ModalHeader>Title</ModalHeader>
     <ModalBody>Content</ModalBody>
     <ModalFooter>
-      <Button variant="flat" onPress={onClose}>Cancel</Button>
+      <Button variant="ghost" onPress={onClose}>Cancel</Button>
       <Button color="primary" onPress={handleConfirm}>Confirm</Button>
     </ModalFooter>
   </ModalContent>
@@ -113,9 +125,14 @@ const { isOpen, onOpen, onClose } = useDisclosure();
 ```tsx
 import { Chip } from "@heroui/react";
 
-<Chip color="primary" variant="flat">New</Chip>
-<Chip color="success" size="sm">Active</Chip>
+<Chip variant="primary">New</Chip>
+<Chip variant="soft" color="success" size="sm">Active</Chip>
+<Chip variant="secondary" color="danger">Error</Chip>
 ```
+
+**Valid variants:** `primary` | `secondary` | `tertiary` | `soft`
+**Valid colors:** `default` | `danger` | `success` | `warning` | `accent`
+**Invalid (đừng dùng):** `flat`, `bordered`, `faded`, `solid`, `light`
 
 ### Table
 ```tsx

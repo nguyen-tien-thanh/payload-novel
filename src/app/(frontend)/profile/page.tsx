@@ -197,7 +197,7 @@ export default function ProfilePage() {
       {/* Avatar + name */}
       <div className="mb-8 flex flex-col items-center gap-3">
         <div className="relative">
-          <div className="relative size-24 overflow-hidden rounded-full bg-default-100 ring-4 ring-background shadow-md">
+          <div className="relative size-24 overflow-hidden rounded-full bg-default-100 ring-4 ring-background shadow-md border">
             {avatar?.url ? (
               <Image
                 src={avatar.url}
@@ -206,6 +206,7 @@ export default function ProfilePage() {
                 sizes="96px"
                 className="object-cover"
                 priority
+                loading="eager"
               />
             ) : (
               <div className="flex h-full items-center justify-center">
@@ -256,7 +257,7 @@ export default function ProfilePage() {
         </TabList>
 
         {/* Info tab */}
-        <TabPanel id="info">
+        <TabPanel id="info" className="p-0">
           <form
             onSubmit={handleSaveInfo}
             className="rounded-2xl border border-divider bg-content1 p-6"
@@ -340,7 +341,7 @@ export default function ProfilePage() {
         </TabPanel>
 
         {/* Password tab */}
-        <TabPanel id="password">
+        <TabPanel id="password" className="p-0">
           <form
             onSubmit={handleChangePassword}
             className="rounded-2xl border border-divider bg-content1 p-6"

@@ -115,6 +115,7 @@ export default function ReadingPage() {
                         alt={product.name}
                         fill
                         sizes="80px"
+                        loading="eager"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (

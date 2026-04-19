@@ -58,6 +58,7 @@ export function RankingTable({ title, products, badge }: Props) {
                     fill
                     sizes="36px"
                     className="object-cover"
+                    loading="eager"
                   />
                 )}
               </div>

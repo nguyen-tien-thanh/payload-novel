@@ -93,6 +93,7 @@ export default async function ProductDetailPage({
                     alt={product.name}
                     fill
                     sizes="180px"
+                    loading="eager"
                     className="object-cover"
                     priority
                   />

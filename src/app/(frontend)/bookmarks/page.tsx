@@ -97,6 +97,7 @@ export default function BookmarksPage() {
                         src={image.url}
                         alt={product.name}
                         fill
+                        loading="eager"
                         sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, 16vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />

@@ -10,6 +10,7 @@ import {
   DropdownMenu,
   DropdownPopover,
   DropdownSection,
+  Skeleton,
 } from '@heroui/react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -73,72 +74,70 @@ export function Header() {
 
           <ThemeToggle />
 
-          {!loading && (
-            <>
-              {user ? (
-                <Dropdown>
-                  <Button
-                    isIconOnly
-                    variant="ghost"
-                    size="sm"
-                    className="text-default-500 hover:text-foreground"
-                    aria-label="Tài khoản"
-                  >
-                    <Person className="size-4.5" />
-                  </Button>
-                  <DropdownPopover placement="bottom end">
-                    <DropdownMenu
-                      onAction={(key) => {
-                        if (key === 'logout') handleLogout()
-                        else router.push(key as string)
-                      }}
-                    >
-                      <DropdownSection className="border-b border-divider pb-1 mb-1">
-                        <DropdownItem id="__name">
-                          <p className="truncate text-sm font-semibold text-foreground">
-                            {user.name || user.email}
-                          </p>
-                        </DropdownItem>
-                      </DropdownSection>
-                      <DropdownSection className="border-b border-divider pb-1 mb-1">
-                        <DropdownItem id="/profile">
-                          <span className="flex items-center gap-2">
-                            <Person className="size-4 shrink-0" />
-                            Trang cá nhân
-                          </span>
-                        </DropdownItem>
-                        <DropdownItem id="/bookmarks">
-                          <span className="flex items-center gap-2">
-                            <Bookmark className="size-4 shrink-0" />
-                            Bookmark
-                          </span>
-                        </DropdownItem>
-                        <DropdownItem id="/reading-progress">
-                          <span className="flex items-center gap-2">
-                            <BookOpen className="size-4 shrink-0" />
-                            Đang đọc
-                          </span>
-                        </DropdownItem>
-                      </DropdownSection>
-                      <DropdownSection>
-                        <DropdownItem id="logout" className="text-danger">
-                          Đăng xuất
-                        </DropdownItem>
-                      </DropdownSection>
-                    </DropdownMenu>
-                  </DropdownPopover>
-                </Dropdown>
-              ) : (
-                <Link href="/auth/login">
-                  <Button
-                    size="sm"
-                    className="rounded-full bg-primary text-sm font-semibold text-white"
-                  >
-                    Đăng nhập
-                  </Button>
-                </Link>
-              )}
-            </>
+          {loading ? (
+            <Skeleton className="h-8 w-20 rounded-full" />
+          ) : user ? (
+            <Dropdown>
+              <Button
+                isIconOnly
+                variant="ghost"
+                size="sm"
+                className="text-default-500 hover:text-foreground"
+                aria-label="Tài khoản"
+              >
+                <Person className="size-4.5" />
+              </Button>
+              <DropdownPopover placement="bottom end">
+                <DropdownMenu
+                  onAction={(key) => {
+                    if (key === 'logout') handleLogout()
+                    else router.push(key as string)
+                  }}
+                >
+                  <DropdownSection className="border-b border-divider pb-1 mb-1">
+                    <DropdownItem id="__name">
+                      <p className="truncate text-sm font-semibold text-foreground">
+                        {user.name || user.email}
+                      </p>
+                    </DropdownItem>
+                  </DropdownSection>
+                  <DropdownSection className="border-b border-divider pb-1 mb-1">
+                    <DropdownItem id="/profile">
+                      <span className="flex items-center gap-2">
+                        <Person className="size-4 shrink-0" />
+                        Trang cá nhân
+                      </span>
+                    </DropdownItem>
+                    <DropdownItem id="/bookmarks">
+                      <span className="flex items-center gap-2">
+                        <Bookmark className="size-4 shrink-0" />
+                        Bookmark
+                      </span>
+                    </DropdownItem>
+                    <DropdownItem id="/reading-progress">
+                      <span className="flex items-center gap-2">
+                        <BookOpen className="size-4 shrink-0" />
+                        Đang đọc
+                      </span>
+                    </DropdownItem>
+                  </DropdownSection>
+                  <DropdownSection>
+                    <DropdownItem id="logout" className="text-danger">
+                      Đăng xuất
+                    </DropdownItem>
+                  </DropdownSection>
+                </DropdownMenu>
+              </DropdownPopover>
+            </Dropdown>
+          ) : (
+            <Link href="/auth/login">
+              <Button
+                size="sm"
+                className="rounded-full bg-primary text-sm font-semibold text-white"
+              >
+                Đăng nhập
+              </Button>
+            </Link>
           )}
         </div>
       </div>
