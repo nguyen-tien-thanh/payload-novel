@@ -188,9 +188,12 @@ export default async function ProductDetailPage({
             <ChapterList productId={id} chapters={chapters} />
           </div>
 
-          {/* Rating — right column on lg+ */}
-          <div className="w-full lg:w-72 lg:shrink-0">
+          {/* Right column: Rating + Related (desktop only) */}
+          <div className="w-full lg:w-72 lg:shrink-0 lg:flex lg:flex-col lg:gap-6">
             <ProductRating productId={id} />
+            <div className="hidden lg:block">
+              <ProductRelated productId={Number(id)} categories={categories} />
+            </div>
           </div>
         </div>
 
@@ -199,8 +202,8 @@ export default async function ProductDetailPage({
           <ProductComments productId={id} />
         </div>
 
-        {/* Related */}
-        <div className="mt-10">
+        {/* Related — mobile only (desktop version is in the right column above) */}
+        <div className="mt-10 lg:hidden">
           <ProductRelated productId={Number(id)} categories={categories} />
         </div>
       </div>

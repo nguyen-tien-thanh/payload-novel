@@ -78,7 +78,7 @@ export function CategorySearch({ categories }: { categories: Category[] }) {
                   />
                 ) : (
                   <div className="flex h-full items-center justify-center text-3xl text-default-200">
-                    📚
+                    ?
                   </div>
                 )}
                 <div className="absolute inset-0 bg-linear-to-t from-foreground/50 to-transparent" />

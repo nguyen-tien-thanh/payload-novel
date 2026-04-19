@@ -60,7 +60,7 @@ interface Chapter {
   price?: number | null
 }
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 12
 
 function getPageNumbers(
   current: number,
@@ -103,21 +103,21 @@ export function ChapterList({
             <Link
               key={ch.id}
               href={`/products/${productId}/chapters/${ch.chapterNumber}`}
-              className="group flex items-center gap-3 px-5 py-3 transition-colors hover:bg-content2"
+              className="group flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:bg-content2 hover:translate-x-0.5"
             >
-              <span className="w-8 shrink-0 text-right font-mono text-xs text-default-300">
+              <span className="w-8 shrink-0 text-right font-mono text-xs text-default-300 transition-colors duration-200 group-hover:text-default-500">
                 {ch.chapterNumber}
               </span>
-              <span className="min-w-0 flex-1 truncate text-sm text-foreground group-hover:text-primary">
+              <span className="min-w-0 flex-1 truncate text-sm text-foreground transition-colors duration-200 group-hover:text-primary">
                 {ch.chapterName}
               </span>
               {locked ? (
-                <span className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-warning">
+                <span className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-warning transition-opacity duration-200 group-hover:opacity-90">
                   <Lock className="h-3 w-3" />
                   {ch.price!.toLocaleString('vi-VN')}
                 </span>
               ) : (
-                <ChevronRight className="h-4 w-4 shrink-0 text-default-200 transition-colors group-hover:text-primary" />
+                <ChevronRight className="h-4 w-4 shrink-0 text-default-200 transition-all duration-200 group-hover:text-primary group-hover:translate-x-0.5" />
               )}
             </Link>
           )

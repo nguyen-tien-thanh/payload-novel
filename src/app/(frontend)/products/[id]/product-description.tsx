@@ -11,13 +11,13 @@ export function ProductDescription({ text }: { text: string }) {
         <p
           className={[
             'text-sm leading-relaxed text-default-500',
-            expanded ? '' : 'line-clamp-3',
+            expanded ? '' : 'line-clamp-2',
           ].join(' ')}
         >
           {text}
         </p>
         {!expanded && (
-          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-5 bg-linear-to-t from-background/80 to-transparent" />
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-5 bg-linear-to-t from-background/50 to-transparent" />
         )}
       </div>
       <button
