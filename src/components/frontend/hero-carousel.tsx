@@ -29,10 +29,10 @@ export function HeroCarousel({ products }: Props) {
         slidesPerView={2}
         spaceBetween={12}
         breakpoints={{
-          1024: { slidesPerView: 3, spaceBetween: 16 },
+          1024: { slidesPerView: 4, spaceBetween: 16 },
         }}
         loop
-        className="h-70 sm:h-90 lg:h-105"
+        className="h-70 sm:h-90"
       >
         {products.map((product) => {
           const image = product.image as Media | null

@@ -56,7 +56,7 @@ async function ProductGrid({
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-6">
+      <div className="grid grid-cols-4 gap-3 sm:gap-4 lg:grid-cols-6">
         {docs.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
@@ -124,7 +124,7 @@ export default async function HomePage({ searchParams }: PageProps) {
         </div>
       )}
 
-      <div className="sticky top-14.25 z-40 -mx-4 space-y-2.5 border-b border-divider bg-background/90 px-4 py-3">
+      <div className="z-40 -mx-4 space-y-2.5 border-b border-divider bg-background/90 px-4 py-3">
         <Suspense>
           <SearchBar />
         </Suspense>

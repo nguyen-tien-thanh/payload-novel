@@ -8,7 +8,7 @@ import {
   getThemeClasses,
   useReadingSettings,
 } from '@/components/frontend'
-import { ArrowLeft, ArrowRight, ArrowUp, ChevronLeft } from '@gravity-ui/icons'
+import { ArrowLeft, ArrowRight, ChevronLeft } from '@gravity-ui/icons'
 import { Button } from '@heroui/react'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
@@ -217,21 +217,6 @@ export function ChapterReaderClient({
           )}
         </div>
       </div>
-
-      {/* Scroll to top */}
-      {showScrollTop && (
-        <div className="fixed bottom-20 right-4 z-40 sm:bottom-6 sm:right-6">
-          <Button
-            isIconOnly
-            variant="primary"
-            size="md"
-            onPress={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label="Lên đầu trang"
-          >
-            <ArrowUp className="h-4 w-4" />
-          </Button>
-        </div>
-      )}
     </div>
   )
 }

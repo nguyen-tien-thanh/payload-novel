@@ -79,7 +79,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
       </div>
 
       {/* Sticky filter bar */}
-      <div className="sticky top-14 z-40 -mx-4 space-y-2.5 border-b border-divider bg-background/95 px-4 py-3 backdrop-blur-xl">
+      <div className="z-40 -mx-4 space-y-2.5 border-b border-divider bg-background/95 px-4 py-3 backdrop-blur-xl">
         <Suspense>
           <SearchBar />
         </Suspense>

@@ -1,4 +1,4 @@
-import { Footer, Header } from '@/components/frontend'
+import { Footer, Header, ScrollToTop } from '@/components/frontend'
 import { Be_Vietnam_Pro } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
@@ -49,6 +49,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <ScrollToTop />
         </Providers>
       </body>
     </html>

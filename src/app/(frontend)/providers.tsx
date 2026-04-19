@@ -8,7 +8,7 @@ import NextTopLoader from 'nextjs-toploader'
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-      <NextTopLoader color="#F8AD89" showSpinner={false} height={3} />
+      <NextTopLoader color="var(--accent)" showSpinner={false} height={3} />
       <ToastProvider placement="bottom" maxVisibleToasts={3} />
       <AuthProvider>{children}</AuthProvider>
     </ThemeProvider>
