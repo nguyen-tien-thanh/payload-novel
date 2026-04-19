@@ -3,12 +3,12 @@ export const dynamic = 'force-dynamic'
 import { CategoryBadge } from '@/components/frontend/category-badge'
 import type { Category, Media } from '@/payload-types'
 import config from '@/payload.config'
-import { BookOpen, ChevronRight, Eye } from '@gravity-ui/icons'
+import { BookOpen, Eye } from '@gravity-ui/icons'
 import Image from 'next/image'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import { BookmarkButton } from './bookmark-button'
+import { ChapterList } from './chapter-list'
 import { ProductComments } from './product-comments'
 import { ProductCta } from './product-cta'
 import { ProductDescription } from './product-description'
@@ -174,55 +174,28 @@ export default async function ProductDetailPage({
         </div>
 
         {/* ── Main content ── */}
-        <div className="space-y-8">
-          {/* Description */}
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
           {/* Chapter list */}
-          <div className="rounded-2xl border border-divider bg-content1">
+          <div className="min-w-0 flex-1 rounded-2xl border border-divider bg-content1">
             <div className="flex items-center justify-between border-b border-divider px-5 py-4">
-              <h2 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-default-500">
+              <h2 className="text-sm font-bold uppercase tracking-wide text-default-500">
                 Danh sách chương
               </h2>
               <span className="rounded-full bg-default-100 px-2.5 py-0.5 text-xs font-medium text-default-500">
                 {chapters.length}
               </span>
             </div>
+            <ChapterList productId={id} chapters={chapters} />
+          </div>
 
-            {chapters.length === 0 ? (
-              <p className="py-12 text-center text-sm text-default-400">
-                Chưa có chương nào
-              </p>
-            ) : (
-              <div className="divide-y divide-divider/50">
-                {chapters.map((ch) => (
-                  <Link
-                    key={ch.id}
-                    href={`/products/${id}/chapters/${ch.chapterNumber}`}
-                    className="group flex items-center gap-4 px-5 py-3 transition-all hover:bg-content2"
-                  >
-                    <span className="w-8 shrink-0 text-right font-mono text-xs font-semibold text-default-300">
-                      {ch.chapterNumber}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm text-foreground transition-all group-hover:text-primary">
-                        {ch.chapterName}
-                      </p>
-                      {ch.price != null && ch.price > 0 && (
-                        <p className="mt-0.5 text-[11px] font-medium text-warning">
-                          🔒 {ch.price.toLocaleString('vi-VN')} xu
-                        </p>
-                      )}
-                    </div>
-                    <ChevronRight className="h-4 w-4 shrink-0 text-default-200 transition-all group-hover:text-primary" />
-                  </Link>
-                ))}
-              </div>
-            )}
+          {/* Rating — right column on lg+ */}
+          <div className="w-full lg:w-72 lg:shrink-0">
+            <ProductRating productId={id} />
           </div>
         </div>
 
-        {/* Rating & Comments */}
-        <div className="mt-8 space-y-4">
-          <ProductRating productId={id} />
+        {/* Comments — full width below */}
+        <div className="mt-6">
           <ProductComments productId={id} />
         </div>
 

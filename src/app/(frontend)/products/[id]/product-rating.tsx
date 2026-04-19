@@ -53,63 +53,43 @@ export function ProductRating({ productId }: { productId: string }) {
   const active = hover || data.myRating || 0
 
   return (
-    <div className="rounded-2xl border border-divider bg-content1 p-5">
-      <h2 className="mb-4 text-sm font-bold uppercase tracking-wide text-default-500">
-        Đánh giá
-      </h2>
-
-      <div className="flex items-center gap-6">
+    <div className="rounded-2xl border border-divider bg-content1 p-4">
+      <div className="flex items-center justify-between gap-3">
         {/* Score */}
-        <div className="flex flex-col items-center gap-1">
-          <span className="text-4xl font-bold text-foreground">{data.avg > 0 ? data.avg : '—'}</span>
-          <div className="flex text-warning">
+        <div className="flex items-center gap-2">
+          <span className="text-2xl font-bold text-foreground leading-none">
+            {data.avg > 0 ? data.avg : '—'}
+          </span>
+          <div>
+            <div className="flex text-warning">
+              {[1,2,3,4,5].map((s) => (
+                <StarIcon key={s} filled={s <= Math.round(data.avg)} size={12} />
+              ))}
+            </div>
+            <span className="text-[11px] text-default-400">{data.total} đánh giá</span>
+          </div>
+        </div>
+
+        {/* Rate input */}
+        <div className="flex flex-col items-end gap-1">
+          <span className="text-xs text-default-400">
+            {data.myRating ? 'Của bạn:' : 'Chấm điểm:'}
+          </span>
+          <div className="flex">
             {[1,2,3,4,5].map((s) => (
-              <StarIcon key={s} filled={s <= Math.round(data.avg)} size={14} />
+              <button
+                key={s}
+                disabled={loading}
+                onMouseEnter={() => setHover(s)}
+                onMouseLeave={() => setHover(0)}
+                onClick={() => rate(s)}
+                className={`p-0.5 transition-colors ${s <= active ? 'text-warning' : 'text-default-200'}`}
+              >
+                <StarIcon filled={s <= active} size={18} />
+              </button>
             ))}
           </div>
-          <span className="text-xs text-default-400">{data.total} đánh giá</span>
         </div>
-
-        {/* Distribution */}
-        <div className="flex flex-1 flex-col gap-1">
-          {[5,4,3,2,1].map((star) => {
-            const d = data.dist.find(x => x.star === star)!
-            const pct = data.total > 0 ? (d.count / data.total) * 100 : 0
-            return (
-              <div key={star} className="flex items-center gap-2">
-                <span className="w-2 text-right text-xs text-default-400">{star}</span>
-                <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-default-100">
-                  <div className="h-full rounded-full bg-warning transition-all" style={{ width: `${pct}%` }} />
-                </div>
-                <span className="w-4 text-xs text-default-400">{d.count}</span>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Rate input */}
-      <div className="mt-4 flex items-center gap-2 border-t border-divider pt-4">
-        <span className="text-sm text-default-500">
-          {data.myRating ? 'Đánh giá của bạn:' : 'Chấm điểm:'}
-        </span>
-        <div className="flex text-default-200">
-          {[1,2,3,4,5].map((s) => (
-            <button
-              key={s}
-              disabled={loading}
-              onMouseEnter={() => setHover(s)}
-              onMouseLeave={() => setHover(0)}
-              onClick={() => rate(s)}
-              className={`p-0.5 transition-colors ${s <= active ? 'text-warning' : 'text-default-200'}`}
-            >
-              <StarIcon filled={s <= active} size={22} />
-            </button>
-          ))}
-        </div>
-        {data.myRating && (
-          <span className="text-xs text-default-400">({data.myRating}/5)</span>
-        )}
       </div>
     </div>
   )
