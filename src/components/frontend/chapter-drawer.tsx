@@ -35,7 +35,7 @@ export function ChapterDrawer({
       </Button>
 
       <Drawer.Backdrop isDismissable>
-        <Drawer.Content placement="right" className="w-80 max-w-full">
+        <Drawer.Content placement="right" className="max-w-full w-full">
           <Drawer.Dialog className="flex h-full flex-col outline-none">
             <Drawer.Header className="flex items-center justify-between border-b border-divider pb-3">
               <span className="text-base font-bold">

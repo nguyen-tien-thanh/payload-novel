@@ -114,7 +114,7 @@ export function ChapterReaderClient({
       </div>
 
       {/* Content */}
-      <div className="mx-auto max-w-5xl px-5 py-8 sm:px-4">
+      <div className="mx-auto max-w-5xl px-5 py-8 sm:px-4 text-justify">
         <div
           className={fontClass}
           style={{
