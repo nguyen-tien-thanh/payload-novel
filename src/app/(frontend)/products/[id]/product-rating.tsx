@@ -13,8 +13,19 @@ interface RateData {
 
 function StarIcon({ filled, size = 18 }: { filled: boolean; size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={1.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill={filled ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth={1.5}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
+      />
     </svg>
   )
 }
@@ -31,7 +42,9 @@ export function ProductRating({ productId }: { productId: string }) {
     setData(await res.json())
   }
 
-  useEffect(() => { load() }, [productId])
+  useEffect(() => {
+    load()
+  }, [productId])
 
   async function rate(star: number) {
     if (!user) {
@@ -62,11 +75,17 @@ export function ProductRating({ productId }: { productId: string }) {
           </span>
           <div>
             <div className="flex text-warning">
-              {[1,2,3,4,5].map((s) => (
-                <StarIcon key={s} filled={s <= Math.round(data.avg)} size={12} />
+              {[1, 2, 3, 4, 5].map((s) => (
+                <StarIcon
+                  key={s}
+                  filled={s <= Math.round(data.avg)}
+                  size={12}
+                />
               ))}
             </div>
-            <span className="text-[11px] text-default-400">{data.total} đánh giá</span>
+            <span className="text-[11px] text-default-400">
+              {data.total} đánh giá
+            </span>
           </div>
         </div>
 
@@ -76,7 +95,7 @@ export function ProductRating({ productId }: { productId: string }) {
             {data.myRating ? 'Của bạn:' : 'Chấm điểm:'}
           </span>
           <div className="flex">
-            {[1,2,3,4,5].map((s) => (
+            {[1, 2, 3, 4, 5].map((s) => (
               <button
                 key={s}
                 disabled={loading}

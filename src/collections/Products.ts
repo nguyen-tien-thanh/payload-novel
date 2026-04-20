@@ -1,8 +1,8 @@
-import type { CollectionConfig } from 'payload'
-import { isPublishedOrOwner } from '@/access/isPublishedOrOwner'
 import { isLoggedIn } from '@/access/isLoggedIn'
 import { isOwner } from '@/access/isOwner'
+import { isPublishedOrOwner } from '@/access/isPublishedOrOwner'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
+import type { CollectionConfig } from 'payload'
 
 export const Products: CollectionConfig = {
   slug: 'products',

@@ -5,7 +5,8 @@ import { headers } from 'next/headers'
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const productId = searchParams.get('productId')
-  if (!productId) return Response.json({ error: 'productId required' }, { status: 400 })
+  if (!productId)
+    return Response.json({ error: 'productId required' }, { status: 400 })
 
   const payload = await getPayload({ config })
 
@@ -45,7 +46,10 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const { productId, content, parentId } = await req.json()
   if (!productId || !content?.trim())
-    return Response.json({ error: 'productId và content là bắt buộc' }, { status: 400 })
+    return Response.json(
+      { error: 'productId và content là bắt buộc' },
+      { status: 400 },
+    )
 
   const payload = await getPayload({ config })
   const headersList = await headers()
@@ -85,10 +89,16 @@ export async function DELETE(req: Request) {
   })
 
   const ownerId =
-    typeof comment.createdBy === 'object' ? comment.createdBy.id : comment.createdBy
+    typeof comment.createdBy === 'object'
+      ? comment.createdBy.id
+      : comment.createdBy
   if (String(ownerId) !== String(me.user.id) && me.user.role !== 'admin')
     return Response.json({ error: 'Forbidden' }, { status: 403 })
 
-  await payload.delete({ collection: 'comments', id: Number(id), overrideAccess: true })
+  await payload.delete({
+    collection: 'comments',
+    id: Number(id),
+    overrideAccess: true,
+  })
   return Response.json({ success: true })
 }

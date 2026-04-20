@@ -5,7 +5,8 @@ import { headers } from 'next/headers'
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
   const productId = searchParams.get('productId')
-  if (!productId) return Response.json({ error: 'productId required' }, { status: 400 })
+  if (!productId)
+    return Response.json({ error: 'productId required' }, { status: 400 })
 
   const payload = await getPayload({ config })
   const headersList = await headers()
@@ -35,13 +36,21 @@ export async function GET(req: Request) {
     myRating = mine?.rating ?? null
   }
 
-  return Response.json({ avg: Math.round(avg * 10) / 10, total, dist, myRating })
+  return Response.json({
+    avg: Math.round(avg * 10) / 10,
+    total,
+    dist,
+    myRating,
+  })
 }
 
 export async function POST(req: Request) {
   const { productId, rating } = await req.json()
   if (!productId || !rating || rating < 1 || rating > 5)
-    return Response.json({ error: 'productId và rating (1-5) là bắt buộc' }, { status: 400 })
+    return Response.json(
+      { error: 'productId và rating (1-5) là bắt buộc' },
+      { status: 400 },
+    )
 
   const payload = await getPayload({ config })
   const headersList = await headers()

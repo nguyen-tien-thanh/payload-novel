@@ -13,14 +13,42 @@
 
   --color-default: var(--default);
   --color-default-foreground: var(--default-foreground);
-  --color-default-100: color-mix(in oklch, var(--foreground) 10%, var(--background));
-  --color-default-200: color-mix(in oklch, var(--foreground) 20%, var(--background));
-  --color-default-300: color-mix(in oklch, var(--foreground) 35%, var(--background));
-  --color-default-400: color-mix(in oklch, var(--foreground) 52%, var(--background));
+  --color-default-100: color-mix(
+    in oklch,
+    var(--foreground) 10%,
+    var(--background)
+  );
+  --color-default-200: color-mix(
+    in oklch,
+    var(--foreground) 20%,
+    var(--background)
+  );
+  --color-default-300: color-mix(
+    in oklch,
+    var(--foreground) 35%,
+    var(--background)
+  );
+  --color-default-400: color-mix(
+    in oklch,
+    var(--foreground) 52%,
+    var(--background)
+  );
   --color-default-500: var(--muted);
-  --color-default-600: color-mix(in oklch, var(--foreground) 65%, var(--background));
-  --color-default-700: color-mix(in oklch, var(--foreground) 76%, var(--background));
-  --color-default-800: color-mix(in oklch, var(--foreground) 88%, var(--background));
+  --color-default-600: color-mix(
+    in oklch,
+    var(--foreground) 65%,
+    var(--background)
+  );
+  --color-default-700: color-mix(
+    in oklch,
+    var(--foreground) 76%,
+    var(--background)
+  );
+  --color-default-800: color-mix(
+    in oklch,
+    var(--foreground) 88%,
+    var(--background)
+  );
   --color-default-900: var(--foreground);
 
   --color-success: var(--success);
