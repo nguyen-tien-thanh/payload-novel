@@ -1,9 +1,9 @@
-import type { CollectionConfig } from 'payload'
-import { isPublishedOrOwner } from '@/access/isPublishedOrOwner'
 import { isLoggedIn } from '@/access/isLoggedIn'
 import { isOwner } from '@/access/isOwner'
-import { setCreatedBy } from '@/hooks/setCreatedBy'
+import { isPublishedOrOwner } from '@/access/isPublishedOrOwner'
 import { extractContentRaw } from '@/hooks/extractContentRaw'
+import { setCreatedBy } from '@/hooks/setCreatedBy'
+import type { CollectionConfig } from 'payload'
 
 export const Chapters: CollectionConfig = {
   slug: 'chapters',
@@ -71,6 +71,7 @@ export const Chapters: CollectionConfig = {
       type: 'array',
       label: 'Người dùng đã mở khóa',
       admin: { readOnly: true },
+      hidden: true,
       fields: [
         {
           name: 'userId',

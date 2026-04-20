@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     categories: Category;
+    crawl: Crawl;
     products: Product;
     chapters: Chapter;
     comments: Comment;
@@ -89,6 +90,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    crawl: CrawlSelect<false> | CrawlSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     chapters: ChaptersSelect<false> | ChaptersSelect<true>;
     comments: CommentsSelect<false> | CommentsSelect<true>;
@@ -203,6 +205,16 @@ export interface Category {
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crawl".
+ */
+export interface Crawl {
+  id: number;
+  label?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -379,6 +391,10 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
+        relationTo: 'crawl';
+        value: number | Crawl;
+      } | null)
+    | ({
         relationTo: 'products';
         value: number | Product;
       } | null)
@@ -517,6 +533,15 @@ export interface CategoriesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "crawl_select".
+ */
+export interface CrawlSelect<T extends boolean = true> {
+  label?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -13,6 +13,7 @@ type User = {
   email: string
   name?: string
   avatarUrl?: string
+  role?: 'admin' | 'user'
 }
 
 type AuthContextType = {
@@ -42,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const data = await res.json()
         const u = data.user
         if (u) {
-          setUser({ ...u, avatarUrl: u.avatar?.url ?? undefined })
+          setUser({ ...u, avatarUrl: u.avatar?.url ?? undefined, role: u.role })
         } else {
           setUser(null)
         }

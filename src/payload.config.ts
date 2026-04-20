@@ -11,6 +11,7 @@ import { Bookmarks } from './collections/Bookmarks'
 import { Categories } from './collections/Categories'
 import { Chapters } from './collections/Chapters'
 import { Comments } from './collections/Comments'
+import { Crawl } from './collections/Crawl'
 import { Media } from './collections/Media'
 import { Payments } from './collections/Payments'
 import { ProductMembers } from './collections/ProductMembers'
@@ -41,6 +42,7 @@ export default buildConfig({
     Users,
     Media,
     Categories,
+    Crawl,
     Products,
     Chapters,
     Comments,
