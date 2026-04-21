@@ -2,7 +2,7 @@
 
 import { Logo } from '@/components/shared'
 import { useAuth } from '@/lib/auth-context'
-import { Bookmark, BookOpen, Magnifier, Person } from '@gravity-ui/icons'
+import { Bookmark, BookOpen, Magnifier, Person, PersonPencil } from '@gravity-ui/icons'
 import {
   Button,
   Dropdown,
@@ -120,6 +120,14 @@ export function Header() {
                         Đang đọc
                       </span>
                     </DropdownItem>
+                    {user.role === 'user' && (
+                      <DropdownItem id="/become-translator">
+                        <span className="flex items-center gap-2">
+                          <PersonPencil className="size-4 shrink-0" />
+                          Trở thành Dịch giả
+                        </span>
+                      </DropdownItem>
+                    )}
                   </DropdownSection>
                   <DropdownSection>
                     <DropdownItem id="logout" className="text-danger">

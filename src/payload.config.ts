@@ -18,6 +18,7 @@ import { ProductMembers } from './collections/ProductMembers'
 import { Products } from './collections/Products'
 import { Rates } from './collections/Rates'
 import { ReadingProgress } from './collections/ReadingProgress'
+import { TranslatorRequests } from './collections/TranslatorRequests'
 import { Users } from './collections/Users'
 import { Views } from './collections/Views'
 
@@ -41,6 +42,7 @@ export default buildConfig({
   collections: [
     Users,
     Media,
+    TranslatorRequests,
     Categories,
     Crawl,
     Products,

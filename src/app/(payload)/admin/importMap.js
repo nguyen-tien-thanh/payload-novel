@@ -1,3 +1,4 @@
+import { AdminTranslatorRequestsView as AdminTranslatorRequestsView_f9563a444a61b500fb89e2cd323b2208 } from '@/components/admin/translator-requests-view'
 import { AdminCrawlView as AdminCrawlView_17719cc4a677385d070e95721fe81ee0 } from '@/components/admin/crawl-view'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -28,6 +29,7 @@ import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } f
 
 /** @type import('payload').ImportMap */
 export const importMap = {
+  "@/components/admin/translator-requests-view#AdminTranslatorRequestsView": AdminTranslatorRequestsView_f9563a444a61b500fb89e2cd323b2208,
   "@/components/admin/crawl-view#AdminCrawlView": AdminCrawlView_17719cc4a677385d070e95721fe81ee0,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,

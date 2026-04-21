@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'translator-requests': TranslatorRequest;
     categories: Category;
     crawl: Crawl;
     products: Product;
@@ -89,6 +90,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'translator-requests': TranslatorRequestsSelect<false> | TranslatorRequestsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     crawl: CrawlSelect<false> | CrawlSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
@@ -191,6 +193,21 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "translator-requests".
+ */
+export interface TranslatorRequest {
+  id: number;
+  reason: string;
+  experience?: string | null;
+  sampleLink?: string | null;
+  status?: ('pending' | 'approved' | 'rejected') | null;
+  adminNote?: string | null;
+  createdBy: number | User;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -387,6 +404,10 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'translator-requests';
+        value: number | TranslatorRequest;
+      } | null)
+    | ({
         relationTo: 'categories';
         value: number | Category;
       } | null)
@@ -520,6 +541,20 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "translator-requests_select".
+ */
+export interface TranslatorRequestsSelect<T extends boolean = true> {
+  reason?: T;
+  experience?: T;
+  sampleLink?: T;
+  status?: T;
+  adminNote?: T;
+  createdBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
