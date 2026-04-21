@@ -23,7 +23,8 @@ export async function GET(req: NextRequest) {
   const state = searchParams.get('state')
   const error = searchParams.get('error')
 
-  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  const serverUrl =
+    process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
   if (error || !code) {
     return Response.redirect(`${serverUrl}/auth/login?error=google_cancelled`)
@@ -58,24 +59,33 @@ export async function GET(req: NextRequest) {
     })
 
     if (!tokenRes.ok) {
-      return Response.redirect(`${serverUrl}/auth/login?error=google_token_failed`)
+      return Response.redirect(
+        `${serverUrl}/auth/login?error=google_token_failed`,
+      )
     }
 
     const tokens: GoogleTokenResponse = await tokenRes.json()
 
     // Get user info from Google
-    const userInfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-      headers: { Authorization: `Bearer ${tokens.access_token}` },
-    })
+    const userInfoRes = await fetch(
+      'https://www.googleapis.com/oauth2/v3/userinfo',
+      {
+        headers: { Authorization: `Bearer ${tokens.access_token}` },
+      },
+    )
 
     if (!userInfoRes.ok) {
-      return Response.redirect(`${serverUrl}/auth/login?error=google_userinfo_failed`)
+      return Response.redirect(
+        `${serverUrl}/auth/login?error=google_userinfo_failed`,
+      )
     }
 
     const googleUser: GoogleUserInfo = await userInfoRes.json()
 
     if (!googleUser.email_verified) {
-      return Response.redirect(`${serverUrl}/auth/login?error=google_email_unverified`)
+      return Response.redirect(
+        `${serverUrl}/auth/login?error=google_email_unverified`,
+      )
     }
 
     const payload = await getPayload({ config })
@@ -133,8 +143,14 @@ export async function GET(req: NextRequest) {
     const sid = crypto.randomUUID()
     const expiresAt = new Date(Date.now() + tokenExpiration * 1000)
     const sessions = [
-      ...(user.sessions ?? []).filter((s) => s?.expiresAt && new Date(s.expiresAt) > new Date()),
-      { id: sid, createdAt: new Date().toISOString(), expiresAt: expiresAt.toISOString() },
+      ...(user.sessions ?? []).filter(
+        (s) => s?.expiresAt && new Date(s.expiresAt) > new Date(),
+      ),
+      {
+        id: sid,
+        createdAt: new Date().toISOString(),
+        expiresAt: expiresAt.toISOString(),
+      },
     ]
     await payload.db.updateOne({
       id: String(user.id),

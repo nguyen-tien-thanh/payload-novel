@@ -21,7 +21,8 @@ export async function GET(req: NextRequest) {
   const state = searchParams.get('state')
   const error = searchParams.get('error')
 
-  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  const serverUrl =
+    process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
   if (error || !code) {
     return Response.redirect(`${serverUrl}/auth/login?error=facebook_cancelled`)
@@ -54,7 +55,9 @@ export async function GET(req: NextRequest) {
     )
 
     if (!tokenRes.ok) {
-      return Response.redirect(`${serverUrl}/auth/login?error=facebook_token_failed`)
+      return Response.redirect(
+        `${serverUrl}/auth/login?error=facebook_token_failed`,
+      )
     }
 
     const tokens: FacebookTokenResponse = await tokenRes.json()
@@ -65,13 +68,17 @@ export async function GET(req: NextRequest) {
     )
 
     if (!userInfoRes.ok) {
-      return Response.redirect(`${serverUrl}/auth/login?error=facebook_userinfo_failed`)
+      return Response.redirect(
+        `${serverUrl}/auth/login?error=facebook_userinfo_failed`,
+      )
     }
 
     const fbUser: FacebookUserInfo = await userInfoRes.json()
 
     if (!fbUser.email) {
-      return Response.redirect(`${serverUrl}/auth/login?error=facebook_no_email`)
+      return Response.redirect(
+        `${serverUrl}/auth/login?error=facebook_no_email`,
+      )
     }
 
     const payload = await getPayload({ config })
@@ -126,8 +133,14 @@ export async function GET(req: NextRequest) {
     const sid = crypto.randomUUID()
     const expiresAt = new Date(Date.now() + tokenExpiration * 1000)
     const sessions = [
-      ...(user.sessions ?? []).filter((s) => s?.expiresAt && new Date(s.expiresAt) > new Date()),
-      { id: sid, createdAt: new Date().toISOString(), expiresAt: expiresAt.toISOString() },
+      ...(user.sessions ?? []).filter(
+        (s) => s?.expiresAt && new Date(s.expiresAt) > new Date(),
+      ),
+      {
+        id: sid,
+        createdAt: new Date().toISOString(),
+        expiresAt: expiresAt.toISOString(),
+      },
     ]
     await payload.db.updateOne({
       id: String(user.id),

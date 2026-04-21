@@ -3,7 +3,10 @@ import { NextRequest } from 'next/server'
 export async function GET(req: NextRequest) {
   const clientId = process.env.GOOGLE_CLIENT_ID
   if (!clientId) {
-    return Response.json({ message: 'Google OAuth chưa được cấu hình.' }, { status: 500 })
+    return Response.json(
+      { message: 'Google OAuth chưa được cấu hình.' },
+      { status: 500 },
+    )
   }
 
   const redirectUri = `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/google/callback`
@@ -22,5 +25,7 @@ export async function GET(req: NextRequest) {
     prompt: 'select_account',
   })
 
-  return Response.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params}`)
+  return Response.redirect(
+    `https://accounts.google.com/o/oauth2/v2/auth?${params}`,
+  )
 }

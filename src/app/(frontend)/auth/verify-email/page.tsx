@@ -17,7 +17,9 @@ function InnerVerifyEmailPage() {
   const searchParams = useSearchParams()
   const token = searchParams.get('token') || ''
 
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+    'loading',
+  )
 
   useEffect(() => {
     if (!token) {
@@ -60,14 +62,19 @@ function InnerVerifyEmailPage() {
               stroke="currentColor"
               strokeWidth={2}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-foreground">
             Email đã được xác nhận!
           </h1>
           <p className="mt-2 text-sm text-default-500">
-            Tài khoản của bạn đã được kích hoạt. Hãy đăng nhập để bắt đầu đọc truyện.
+            Tài khoản của bạn đã được kích hoạt. Hãy đăng nhập để bắt đầu đọc
+            truyện.
           </p>
           <Link href="/auth/login">
             <Button className="mt-6 rounded-full bg-primary font-semibold text-primary-foreground">
@@ -90,7 +97,11 @@ function InnerVerifyEmailPage() {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground">

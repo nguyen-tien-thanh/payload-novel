@@ -17,10 +17,17 @@ export async function POST(req: Request) {
   })
 
   if (totalDocs === 0) {
-    return Response.json({ message: 'Email không tồn tại trong hệ thống.' }, { status: 404 })
+    return Response.json(
+      { message: 'Email không tồn tại trong hệ thống.' },
+      { status: 404 },
+    )
   }
 
-  await payload.forgotPassword({ collection: 'users', data: { email }, disableEmail: false })
+  await payload.forgotPassword({
+    collection: 'users',
+    data: { email },
+    disableEmail: false,
+  })
 
   return Response.json({ message: 'ok' })
 }

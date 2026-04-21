@@ -18,7 +18,8 @@ export const TranslatorRequests: CollectionConfig = {
     components: {
       views: {
         list: {
-          Component: '@/components/admin/translator-requests-view#AdminTranslatorRequestsView',
+          Component:
+            '@/components/admin/translator-requests-view#AdminTranslatorRequestsView',
         },
       },
     },

@@ -269,7 +269,9 @@ export function AdminCrawlView() {
               label="Nguồn"
               value={source}
               onChange={(opt) => {
-                const next = (Array.isArray(opt) ? opt[0]?.value : opt?.value) as CrawlSource
+                const next = (
+                  Array.isArray(opt) ? opt[0]?.value : opt?.value
+                ) as CrawlSource
                 setSource(next)
                 setUriError(uri.trim() ? validateUri(uri.trim(), next) : null)
               }}

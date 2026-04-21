@@ -6,7 +6,11 @@ type EmailLayoutProps = {
   body: string
 }
 
-export function emailLayout({ title, heading, body }: EmailLayoutProps): string {
+export function emailLayout({
+  title,
+  heading,
+  body,
+}: EmailLayoutProps): string {
   return `
 <!DOCTYPE html>
 <html lang="vi">

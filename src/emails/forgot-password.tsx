@@ -4,7 +4,9 @@ type ForgotPasswordEmailProps = {
   resetUrl: string
 }
 
-export function forgotPasswordEmail({ resetUrl }: ForgotPasswordEmailProps): string {
+export function forgotPasswordEmail({
+  resetUrl,
+}: ForgotPasswordEmailProps): string {
   return emailLayout({
     title: 'Đặt lại mật khẩu',
     heading: 'Đặt lại mật khẩu',

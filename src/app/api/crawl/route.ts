@@ -19,7 +19,10 @@ type ChapterInfo = {
 }
 
 function normalizeText(text: string): string {
-  return text.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim()
+  return text
+    .replace(/\u00a0/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function extractParagraphsFromHtml(contentHtml: string): string[] {
@@ -55,7 +58,8 @@ function createLexicalParagraphs(paragraphs: string[]) {
   }))
 }
 
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36'
+const UA =
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36'
 
 async function fetchPage(url: string, charset = 'utf-8'): Promise<string> {
   const res = await fetch(url, { headers: { 'User-Agent': UA } })
@@ -84,7 +88,12 @@ async function uploadImageFromUrl(
     const media = await payload.create({
       collection: 'media',
       data: { alt: filename, createdBy: Number(userId) } as any,
-      file: { data: buffer, mimetype: contentType, name: filename, size: buffer.length },
+      file: {
+        data: buffer,
+        mimetype: contentType,
+        name: filename,
+        size: buffer.length,
+      },
       overrideAccess: true,
     })
 
@@ -101,8 +110,10 @@ function parseTruyenfullProduct(html: string): ProductInfo | null {
   const name = root.querySelector('h3.title')?.text.trim()
   if (!name) return null
 
-  const authorName = root.querySelector('.info a[itemprop="author"]')?.text.trim() ?? 'Không rõ'
-  const imageUrl = root.querySelector('img[itemprop="image"]')?.getAttribute('src') ?? ''
+  const authorName =
+    root.querySelector('.info a[itemprop="author"]')?.text.trim() ?? 'Không rõ'
+  const imageUrl =
+    root.querySelector('img[itemprop="image"]')?.getAttribute('src') ?? ''
   const description = root.querySelector('div.desc-text')?.text.trim() ?? ''
   const categoryNames: string[] = []
   root.querySelectorAll('.info a[itemprop="genre"]').forEach((el) => {
@@ -129,21 +140,36 @@ function parseTruyenfullChapter(html: string): ChapterInfo | null {
 
 // ── Jjwrc ─────────────────────────────────────────────────────────────────────
 
-function parseJjwrcProduct(html: string): (ProductInfo & { chapterCount: number }) | null {
+function parseJjwrcProduct(
+  html: string,
+): (ProductInfo & { chapterCount: number }) | null {
   const root = parse(html)
 
   if (!root.querySelector('#clickNovelid')) return null
 
-  const name = root.querySelector('span[itemprop="articleSection"]')?.text.trim() ?? ''
-  const authorName = root.querySelector('span[itemprop="author"]')?.text.trim() ?? 'Không rõ'
+  const name =
+    root.querySelector('span[itemprop="articleSection"]')?.text.trim() ?? ''
+  const authorName =
+    root.querySelector('span[itemprop="author"]')?.text.trim() ?? 'Không rõ'
   const description = root.querySelector('div#novelintro')?.text.trim() ?? ''
   const imageUrl =
-    root.querySelector('img.noveldefaultimage[itemprop="image"]')?.getAttribute('src') ?? ''
+    root
+      .querySelector('img.noveldefaultimage[itemprop="image"]')
+      ?.getAttribute('src') ?? ''
 
   const lastChapterRow = root.querySelectorAll('tr[itemprop="chapter"]').at(-1)
-  const chapterCount = Number(lastChapterRow?.querySelector('td')?.text.trim() ?? '0')
+  const chapterCount = Number(
+    lastChapterRow?.querySelector('td')?.text.trim() ?? '0',
+  )
 
-  return { name, authorName, imageUrl, description, categoryNames: [], chapterCount }
+  return {
+    name,
+    authorName,
+    imageUrl,
+    description,
+    categoryNames: [],
+    chapterCount,
+  }
 }
 
 function parseJjwrcChapter(html: string): ChapterInfo | null {
@@ -275,16 +301,27 @@ export async function POST(req: Request) {
 
   const baseUri = uri.trim().replace(/\/$/, '')
 
-  const mainHtml = source === 'jjwrc' ? await fetchJjwrcPage(baseUri) : await fetchPage(baseUri)
+  const mainHtml =
+    source === 'jjwrc'
+      ? await fetchJjwrcPage(baseUri)
+      : await fetchPage(baseUri)
 
   if (source === 'jjwrc') {
     const productInfo = parseJjwrcProduct(mainHtml)
     if (!productInfo) {
-      return Response.json({ error: 'Không tìm thấy truyện trên Jjwrc' }, { status: 404 })
+      return Response.json(
+        { error: 'Không tìm thấy truyện trên Jjwrc' },
+        { status: 404 },
+      )
     }
 
     const { chapterCount, ...info } = productInfo
-    const { productId, isNew } = await upsertProduct(payload, user.id as any, baseUri, info)
+    const { productId, isNew } = await upsertProduct(
+      payload,
+      user.id as any,
+      baseUri,
+      info,
+    )
 
     const lastChapter = await payload.find({
       collection: 'chapters',
@@ -294,7 +331,9 @@ export async function POST(req: Request) {
       overrideAccess: true,
     })
     const startFromChapter =
-      lastChapter.docs.length > 0 ? (lastChapter.docs[0] as any).chapterNumber + 1 : 1
+      lastChapter.docs.length > 0
+        ? (lastChapter.docs[0] as any).chapterNumber + 1
+        : 1
 
     const encoder = new TextEncoder()
     const stream = new ReadableStream({
@@ -302,7 +341,13 @@ export async function POST(req: Request) {
         const send = (data: object) =>
           controller.enqueue(encoder.encode(JSON.stringify(data) + '\n'))
 
-        send({ type: 'product', productId, name: info.name, isNew, resumeFromChapter: startFromChapter })
+        send({
+          type: 'product',
+          productId,
+          name: info.name,
+          isNew,
+          resumeFromChapter: startFromChapter,
+        })
 
         let crawledCount = 0
 
@@ -313,9 +358,20 @@ export async function POST(req: Request) {
             const chapter = parseJjwrcChapter(chapterHtml)
             if (!chapter) continue
 
-            await saveChapter(payload, user.id as any, productId, i, chapter.chapterName, chapter.paragraphs)
+            await saveChapter(
+              payload,
+              user.id as any,
+              productId,
+              i,
+              chapter.chapterName,
+              chapter.paragraphs,
+            )
             crawledCount++
-            send({ type: 'chapter', chapterNumber: i, chapterName: chapter.chapterName })
+            send({
+              type: 'chapter',
+              chapterNumber: i,
+              chapterName: chapter.chapterName,
+            })
           } catch {
             // skip failed chapter, continue
           }
@@ -335,16 +391,26 @@ export async function POST(req: Request) {
       },
     })
 
-    return new Response(stream, { headers: { 'Content-Type': 'application/x-ndjson' } })
+    return new Response(stream, {
+      headers: { 'Content-Type': 'application/x-ndjson' },
+    })
   }
 
   // truyenfull (default)
   const productInfo = parseTruyenfullProduct(mainHtml)
   if (!productInfo) {
-    return Response.json({ error: 'Không tìm thấy truyện trên Truyenfull' }, { status: 404 })
+    return Response.json(
+      { error: 'Không tìm thấy truyện trên Truyenfull' },
+      { status: 404 },
+    )
   }
 
-  const { productId, isNew } = await upsertProduct(payload, user.id as any, baseUri, productInfo)
+  const { productId, isNew } = await upsertProduct(
+    payload,
+    user.id as any,
+    baseUri,
+    productInfo,
+  )
 
   const lastChapter = await payload.find({
     collection: 'chapters',
@@ -354,7 +420,9 @@ export async function POST(req: Request) {
     overrideAccess: true,
   })
   const startFromChapter =
-    lastChapter.docs.length > 0 ? (lastChapter.docs[0] as any).chapterNumber + 1 : 1
+    lastChapter.docs.length > 0
+      ? (lastChapter.docs[0] as any).chapterNumber + 1
+      : 1
 
   const encoder = new TextEncoder()
   const stream = new ReadableStream({
@@ -362,7 +430,13 @@ export async function POST(req: Request) {
       const send = (data: object) =>
         controller.enqueue(encoder.encode(JSON.stringify(data) + '\n'))
 
-      send({ type: 'product', productId, name: productInfo.name, isNew, resumeFromChapter: startFromChapter })
+      send({
+        type: 'product',
+        productId,
+        name: productInfo.name,
+        isNew,
+        resumeFromChapter: startFromChapter,
+      })
 
       let chapterNumber = startFromChapter
       let crawledCount = 0
@@ -374,9 +448,20 @@ export async function POST(req: Request) {
           const chapter = parseTruyenfullChapter(chapterHtml)
           if (!chapter) break
 
-          await saveChapter(payload, user.id as any, productId, chapterNumber, chapter.chapterName, chapter.paragraphs)
+          await saveChapter(
+            payload,
+            user.id as any,
+            productId,
+            chapterNumber,
+            chapter.chapterName,
+            chapter.paragraphs,
+          )
           crawledCount++
-          send({ type: 'chapter', chapterNumber, chapterName: chapter.chapterName })
+          send({
+            type: 'chapter',
+            chapterNumber,
+            chapterName: chapter.chapterName,
+          })
         } catch {
           break
         }
@@ -397,5 +482,7 @@ export async function POST(req: Request) {
     },
   })
 
-  return new Response(stream, { headers: { 'Content-Type': 'application/x-ndjson' } })
+  return new Response(stream, {
+    headers: { 'Content-Type': 'application/x-ndjson' },
+  })
 }

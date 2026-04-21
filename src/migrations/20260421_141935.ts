@@ -5,7 +5,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
    ALTER TABLE "users" ADD COLUMN "google_id" varchar;`)
 }
 
-export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
+export async function down({
+  db,
+  payload,
+  req,
+}: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE "users" DROP COLUMN "google_id";`)
 }

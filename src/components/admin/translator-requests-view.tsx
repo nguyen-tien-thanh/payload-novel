@@ -32,14 +32,21 @@ export function AdminTranslatorRequestsView() {
   const [loading, setLoading] = useState(true)
   const [notes, setNotes] = useState<Record<string, string>>({})
   const [acting, setActing] = useState<string | null>(null)
-  const [msg, setMsg] = useState<{ id: string; text: string; ok: boolean } | null>(null)
+  const [msg, setMsg] = useState<{
+    id: string
+    text: string
+    ok: boolean
+  } | null>(null)
 
   const fetchDocs = async () => {
     setLoading(true)
     try {
-      const res = await fetch('/api/translator-requests?depth=1&limit=100&sort=-createdAt', {
-        credentials: 'include',
-      })
+      const res = await fetch(
+        '/api/translator-requests?depth=1&limit=100&sort=-createdAt',
+        {
+          credentials: 'include',
+        },
+      )
       if (res.ok) {
         const data = await res.json()
         setDocs(data.docs ?? [])
@@ -65,7 +72,11 @@ export function AdminTranslatorRequestsView() {
       })
       const data = await res.json()
       if (res.ok) {
-        setMsg({ id, text: action === 'approve' ? 'Đã duyệt thành công.' : 'Đã từ chối.', ok: true })
+        setMsg({
+          id,
+          text: action === 'approve' ? 'Đã duyệt thành công.' : 'Đã từ chối.',
+          ok: true,
+        })
         await fetchDocs()
       } else {
         setMsg({ id, text: data.error ?? 'Lỗi xảy ra.', ok: false })
@@ -95,9 +106,17 @@ export function AdminTranslatorRequestsView() {
         <p style={{ color: 'var(--theme-text-dim)' }}>Chưa có yêu cầu nào.</p>
       )}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1.5rem' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.5rem',
+          marginTop: '1.5rem',
+        }}
+      >
         {docs.map((doc) => {
-          const requester = typeof doc.createdBy === 'object' ? doc.createdBy : null
+          const requester =
+            typeof doc.createdBy === 'object' ? doc.createdBy : null
           const isPending = doc.status === 'pending'
 
           return (
@@ -110,13 +129,26 @@ export function AdminTranslatorRequestsView() {
                 padding: '1.25rem',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  marginBottom: '0.75rem',
+                }}
+              >
                 <div>
                   <strong style={{ color: 'var(--theme-text)' }}>
                     {requester?.name || requester?.email || 'Người dùng'}
                   </strong>
                   {requester?.email && requester?.name && (
-                    <span style={{ color: 'var(--theme-text-dim)', marginLeft: '0.5rem', fontSize: '0.875rem' }}>
+                    <span
+                      style={{
+                        color: 'var(--theme-text-dim)',
+                        marginLeft: '0.5rem',
+                        fontSize: '0.875rem',
+                      }}
+                    >
                       ({requester.email})
                     </span>
                   )}
@@ -136,21 +168,46 @@ export function AdminTranslatorRequestsView() {
               </div>
 
               <div style={{ marginBottom: '0.5rem' }}>
-                <span style={{ color: 'var(--theme-text-dim)', fontSize: '0.8rem' }}>Lý do: </span>
+                <span
+                  style={{ color: 'var(--theme-text-dim)', fontSize: '0.8rem' }}
+                >
+                  Lý do:{' '}
+                </span>
                 <span style={{ color: 'var(--theme-text)' }}>{doc.reason}</span>
               </div>
 
               {doc.experience && (
                 <div style={{ marginBottom: '0.5rem' }}>
-                  <span style={{ color: 'var(--theme-text-dim)', fontSize: '0.8rem' }}>Kinh nghiệm: </span>
-                  <span style={{ color: 'var(--theme-text)' }}>{doc.experience}</span>
+                  <span
+                    style={{
+                      color: 'var(--theme-text-dim)',
+                      fontSize: '0.8rem',
+                    }}
+                  >
+                    Kinh nghiệm:{' '}
+                  </span>
+                  <span style={{ color: 'var(--theme-text)' }}>
+                    {doc.experience}
+                  </span>
                 </div>
               )}
 
               {doc.sampleLink && (
                 <div style={{ marginBottom: '0.5rem' }}>
-                  <span style={{ color: 'var(--theme-text-dim)', fontSize: '0.8rem' }}>Bản dịch mẫu: </span>
-                  <a href={doc.sampleLink} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--theme-text-link)' }}>
+                  <span
+                    style={{
+                      color: 'var(--theme-text-dim)',
+                      fontSize: '0.8rem',
+                    }}
+                  >
+                    Bản dịch mẫu:{' '}
+                  </span>
+                  <a
+                    href={doc.sampleLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'var(--theme-text-link)' }}
+                  >
                     {doc.sampleLink}
                   </a>
                 </div>
@@ -158,12 +215,27 @@ export function AdminTranslatorRequestsView() {
 
               {doc.adminNote && !isPending && (
                 <div style={{ marginBottom: '0.5rem' }}>
-                  <span style={{ color: 'var(--theme-text-dim)', fontSize: '0.8rem' }}>Ghi chú: </span>
-                  <span style={{ color: 'var(--theme-text)' }}>{doc.adminNote}</span>
+                  <span
+                    style={{
+                      color: 'var(--theme-text-dim)',
+                      fontSize: '0.8rem',
+                    }}
+                  >
+                    Ghi chú:{' '}
+                  </span>
+                  <span style={{ color: 'var(--theme-text)' }}>
+                    {doc.adminNote}
+                  </span>
                 </div>
               )}
 
-              <div style={{ color: 'var(--theme-text-dim)', fontSize: '0.75rem', marginBottom: isPending ? '1rem' : 0 }}>
+              <div
+                style={{
+                  color: 'var(--theme-text-dim)',
+                  fontSize: '0.75rem',
+                  marginBottom: isPending ? '1rem' : 0,
+                }}
+              >
                 Gửi lúc: {new Date(doc.createdAt).toLocaleString('vi-VN')}
               </div>
 
@@ -172,7 +244,12 @@ export function AdminTranslatorRequestsView() {
                   <textarea
                     placeholder="Ghi chú cho người dùng (tuỳ chọn)..."
                     value={notes[doc.id] ?? ''}
-                    onChange={(e) => setNotes((prev) => ({ ...prev, [doc.id]: e.target.value }))}
+                    onChange={(e) =>
+                      setNotes((prev) => ({
+                        ...prev,
+                        [doc.id]: e.target.value,
+                      }))
+                    }
                     rows={2}
                     style={{
                       width: '100%',
@@ -189,7 +266,13 @@ export function AdminTranslatorRequestsView() {
                   />
 
                   {msg?.id === doc.id && (
-                    <p style={{ color: msg.ok ? '#27ae60' : '#e74c3c', marginBottom: '0.5rem', fontSize: '0.875rem' }}>
+                    <p
+                      style={{
+                        color: msg.ok ? '#27ae60' : '#e74c3c',
+                        marginBottom: '0.5rem',
+                        fontSize: '0.875rem',
+                      }}
+                    >
                       {msg.text}
                     </p>
                   )}
