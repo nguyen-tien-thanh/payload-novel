@@ -79,16 +79,6 @@ export const Users: CollectionConfig = {
       },
     },
     {
-      name: 'emailVerified',
-      type: 'checkbox',
-      label: 'Email đã xác nhận',
-      defaultValue: false,
-      admin: {
-        readOnly: true,
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'role',
       type: 'select',
       label: 'Vai trò',
