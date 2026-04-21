@@ -93,5 +93,17 @@ export const Users: CollectionConfig = {
         update: ({ req }) => req.user?.role === 'admin',
       },
     },
+    {
+      name: 'googleId',
+      type: 'text',
+      label: 'Google ID',
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+      access: {
+        update: () => false,
+      },
+    },
   ],
 }
