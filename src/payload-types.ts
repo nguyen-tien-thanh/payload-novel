@@ -156,6 +156,7 @@ export interface User {
   balance?: number | null;
   role?: ('user' | 'translator' | 'admin') | null;
   googleId?: string | null;
+  facebookId?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -508,6 +509,7 @@ export interface UsersSelect<T extends boolean = true> {
   balance?: T;
   role?: T;
   googleId?: T;
+  facebookId?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

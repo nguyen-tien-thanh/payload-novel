@@ -105,5 +105,17 @@ export const Users: CollectionConfig = {
         update: () => false,
       },
     },
+    {
+      name: 'facebookId',
+      type: 'text',
+      label: 'Facebook ID',
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+      },
+      access: {
+        update: () => false,
+      },
+    },
   ],
 }
