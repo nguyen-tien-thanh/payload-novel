@@ -1,67 +1,139 @@
-# Payload Blank Template
+# Tiralix
 
-This template comes configured with the bare minimum to get started on anything you need.
+Nền tảng đọc truyện xây dựng trên [Payload CMS](https://payloadcms.com) + Next.js + PostgreSQL.
 
-## Quick start
+## Tech stack
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+- **Framework:** Next.js 16 (App Router, standalone output)
+- **CMS:** Payload 3.x
+- **Database:** PostgreSQL (via Drizzle ORM)
+- **Storage:** MinIO (S3-compatible)
+- **UI:** HeroUI v3
+- **Package manager:** pnpm
 
-## Quick Start - local setup
+---
 
-To spin up this template locally, follow these steps:
+## Setup môi trường dev
 
-### Clone
+### Yêu cầu
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+- Node.js >= 20.9.0
+- pnpm >= 9
+- Docker + Docker Compose (để chạy PostgreSQL và MinIO local)
 
-### Development
+### Các bước
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+**1. Clone repo và cài dependencies**
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+```bash
+git clone <repo-url>
+cd novel
+pnpm install
+```
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+**2. Tạo file `.env`**
 
-#### Docker (Optional)
+```bash
+cp .env.example .env
+```
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+Điền các giá trị vào `.env` (xem mô tả từng biến ở phần dưới).
 
-To do so, follow these steps:
+**3. Khởi động PostgreSQL và MinIO**
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+```bash
+docker compose up postgres minio -d
+```
 
-## How it works
+**4. Chạy migration để tạo schema DB**
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+```bash
+pnpm payload migrate
+```
 
-### Collections
+**5. Chạy dev server**
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+```bash
+pnpm dev
+```
 
-- #### Users (Authentication)
+Mở [http://localhost:3000/admin](http://localhost:3000/admin) để tạo tài khoản admin đầu tiên.
 
-  Users are auth-enabled collections that have access to the admin panel.
+---
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+## Biến môi trường
 
-- #### Media
+| Biến | Mô tả |
+|---|---|
+| `NEXT_PUBLIC_SERVER_URL` | URL public của app (dùng cho server-side) |
+| `PAYLOAD_SECRET` | Secret key để Payload mã hoá token, **phải dài và ngẫu nhiên** |
+| `DATABASE_URL` | Connection string PostgreSQL |
+| `S3_ENDPOINT` | Endpoint MinIO/S3 |
+| `S3_BUCKET` | Tên bucket chứa media |
+| `S3_ACCESS_KEY_ID` | Access key MinIO/S3 |
+| `S3_SECRET_ACCESS_KEY` | Secret key MinIO/S3 |
+| `S3_REGION` | Region (để `us-east-1` nếu dùng MinIO local) |
+| `RESEND_HOST` | SMTP host để gửi email |
+| `RESEND_USER` | SMTP username |
+| `RESEND_PASS` | SMTP password / API key |
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+---
 
-### Docker
+## Scripts
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+| Lệnh | Mô tả |
+|---|---|
+| `pnpm dev` | Chạy dev server |
+| `pnpm build` | Build production |
+| `pnpm start` | Chạy production build |
+| `pnpm payload migrate` | Apply các migration chưa chạy |
+| `pnpm payload migrate:create --name <tên>` | Tạo migration mới |
+| `pnpm generate:types` | Generate TypeScript types từ Payload schema |
+| `pnpm generate` | Generate types + import map |
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+---
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+## Quy trình khi thêm collection hoặc thay đổi schema
 
-## Questions
+> Quan trọng: mỗi thay đổi schema **bắt buộc** phải có migration đi kèm, không được sửa DB thủ công.
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+**1.** Tạo/sửa collection trong `src/collections/`, thêm vào `src/payload.config.ts` nếu là collection mới.
+
+**2.** Tạo migration:
+```bash
+pnpm payload migrate:create --name mo_ta_thay_doi
+```
+
+**3.** Test migration trên dev:
+```bash
+pnpm payload migrate
+```
+
+**4.** Generate lại types:
+```bash
+pnpm generate:types
+```
+
+**5.** Commit tất cả — collection, migration, types, config:
+```bash
+git add src/collections/ src/migrations/ src/payload-types.ts src/payload.config.ts
+git commit -m "feat: added collection ..."
+git push
+```
+
+**6.** Deploy lên prod (xem phần Deploy bên dưới).
+
+---
+
+## Deploy lên production
+
+Build image (bao gồm chạy migration tự động):
+
+```bash
+docker compose build payload
+docker compose up -d payload
+```
+
+Docker sẽ tự detect thay đổi trong `src/migrations/` và rebuild đúng layer — không cần `--no-cache`.
+
+**Lưu ý:** Lệnh `docker compose build` cần đọc `DATABASE_URL` và `PAYLOAD_SECRET` từ file `.env` ở root để chạy migration trong quá trình build. Đảm bảo file `.env` production đã được điền đầy đủ trước khi build.
