@@ -8,6 +8,7 @@ See `.claude/skills/heroui/SKILL.md` for component usage rules and color token r
 
 **UI rules (always apply):**
 
+- Uss `pnpm` instead of yarn or npm
 - Never hardcode colors — use HeroUI semantic tokens (`text-primary`, `bg-content1`, etc.)
 - Never use raw HTML elements when HeroUI has an equivalent component (`<Button>` not `<button>`, `<Input>` not `<input>`, `<Chip>` not `<span>`, etc.)
 - Never use Tailwind color classes (`bg-blue-500`, `text-gray-700`) — use theme tokens only

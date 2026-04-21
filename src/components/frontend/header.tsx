@@ -131,10 +131,7 @@ export function Header() {
             </Dropdown>
           ) : (
             <Link href="/auth/login">
-              <Button
-                size="sm"
-                className="rounded-full bg-primary text-sm font-semibold text-white"
-              >
+              <Button variant="primary" size="sm">
                 Đăng nhập
               </Button>
             </Link>

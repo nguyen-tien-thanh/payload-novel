@@ -133,10 +133,7 @@ function InnerLoginPage() {
             </p>
           )}
 
-          <Button
-            type="submit"
-            className="mt-1 w-full rounded-full bg-primary font-semibold text-primary-foreground"
-          >
+          <Button type="submit" variant="primary" className="mt-1 w-full">
             Đăng nhập
           </Button>
         </form>

@@ -3,7 +3,8 @@ export const dynamic = 'force-dynamic'
 import { CategoryBadge } from '@/components/frontend/category-badge'
 import type { Category, Media } from '@/payload-types'
 import config from '@/payload.config'
-import { BookOpen, Eye } from '@gravity-ui/icons'
+import { BookOpen, CircleCheck, Clock, Eye } from '@gravity-ui/icons'
+import { cn } from '@heroui/react'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -109,10 +110,10 @@ export default async function ProductDetailPage({
             </div>
 
             {/* Info */}
-            <div className="min-w-0 flex-1 space-y-4 pt-2">
+            <div className="min-w-0 flex-1 space-y-3 pt-2">
               {/* Title + author */}
               <div className="space-y-1.5">
-                <h1 className="line-clamp-3 text-xl font-bold leading-tight text-foreground sm:text-3xl">
+                <h1 className="line-clamp-3 text-lg font-bold leading-tight text-foreground sm:text-3xl">
                   {product.name}
                 </h1>
                 <p className="text-sm font-medium text-default-500">
@@ -142,24 +143,34 @@ export default async function ProductDetailPage({
                   <span>{chapters.length} chương</span>
                 </div>
                 <span
-                  className={[
-                    'rounded-full px-2.5 py-0.5 text-xs font-semibold',
+                  className={cn(
+                    'flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold',
                     product.doneAt
                       ? 'bg-success-soft text-success'
                       : 'bg-warning-soft text-warning',
-                  ].join(' ')}
+                  )}
                 >
-                  {product.doneAt ? '✓ Hoàn thành' : '⏳ Đang ra'}
+                  {product.doneAt ? (
+                    <>
+                      <CircleCheck className="h-3 w-3" /> Hoàn thành
+                    </>
+                  ) : (
+                    <>
+                      <Clock className="h-3 w-3" /> Đang ra
+                    </>
+                  )}
                 </span>
               </div>
 
-              {/* Description */}
+              {/* Description — desktop only (mobile shown below hero) */}
               {product.description && (
-                <ProductDescription text={product.description} />
+                <div className="hidden sm:block">
+                  <ProductDescription text={product.description} />
+                </div>
               )}
 
-              {/* CTA */}
-              <div className="flex flex-wrap items-center gap-2 pt-1">
+              {/* CTA — desktop only (mobile shown below hero) */}
+              <div className="hidden sm:flex flex-wrap items-center gap-2 pt-1">
                 {firstChapter && (
                   <ProductCta
                     productId={id}
@@ -171,6 +182,23 @@ export default async function ProductDetailPage({
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Mobile: description + CTA below hero */}
+        <div className="sm:hidden -mt-4 mb-6 space-y-3">
+          {product.description && (
+            <ProductDescription text={product.description} />
+          )}
+          {firstChapter && (
+            <div className="flex gap-2">
+              <ProductCta
+                productId={id}
+                firstChapterNumber={firstChapter.chapterNumber}
+                latestChapterNumber={latestChapter?.chapterNumber}
+              />
+              <BookmarkButton productId={id} />
+            </div>
+          )}
         </div>
 
         {/* ── Main content ── */}

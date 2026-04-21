@@ -75,7 +75,7 @@ export default function RegisterPage() {
             Tài khoản của bạn đã được tạo. Hãy đăng nhập để bắt đầu đọc truyện.
           </p>
           <Link href="/auth/login">
-            <Button className="mt-6 rounded-full bg-primary font-semibold text-primary-foreground">
+            <Button variant="primary" className="mt-6">
               Đăng nhập ngay
             </Button>
           </Link>
