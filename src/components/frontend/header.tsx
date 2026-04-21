@@ -2,7 +2,14 @@
 
 import { Logo } from '@/components/shared'
 import { useAuth } from '@/lib/auth-context'
-import { Bookmark, BookOpen, Magnifier, Person, PersonPencil } from '@gravity-ui/icons'
+import {
+  Bookmark,
+  BookOpen,
+  Gear,
+  Magnifier,
+  Person,
+  PersonPencil,
+} from '@gravity-ui/icons'
 import {
   Button,
   Dropdown,
@@ -129,6 +136,16 @@ export function Header() {
                       </DropdownItem>
                     )}
                   </DropdownSection>
+                  {(user.role === 'admin' || user.role === 'translator') && (
+                    <DropdownSection className="border-b border-divider pb-1 mb-1">
+                      <DropdownItem id="/admin">
+                        <span className="flex items-center gap-2">
+                          <Gear className="size-4 shrink-0" />
+                          Quản lý
+                        </span>
+                      </DropdownItem>
+                    </DropdownSection>
+                  )}
                   <DropdownSection>
                     <DropdownItem id="logout" className="text-danger">
                       Đăng xuất
