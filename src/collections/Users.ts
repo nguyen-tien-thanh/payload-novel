@@ -11,6 +11,7 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   access: {
+    admin: ({ req }) => req.user?.role === 'admin' || req.user?.role === 'translator',
     create: isPublic,
     read: ({ req }) => {
       if (!req.user) return false
@@ -74,6 +75,7 @@ export const Users: CollectionConfig = {
       defaultValue: 'user',
       options: [
         { label: 'Người dùng', value: 'user' },
+        { label: 'Dịch giả', value: 'translator' },
         { label: 'Quản trị viên', value: 'admin' },
       ],
       saveToJWT: true,

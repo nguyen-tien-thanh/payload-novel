@@ -152,7 +152,7 @@ export interface User {
   dateOfBirth?: string | null;
   phone?: string | null;
   balance?: number | null;
-  role?: ('user' | 'admin') | null;
+  role?: ('user' | 'translator' | 'admin') | null;
   updatedAt: string;
   createdAt: string;
   email: string;

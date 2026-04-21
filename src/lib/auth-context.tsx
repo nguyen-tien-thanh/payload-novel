@@ -13,7 +13,7 @@ type User = {
   email: string
   name?: string
   avatarUrl?: string
-  role?: 'admin' | 'user'
+  role?: 'admin' | 'translator' | 'user'
 }
 
 type AuthContextType = {
