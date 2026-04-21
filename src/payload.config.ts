@@ -100,8 +100,8 @@ export default buildConfig({
         user: process.env.RESEND_USER,
         pass: process.env.RESEND_PASS,
       },
-      // logger: process.env.NODE_ENV != 'production',
-      // debug: process.env.NODE_ENV != 'production',
+      logger: process.env.RESEND_LOG == 'true',
+      debug: process.env.RESEND_LOG == 'true',
     },
   }),
 })

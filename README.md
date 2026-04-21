@@ -63,33 +63,34 @@ Mở [http://localhost:3000/admin](http://localhost:3000/admin) để tạo tài
 
 ## Biến môi trường
 
-| Biến | Mô tả |
-|---|---|
-| `NEXT_PUBLIC_SERVER_URL` | URL public của app (dùng cho server-side) |
-| `PAYLOAD_SECRET` | Secret key để Payload mã hoá token, **phải dài và ngẫu nhiên** |
-| `DATABASE_URL` | Connection string PostgreSQL |
-| `S3_ENDPOINT` | Endpoint MinIO/S3 |
-| `S3_BUCKET` | Tên bucket chứa media |
-| `S3_ACCESS_KEY_ID` | Access key MinIO/S3 |
-| `S3_SECRET_ACCESS_KEY` | Secret key MinIO/S3 |
-| `S3_REGION` | Region (để `us-east-1` nếu dùng MinIO local) |
-| `RESEND_HOST` | SMTP host để gửi email |
-| `RESEND_USER` | SMTP username |
-| `RESEND_PASS` | SMTP password / API key |
+| Biến                     | Mô tả                                                          |
+| ------------------------ | -------------------------------------------------------------- |
+| `NEXT_PUBLIC_SERVER_URL` | URL public của app (dùng cho server-side)                      |
+| `PAYLOAD_SECRET`         | Secret key để Payload mã hoá token, **phải dài và ngẫu nhiên** |
+| `DATABASE_URL`           | Connection string PostgreSQL                                   |
+| `S3_ENDPOINT`            | Endpoint MinIO/S3                                              |
+| `S3_BUCKET`              | Tên bucket chứa media                                          |
+| `S3_ACCESS_KEY_ID`       | Access key MinIO/S3                                            |
+| `S3_SECRET_ACCESS_KEY`   | Secret key MinIO/S3                                            |
+| `S3_REGION`              | Region (để `us-east-1` nếu dùng MinIO local)                   |
+| `RESEND_HOST`            | SMTP host để gửi email                                         |
+| `RESEND_USER`            | SMTP username                                                  |
+| `RESEND_PASS`            | SMTP password / API key                                        |
+| `RESEND_LOG`             | Email log                                                      |
 
 ---
 
 ## Scripts
 
-| Lệnh | Mô tả |
-|---|---|
-| `pnpm dev` | Chạy dev server |
-| `pnpm build` | Build production |
-| `pnpm start` | Chạy production build |
-| `pnpm payload migrate` | Apply các migration chưa chạy |
-| `pnpm payload migrate:create --name <tên>` | Tạo migration mới |
-| `pnpm generate:types` | Generate TypeScript types từ Payload schema |
-| `pnpm generate` | Generate types + import map |
+| Lệnh                                       | Mô tả                                       |
+| ------------------------------------------ | ------------------------------------------- |
+| `pnpm dev`                                 | Chạy dev server                             |
+| `pnpm build`                               | Build production                            |
+| `pnpm start`                               | Chạy production build                       |
+| `pnpm payload migrate`                     | Apply các migration chưa chạy               |
+| `pnpm payload migrate:create --name <tên>` | Tạo migration mới                           |
+| `pnpm generate:types`                      | Generate TypeScript types từ Payload schema |
+| `pnpm generate`                            | Generate types + import map                 |
 
 ---
 
@@ -100,21 +101,25 @@ Mở [http://localhost:3000/admin](http://localhost:3000/admin) để tạo tài
 **1.** Tạo/sửa collection trong `src/collections/`, thêm vào `src/payload.config.ts` nếu là collection mới.
 
 **2.** Tạo migration:
+
 ```bash
 pnpm payload migrate:create --name mo_ta_thay_doi
 ```
 
 **3.** Test migration trên dev:
+
 ```bash
 pnpm payload migrate
 ```
 
 **4.** Generate lại types:
+
 ```bash
 pnpm generate:types
 ```
 
 **5.** Commit tất cả — collection, migration, types, config:
+
 ```bash
 git add src/collections/ src/migrations/ src/payload-types.ts src/payload.config.ts
 git commit -m "feat: added collection ..."
