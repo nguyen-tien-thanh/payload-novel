@@ -70,7 +70,7 @@ import Link from "next/link";
 <Button variant="outline">Outline</Button>
 <Button variant="secondary">Secondary</Button>
 <Button variant="tertiary">Tertiary</Button>
-<Button isLoading={loading} variant="primary">Save</Button>
+<Button isPending={loading} variant="primary">Save</Button>
 
 {/* Button dẫn đến link: bọc bằng next/link, KHÔNG dùng prop as= */}
 <Link href="/path"><Button variant="ghost">Đi tới trang</Button></Link>
@@ -190,5 +190,5 @@ import { Skeleton, Card } from "@heroui/react";
 - Do NOT use inline `style={{ color: '...' }}` for theming colors
 - Do NOT use `<div>` / `<span>` for interactive elements — use `<Button>` with appropriate variant
 - Do NOT use `<hr>` — use `<Divider>`
-- Do NOT rebuild loading states from scratch — use `<Skeleton>` or `Button isLoading`
+- Do NOT rebuild loading states from scratch — use `<Skeleton>` or `Button isPending`
 - Do NOT use plain `<input>` — always use `<Input>` or `<Checkbox>` etc.

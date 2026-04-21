@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import { vi } from '@payloadcms/translations/languages/vi'
@@ -26,6 +27,7 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
     user: Users.slug,
     avatar: {
@@ -86,4 +88,19 @@ export default buildConfig({
       },
     }),
   ],
+  email: nodemailerAdapter({
+    defaultFromAddress: 'noreply@tiralix.com',
+    defaultFromName: 'Tiralix',
+    transportOptions: {
+      host: process.env.RESEND_HOST,
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.RESEND_USER,
+        pass: process.env.RESEND_PASS,
+      },
+      // logger: process.env.NODE_ENV != 'production',
+      // debug: process.env.NODE_ENV != 'production',
+    },
+  }),
 })

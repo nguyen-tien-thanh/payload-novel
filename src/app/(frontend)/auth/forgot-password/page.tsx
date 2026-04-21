@@ -8,10 +8,12 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [sent, setSent] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+    setIsLoading(true)
 
     try {
       const res = await fetch('/api/users/forgot-password', {
@@ -29,6 +31,8 @@ export default function ForgotPasswordPage() {
       setSent(true)
     } catch {
       setError('Có lỗi xảy ra. Vui lòng thử lại.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -108,6 +112,7 @@ export default function ForgotPasswordPage() {
               )}
 
               <Button
+                isPending={isLoading}
                 type="submit"
                 className="mt-1 w-full rounded-full bg-primary font-semibold text-white"
               >

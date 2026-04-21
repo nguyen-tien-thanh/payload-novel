@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin } from '@/access/isAdmin'
 import { isPublic } from '@/access/isPublic'
+import { forgotPasswordEmail } from '@/emails/forgot-password'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -9,7 +10,16 @@ export const Users: CollectionConfig = {
     group: 'Hệ thống',
     hidden: ({ user }) => user?.role !== 'admin',
   },
-  auth: true,
+  auth: {
+    forgotPassword: {
+      generateEmailHTML: (args) => {
+        const token = args?.token
+        const resetUrl = `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/auth/reset-password?token=${token}`
+        return forgotPasswordEmail({ resetUrl })
+      },
+      generateEmailSubject: () => 'Tạo lại mật khẩu',
+    },
+  },
   access: {
     admin: ({ req }) => req.user?.role === 'admin' || req.user?.role === 'translator',
     create: isPublic,
@@ -66,6 +76,16 @@ export const Users: CollectionConfig = {
       defaultValue: 0,
       admin: {
         readOnly: true,
+      },
+    },
+    {
+      name: 'emailVerified',
+      type: 'checkbox',
+      label: 'Email đã xác nhận',
+      defaultValue: false,
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
       },
     },
     {

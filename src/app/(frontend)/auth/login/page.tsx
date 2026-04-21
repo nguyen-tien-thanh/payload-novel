@@ -24,10 +24,12 @@ function InnerLoginPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
+    setIsLoading(true)
 
     try {
       const res = await fetch('/api/users/login', {
@@ -47,6 +49,8 @@ function InnerLoginPage() {
       router.push(redirect)
     } catch {
       setError('Có lỗi xảy ra. Vui lòng thử lại.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -133,7 +137,7 @@ function InnerLoginPage() {
             </p>
           )}
 
-          <Button type="submit" variant="primary" className="mt-1 w-full">
+          <Button type="submit" isPending={isLoading} variant="primary" className="mt-1 w-full">
             Đăng nhập
           </Button>
         </form>
