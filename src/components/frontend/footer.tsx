@@ -32,6 +32,14 @@ export function Footer() {
                   Tất cả truyện
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/categories"
+                  className="transition-all hover:text-primary"
+                >
+                  Thể loại
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -44,6 +52,14 @@ export function Footer() {
                   className="transition-all hover:text-primary"
                 >
                   Bookmark
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/reading-progress"
+                  className="transition-all hover:text-primary"
+                >
+                  Đang đọc
                 </Link>
               </li>
             </ul>

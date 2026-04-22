@@ -138,14 +138,11 @@ export default function ReadingPage() {
                   </p>
 
                   <div className="mt-3 flex flex-col flex-wrap gap-3">
-                    <Link
-                      href={`/products/${product.id}/chapters/${chapter.chapterNumber}`}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-xs font-medium text-primary transition-colors hover:bg-accent-soft-hover"
-                    >
+                    <span className="inline-flex items-center gap-1.5 text-xs text-default-500">
                       <BookOpen className="size-3" />
                       Chương {chapter.chapterNumber}
                       {chapter.chapterName ? ` – ${chapter.chapterName}` : ''}
-                    </Link>
+                    </span>
                     <span className="text-xs text-default-400">
                       {timeAgo(p.updatedAt)}
                     </span>
