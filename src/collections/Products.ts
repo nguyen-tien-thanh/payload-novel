@@ -1,6 +1,7 @@
 import { isLoggedIn } from '@/access/isLoggedIn'
 import { isOwner } from '@/access/isOwner'
 import { isPublishedOrOwner } from '@/access/isPublishedOrOwner'
+import { deleteProductChaptersBeforeDelete } from '@/hooks/deleteProductChaptersBeforeDelete'
 import { setCreatedBy } from '@/hooks/setCreatedBy'
 import type { CollectionConfig } from 'payload'
 
@@ -32,6 +33,7 @@ export const Products: CollectionConfig = {
   },
   hooks: {
     beforeChange: [setCreatedBy],
+    beforeDelete: [deleteProductChaptersBeforeDelete],
   },
   fields: [
     {
