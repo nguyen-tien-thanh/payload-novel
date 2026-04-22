@@ -291,7 +291,7 @@ export default function ProfilePage() {
                   <select
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                    className="w-full rounded-xl border border-default-200 bg-default-100 px-3 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-xl border border-default-200 bg-default-100 px-3 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-accent-soft-hover"
                   >
                     <option value="">-- Chọn --</option>
                     <option value="male">Nam</option>
@@ -304,7 +304,7 @@ export default function ProfilePage() {
                     type="date"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
-                    className="w-full rounded-xl border border-default-200 bg-default-100 px-3 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-xl border border-default-200 bg-default-100 px-3 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-accent-soft-hover"
                   />
                 </Field>
               </div>

@@ -140,7 +140,7 @@ export default function ReadingPage() {
                   <div className="mt-3 flex flex-col flex-wrap gap-3">
                     <Link
                       href={`/products/${product.id}/chapters/${chapter.chapterNumber}`}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 text-xs font-medium text-primary transition-colors hover:bg-accent-soft-hover"
                     >
                       <BookOpen className="size-3" />
                       Chương {chapter.chapterNumber}

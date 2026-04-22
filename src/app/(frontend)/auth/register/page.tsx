@@ -116,7 +116,7 @@ export default function RegisterPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Tên của bạn"
-              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-accent-soft-hover transition-all"
             />
           </div>
 
@@ -135,7 +135,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="example@email.com"
-              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+              className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-accent-soft-hover transition-all"
             />
           </div>
 
@@ -155,7 +155,7 @@ export default function RegisterPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Ít nhất 8 ký tự"
-                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-accent-soft-hover transition-all"
               />
               <Button
                 isIconOnly
@@ -190,7 +190,7 @@ export default function RegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Nhập lại mật khẩu"
-                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                className="w-full rounded-xl border border-divider bg-default-100 px-4 py-2.5 pr-10 text-sm text-foreground placeholder:text-default-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-accent-soft-hover transition-all"
               />
               <Button
                 isIconOnly
