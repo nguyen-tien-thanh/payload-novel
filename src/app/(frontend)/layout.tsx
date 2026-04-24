@@ -1,12 +1,62 @@
 import { Footer, Header, ScrollToTop } from '@/components/frontend'
-import { Be_Vietnam_Pro } from 'next/font/google'
+import {
+  Be_Vietnam_Pro,
+  Crimson_Pro,
+  Inconsolata,
+  Lora,
+  Merriweather,
+  Nunito,
+  Source_Serif_4,
+} from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 
-const font = Be_Vietnam_Pro({
+const fontSans = Be_Vietnam_Pro({
   subsets: ['vietnamese', 'latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-sans',
+  display: 'swap',
+})
+
+const fontNunito = Nunito({
+  subsets: ['vietnamese', 'latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-nunito',
+  display: 'swap',
+})
+
+const fontSerif = Lora({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-serif',
+  display: 'swap',
+})
+
+const fontMerriweather = Merriweather({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-merriweather',
+  display: 'swap',
+})
+
+const fontCrimson = Crimson_Pro({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-crimson',
+  display: 'swap',
+})
+
+const fontSourceSerif = Source_Serif_4({
+  subsets: ['vietnamese', 'latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-source-serif',
+  display: 'swap',
+})
+
+const fontMono = Inconsolata({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
@@ -38,7 +88,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${font.variable} light`}
+      className={`${fontSans.variable} ${fontNunito.variable} ${fontSerif.variable} ${fontMerriweather.variable} ${fontCrimson.variable} ${fontSourceSerif.variable} ${fontMono.variable} light`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >

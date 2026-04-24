@@ -4,15 +4,15 @@ import {
   ChapterDrawer,
   ReadingProgress,
   ReadingSettingsButton,
-  getFontClass,
-  getThemeClasses,
+  THEMES,
+  getFontStack,
   useReadingSettings,
 } from '@/components/frontend'
 import { ArrowLeft, ArrowRight, ChevronLeft } from '@gravity-ui/icons'
 import { Button } from '@heroui/react'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 interface Props {
   chapter: {
@@ -42,16 +42,9 @@ export function ChapterReaderClient({
   nextChapter,
 }: Props) {
   const { settings, update } = useReadingSettings()
-  const [showScrollTop, setShowScrollTop] = useState(false)
 
-  const themeInfo = getThemeClasses(settings.theme)
-  const fontClass = getFontClass(settings.font)
-
-  useEffect(() => {
-    const onScroll = () => setShowScrollTop(window.scrollY > 600)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const fontStack = getFontStack(settings.font)
+  const themeInfo = THEMES.find((t) => t.id === settings.theme)
 
   useEffect(() => {
     fetch('/api/reading-progress', {
@@ -64,11 +57,12 @@ export function ChapterReaderClient({
 
   return (
     <div
-      className={[
-        'min-h-screen transition-all duration-300',
-        themeInfo.bg,
-        themeInfo.text,
-      ].join(' ')}
+      className="min-h-screen transition-all duration-300"
+      style={
+        themeInfo?.bg
+          ? { backgroundColor: themeInfo.bg, color: themeInfo.fg }
+          : undefined
+      }
     >
       <ReadingProgress />
 
@@ -116,8 +110,8 @@ export function ChapterReaderClient({
       {/* Content */}
       <div className="mx-auto max-w-5xl px-5 py-8 sm:px-4 text-justify">
         <div
-          className={fontClass}
           style={{
+            fontFamily: fontStack,
             fontSize: settings.fontSize,
             lineHeight: settings.lineHeight,
           }}

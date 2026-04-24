@@ -1,11 +1,18 @@
 'use client'
 
 import { TextAlignLeft } from '@gravity-ui/icons'
-import { Button, Popover, Slider } from '@heroui/react'
+import { Button, ListBox, Popover, Select, Slider } from '@heroui/react'
 import { useCallback, useEffect, useState } from 'react'
 
 export type ReadingTheme = 'default' | 'sepia' | 'dark' | 'paper'
-export type ReadingFont = 'sans' | 'serif' | 'mono'
+export type ReadingFont =
+  | 'sans'
+  | 'nunito'
+  | 'serif'
+  | 'merriweather'
+  | 'crimson'
+  | 'source-serif'
+  | 'mono'
 
 export interface ReadingSettings {
   fontSize: number
@@ -27,23 +34,62 @@ export const THEMES: {
   id: ReadingTheme
   label: string
   bg: string
-  text: string
+  fg: string
 }[] = [
-  {
-    id: 'default',
-    label: 'Mặc định',
-    bg: 'bg-background',
-    text: 'text-foreground',
-  },
-  { id: 'sepia', label: 'Sepia', bg: 'bg-[#f5ebe0]', text: 'text-[#3d2b1f]' },
-  { id: 'dark', label: 'Tối', bg: 'bg-[#1a1a2e]', text: 'text-[#e0e0e0]' },
-  { id: 'paper', label: 'Giấy', bg: 'bg-[#fafaf8]', text: 'text-[#1a1a1a]' },
+  { id: 'default', label: 'Mặc định', bg: '', fg: '' },
+  { id: 'sepia', label: 'Sepia', bg: '#f5ebe0', fg: '#3d2b1f' },
+  { id: 'dark', label: 'Tối', bg: '#1a1a2e', fg: '#e0e0e0' },
+  { id: 'paper', label: 'Giấy', bg: '#fafaf8', fg: '#1a1a1a' },
 ]
 
-export const FONTS: { id: ReadingFont; label: string; className: string }[] = [
-  { id: 'sans', label: 'Sans', className: 'font-sans' },
-  { id: 'serif', label: 'Serif', className: 'font-serif' },
-  { id: 'mono', label: 'Mono', className: 'font-mono' },
+export const FONTS: {
+  id: ReadingFont
+  label: string
+  stack: string
+  preview: string
+}[] = [
+  {
+    id: 'sans',
+    label: 'Be Vietnam',
+    stack: 'var(--font-sans)',
+    preview: 'Aa',
+  },
+  {
+    id: 'nunito',
+    label: 'Nunito',
+    stack: 'var(--font-nunito)',
+    preview: 'Aa',
+  },
+  {
+    id: 'serif',
+    label: 'Lora',
+    stack: 'var(--font-serif)',
+    preview: 'Aa',
+  },
+  {
+    id: 'merriweather',
+    label: 'Merriweather',
+    stack: 'var(--font-merriweather)',
+    preview: 'Aa',
+  },
+  {
+    id: 'crimson',
+    label: 'Crimson',
+    stack: 'var(--font-crimson)',
+    preview: 'Aa',
+  },
+  {
+    id: 'source-serif',
+    label: 'Source Serif',
+    stack: 'var(--font-source-serif)',
+    preview: 'Aa',
+  },
+  {
+    id: 'mono',
+    label: 'Inconsolata',
+    stack: 'var(--font-mono)',
+    preview: 'Aa',
+  },
 ]
 
 export function useReadingSettings() {
@@ -73,8 +119,8 @@ export function getThemeClasses(theme: ReadingTheme) {
   return THEMES.find((t) => t.id === theme) ?? THEMES[0]
 }
 
-export function getFontClass(font: ReadingFont) {
-  return FONTS.find((f) => f.id === font)?.className ?? 'font-serif'
+export function getFontStack(font: ReadingFont) {
+  return FONTS.find((f) => f.id === font)?.stack ?? 'var(--font-serif)'
 }
 
 interface Props {
@@ -97,7 +143,7 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
         </Button>
       </Popover.Trigger>
       <Popover.Content placement="bottom end" offset={8}>
-        <Popover.Dialog className="w-max space-y-5 p-4 outline-none">
+        <Popover.Dialog className="w-72 space-y-5 p-4 outline-none">
           {/* Font size */}
           <div>
             <div className="mb-2 flex items-center justify-between">
@@ -177,26 +223,33 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
 
           {/* Font family */}
           <div>
-            <span className="mb-2 block text-xs font-semibold uppercase tracking-wide text-default-600">
-              Font chữ
-            </span>
-            <div className="flex gap-2">
-              {FONTS.map((f) => (
-                <Button
-                  key={f.id}
-                  onPress={() => onUpdate({ font: f.id })}
-                  className={[
-                    'flex-1 rounded-lg border p-1.5 text-sm',
-                    f.className,
-                    settings.font === f.id
-                      ? 'border-primary bg-primary/10 font-semibold text-primary'
-                      : 'border-default-200 text-default-600 hover:border-default-400',
-                  ].join(' ')}
-                >
-                  {f.label}
-                </Button>
-              ))}
-            </div>
+            <Select
+              value={settings.font}
+              onChange={(key) => onUpdate({ font: key as ReadingFont })}
+              placeholder="Chọn font"
+              aria-label="Font chữ"
+            >
+              <Select.Trigger>
+                <Select.Value />
+                <Select.Indicator />
+              </Select.Trigger>
+              <Select.Popover>
+                <ListBox>
+                  {FONTS.map((f) => (
+                    <ListBox.Item
+                      key={f.id}
+                      id={f.id}
+                      textValue={f.label}
+                      style={{ fontFamily: f.stack }}
+                    >
+                      <span className="mr-2">{f.preview}</span>
+                      {f.label}
+                      <ListBox.ItemIndicator />
+                    </ListBox.Item>
+                  ))}
+                </ListBox>
+              </Select.Popover>
+            </Select>
           </div>
 
           {/* Theme */}
@@ -206,23 +259,29 @@ export function ReadingSettingsButton({ settings, onUpdate }: Props) {
             </span>
             <div className="flex gap-2">
               {THEMES.map((t) => (
-                <Button
+                <button
                   key={t.id}
-                  onPress={() => onUpdate({ theme: t.id })}
+                  type="button"
+                  onClick={() => onUpdate({ theme: t.id })}
+                  style={
+                    t.bg
+                      ? { backgroundColor: t.bg, color: t.fg }
+                      : undefined
+                  }
                   className={[
-                    'flex flex-col items-center gap-1 rounded-xl border-2 py-2',
-                    t.bg,
+                    'flex flex-1 flex-col items-center gap-1 rounded-xl border-2 py-2 transition-transform',
                     settings.theme === t.id
                       ? 'scale-105 border-primary'
-                      : 'border-default-200 hover:border-default-400',
-                  ].join(' ')}
+                      : 'border-divider hover:border-default-400',
+                    !t.bg ? 'bg-background text-foreground' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                  aria-label={t.label}
+                  aria-pressed={settings.theme === t.id}
                 >
-                  <span
-                    className={['text-[10px] font-medium', t.text].join(' ')}
-                  >
-                    {t.label}
-                  </span>
-                </Button>
+                  <span className="text-[10px] font-medium">{t.label}</span>
+                </button>
               ))}
             </div>
           </div>

@@ -2,6 +2,14 @@
 @import '@heroui/styles';
 
 @theme inline {
+  --font-family-sans: var(--font-sans);
+  --font-family-nunito: var(--font-nunito);
+  --font-family-serif: var(--font-serif);
+  --font-family-merriweather: var(--font-merriweather);
+  --font-family-crimson: var(--font-crimson);
+  --font-family-source-serif: var(--font-source-serif);
+  --font-family-mono: var(--font-mono);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
@@ -98,6 +106,12 @@
 @layer base {
   :root {
     --font-sans: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+    --font-nunito: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Lora', ui-serif, Georgia, serif;
+    --font-merriweather: 'Merriweather', ui-serif, Georgia, serif;
+    --font-crimson: 'Crimson Pro', ui-serif, Georgia, serif;
+    --font-source-serif: 'Source Serif 4', ui-serif, Georgia, serif;
+    --font-mono: 'Inconsolata', ui-monospace, 'Courier New', monospace;
   }
 
   html {
