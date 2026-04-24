@@ -6,13 +6,15 @@ import {
   ReadingSettingsButton,
   THEMES,
   getFontStack,
+  useContentProtection,
   useReadingSettings,
 } from '@/components/frontend'
+import { useAuth } from '@/lib/auth-context'
 import { ArrowLeft, ArrowRight, ChevronLeft } from '@gravity-ui/icons'
 import { Button } from '@heroui/react'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 interface Props {
   chapter: {
@@ -42,6 +44,9 @@ export function ChapterReaderClient({
   nextChapter,
 }: Props) {
   const { settings, update } = useReadingSettings()
+  const { user } = useAuth()
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const { devToolsOpen } = useContentProtection(overlayRef)
 
   const fontStack = getFontStack(settings.font)
   const themeInfo = THEMES.find((t) => t.id === settings.theme)
@@ -55,6 +60,8 @@ export function ChapterReaderClient({
     }).catch(() => {})
   }, [productId, chapter.id])
 
+  const watermark = user ? `${user.email} • tiralix.com` : 'tiralix.com'
+
   return (
     <div
       className="min-h-screen transition-all duration-300"
@@ -64,6 +71,17 @@ export function ChapterReaderClient({
           : undefined
       }
     >
+      {/* DevTools blur overlay */}
+      {devToolsOpen && (
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 z-9999 flex items-center justify-center backdrop-blur-2xl"
+        >
+          <p className="text-sm font-medium text-default-500">
+            Vui lòng đóng DevTools để tiếp tục đọc.
+          </p>
+        </div>
+      )}
       <ReadingProgress />
 
       {/* Top bar */}
@@ -110,10 +128,13 @@ export function ChapterReaderClient({
       {/* Content */}
       <div className="mx-auto max-w-5xl px-5 py-8 sm:px-4 text-justify">
         <div
+          data-watermark={watermark}
           style={{
             fontFamily: fontStack,
             fontSize: settings.fontSize,
             lineHeight: settings.lineHeight,
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
           }}
         >
           {chapter.content}

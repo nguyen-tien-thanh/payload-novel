@@ -120,6 +120,49 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* CSS fallback overlay khi MutationObserver detect xóa element */
+  body.devtools-open::before {
+    content: 'Vui lòng đóng DevTools để tiếp tục đọc.';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    font-size: 0.875rem;
+    color: oklch(50% 0 0);
+    pointer-events: all;
+  }
+
+  /* Tiled watermark — visible on screenshot, invisible during normal reading */
+  [data-watermark] {
+    position: relative;
+  }
+  [data-watermark]::after {
+    content: attr(data-watermark);
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-family: var(--font-sans);
+    color: oklch(0% 0 0 / 4%);
+    pointer-events: none;
+    white-space: nowrap;
+    rotate: -30deg;
+    background-image: repeating-linear-gradient(
+      transparent 0,
+      transparent 100px
+    );
+    background-size: 300px 150px;
+    z-index: 1;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
