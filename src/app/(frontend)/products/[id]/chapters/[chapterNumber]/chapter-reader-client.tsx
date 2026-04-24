@@ -52,13 +52,14 @@ export function ChapterReaderClient({
   const themeInfo = THEMES.find((t) => t.id === settings.theme)
 
   useEffect(() => {
+    if (!user) return
     fetch('/api/reading-progress', {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ productId, chapterId: chapter.id }),
     }).catch(() => {})
-  }, [productId, chapter.id])
+  }, [productId, chapter.id, user])
 
   const watermark = user ? `${user.email} • tiralix.com` : 'tiralix.com'
 
