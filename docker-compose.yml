@@ -1,3 +1,7 @@
+networks:
+  supabase_default: 
+    external: true
+
 services:
   payload:
     image: nguyentienthanh2909/payload
@@ -13,6 +17,8 @@ services:
       - '3000:3000'
     env_file:
       - .env
+    networks:
+      - supabase_default
 
   postgres:
     restart: always
