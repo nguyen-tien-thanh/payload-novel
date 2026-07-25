@@ -3,6 +3,7 @@ import * as migration_20260421_141935 from './20260421_141935'
 import * as migration_20260421_add_google_id from './20260421_add_google_id'
 import * as migration_20260421_add_facebook_id from './20260421_add_facebook_id'
 import * as migration_20260421_fix_crawl_rel from './20260421_fix_crawl_rel'
+import * as migration_20260425_fix_translator_requests_table from './20260425_fix_translator_requests_table'
 
 export const migrations = [
   {
@@ -29,5 +30,10 @@ export const migrations = [
     up: migration_20260421_fix_crawl_rel.up,
     down: migration_20260421_fix_crawl_rel.down,
     name: '20260421_fix_crawl_rel',
+  },
+  {
+    up: migration_20260425_fix_translator_requests_table.up,
+    down: migration_20260425_fix_translator_requests_table.down,
+    name: '20260425_fix_translator_requests_table',
   },
 ]
